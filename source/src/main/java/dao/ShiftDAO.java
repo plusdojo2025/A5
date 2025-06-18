@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.Shift;
 import dto.UserShift;
 
 public class ShiftDAO {
@@ -27,7 +28,8 @@ public class ShiftDAO {
 			
 			// SQL文(SELECT文で日付・開始時間・終了時間・ユーザーネームを持ってくる)
 			String sql = "SELECT shift_date, shift_start, shift_end, user_name "
-						+ "JOIN user ON user_id = user.id";
+						+ "FROM shift "
+						+ "JOIN user ON shift.user_id = user.id";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を実行し、結果表を取得する
@@ -46,11 +48,11 @@ public class ShiftDAO {
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
-			cardList = null;
+			shiftList = null;
 		}
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			cardList = null;
+			shiftList = null;
 		}
 		finally {
 			// データベースを切断
@@ -60,105 +62,17 @@ public class ShiftDAO {
 				}
 				catch (SQLException e) {
 					e.printStackTrace();
-					cardList = null;
+					shiftList = null;
 				}
 			}
 		}
 		
 		// 結果を返す
-		return cardList;
-	}
-	
-	// 登録・更新・削除用に部署/役職をidで表示
-	public List<Bc> select2(Bc card) {
-		Connection conn = null;
-		List<Bc> cardList = new ArrayList<Bc>();
-		
-		try {
-			// JDBCドライバを読み込む
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp1?"
-					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
-			
-			// SQL文を準備する
-			String sql = "SELECT no, name, dep_id, pos_id, company, post_code, address, phone, fax, email, remarks "
-					+ "FROM business_card "
-					+ "WHERE name LIKE ? "
-					+ "AND dep_id LIKE ? "
-					+ "AND pos_id LIKE ? "
-					+ "AND company LIKE ? "
-					+ "AND post_code LIKE ? "
-					+ "AND address LIKE ? "
-					+ "AND phone LIKE ? "
-					+ "AND fax LIKE ? "
-					+ "AND email LIKE ? "
-					+ "AND remarks LIKE ? "
-					+ "ORDER BY no";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-			
-			// SQL文を完成させる
-			pStmt.setString(1, "%" + card.getName() + "%");
-			pStmt.setInt(2, card.getDepId());
-			pStmt.setInt(3, card.getPosId());
-			pStmt.setString(4, "%" + card.getCompany() + "%");
-			pStmt.setString(5, "%" + card.getPostCode() + "%");
-			pStmt.setString(6, "%" + card.getAddress() + "%");
-			pStmt.setString(7, "%" + card.getPhone() + "%");
-			pStmt.setString(8, "%" + card.getFax() + "%");
-			pStmt.setString(9, "%" + card.getEmail() + "%");
-			pStmt.setString(10, "%" + card.getRemarks() + "%");
-			
-			// SQL文を実行し、結果表を取得する
-			ResultSet rs = pStmt.executeQuery();
-			
-			// 結果表をコレクションにコピーする
-			while (rs.next()) {
-				Bc bc = new Bc(
-						rs.getInt("no"), 
-						rs.getString("name"),
-						rs.getInt("dep_id"),
-						rs.getInt("pos_id"),
-						rs.getString("company"),
-						rs.getString("post_code"),
-						rs.getString("address"),
-						rs.getString("phone"),
-						rs.getString("fax"),
-						rs.getString("email"),
-						rs.getString("remarks")
-						);
-				cardList.add(bc);
-			}
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-			cardList = null;
-		}
-		catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			cardList = null;
-		}
-		finally {
-			// データベースを切断
-			if (conn != null) {
-				try {
-					conn.close();
-				}
-				catch (SQLException e) {
-					e.printStackTrace();
-					cardList = null;
-				}
-			}
-		}
-		
-		// 結果を返す
-		return cardList;
+		return shiftList;
 	}
 
 	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
-	public boolean insert(Bc card) {
+	public boolean insert(Shift shift) {
 		Connection conn = null;
 		boolean result = false;
 		
@@ -172,20 +86,14 @@ public class ShiftDAO {
 					"root", "password");
 			
 			// SQL文を準備する
-			String sql = "INSERT INTO business_card VALUES (0, ?, (SELECT id FROM department WHERE dep = ?), (SELECT id FROM post WHERE pos = ?), ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO shift VALUES (0, ?, ?, ?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
-				pStmt.setString(1, card.getName());
-				pStmt.setString(2, card.getDep());
-				pStmt.setString(3, card.getPos());
-				pStmt.setString(4, card.getCompany());
-				pStmt.setString(5, card.getPostCode());
-				pStmt.setString(6, card.getAddress());
-				pStmt.setString(7, card.getPhone());
-				pStmt.setString(8, card.getFax());
-				pStmt.setString(9, card.getEmail());
-				pStmt.setString(10, card.getRemarks());
+				pStmt.setString(1, shift.getShiftDate());
+				pStmt.setString(2, shift.getShiftStart());
+				pStmt.setString(3, shift.getShiftEnd());
+				pStmt.setInt(4, shift.getUserId());
 			
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
@@ -215,7 +123,7 @@ public class ShiftDAO {
 	}
 	
 	// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
-	public boolean update(Bc card) {
+	public boolean update(Shift shift) {
 		Connection conn = null;
 		boolean result = false;
 		
@@ -229,7 +137,7 @@ public class ShiftDAO {
 					"root", "password");
 			
 			// SQL文を準備する
-			String sql = "UPDATE business_card SET "
+			String sql = "UPDATE shift SET "
 					+ "name = ?, "
 					+ "dep_id = (SELECT id FROM department WHERE dep = ?), "
 					+ "pos_id = (SELECT id FROM post WHERE pos = ?), "
