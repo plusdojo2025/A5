@@ -67,7 +67,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-    
+    	// サーバーから取得したシフト件数とイベント件数のデータ（サンプル）
     const shiftData = <%= request.getAttribute("shiftData") %>; // 日付別シフト件数
     const eventData = <%= request.getAttribute("eventData") %>; // 日付別イベント件数
 
@@ -89,9 +89,18 @@
       const calendar = new FullCalendar.Calendar(elem, {
         initialView: "dayGridMonth",
         initialDate: new Date(),
-        events: [],
+        events: [],// 必要に応じてイベントを追加
         dayCellContent: function(info) {
             const date = info.dateStr;
+            
+            // シフト件数の表示
+            const shiftCount = shiftData[date] || 0;
+            const eventCount = eventData[date] || 0;
+            
+         // シフト数とイベント数を表示
+            const shiftEl = document.createElement('span');
+            shiftEl.classList.add('shift-count');
+            shiftEl.textContent = shiftCount;
         
       });
 
