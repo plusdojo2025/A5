@@ -44,3 +44,7 @@
 ::placeholder {
 	text-align: center;
 }
+
+.my-radio{
+    accent-color:#ff9a03;
+}
