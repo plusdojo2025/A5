@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import dao.IdPwDAO;
 import dto.IdPw;
 import dto.LoginUser;
-import dto.Result;
 
 /**
  * Servlet implementation class LoginServlet
@@ -44,12 +44,12 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-		String id = request.getParameter("id");
+		String userid = request.getParameter("userid");
 		String pw = request.getParameter("pw");
 
 		// ログイン処理を行う
 		IdPwDAO iDao = new IdPwDAO();
-		String user = iDao.isLoginOK(new IdPw(id, pw));
+		String user = iDao.isLoginOK(new IdPw(userid, pw));
 		if (user != null) { // ログイン成功
 			// セッションスコープに名前を格納する
 			HttpSession session = request.getSession();
