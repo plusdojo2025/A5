@@ -31,13 +31,13 @@ public class CalendarServlet extends HttpServlet {
 			throws ServletException, IOException {
 		try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 	             Statement stmt = conn.createStatement()) {
-			String shiftQuery = "SELECT COUNT(shift_id) AS shift_count FROM shift";
+			String shiftQuery = "SELECT date, COUNT(shift_id) AS shift_count FROM shift GROUP BY date";
             ResultSet shiftResult = stmt.executeQuery(shiftQuery);
             int shiftCount = 0;
             if (shiftResult.next()) {
                 shiftCount = shiftResult.getInt("shift_count");
             }
-            String eventQuery = "SELECT COUNT(event_id) AS event_count FROM event";
+            String eventQuery = "SELECT event_date, COUNT(event_id) AS event_count FROM event GROUP BY event_date";
             ResultSet eventResult = stmt.executeQuery(eventQuery);
             int eventCount = 0;
             if (eventResult.next()) {
