@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import dto.Event;
+
 public class EventDao {
 
 	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
@@ -17,7 +19,7 @@ public class EventDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp2?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
@@ -26,26 +28,22 @@ public class EventDao {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			if (card.getEvent_date() != null) {
-				pStmt.setString(1, "" + card.getEvent_date() + "");
+			if (card.getEventDate() != null) {
+				pStmt.setString(1, "" + card.getEventDate() + "");
 			} else {
 				pStmt.setString(1, "");
 			}
-			if (card.getEvent_start() != null) {
-				pStmt.setString(2, "" + card.getEvent_start() + "");
+			if (card.getEventStart() != null) {
+				pStmt.setString(2, "" + card.getEventStart() + "");
 			} else {
 				pStmt.setString(2, "");
 			}
-			if (card.getEvent_end() != null) {
-				pStmt.setString(3, "" + card.getEvent_end() + "");
+			if (card.getEventEnd() != null) {
+				pStmt.setString(3, "" + card.getEventEnd() + "");
 			} else {
 				pStmt.setString(3, "");
 			}
-			if (card.getType_id() != null) {
-				pStmt.setString(4, "" + card.getType_id() + "");
-			} else {
-				pStmt.setString(4, "");
-			}
+			pStmt.setInt(4, card.getTypeId());
 
 			
 			
@@ -87,32 +85,18 @@ public class EventDao {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "UPDATE Bc SET company=?, department=?, position=?,familyname=?, firstname=?, zipcode=?, address=?, phone=?, email=?, remarks=? WHERE number=?";
+			String sql = "UPDATE event SET event_date=?, event_start=?, event_end=?,event_id=?, type_id=? WHERE event_number=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
 			
-				pStmt.setString(1, card.getCompany());
+				pStmt.setString(1, card.getEventDate());
 			
-				pStmt.setString(2, card.getDepartment());
+				pStmt.setString(2, card.getEventStart());
 			
-				pStmt.setString(3, card.getPosition());
+				pStmt.setString(3, card.getEventEnd());
 				
-				pStmt.setString(4, card.getFamilyname());
-			
-				pStmt.setString(5, card.getFirstname());
-				
-				pStmt.setString(6, card.getZipcode());
-			
-				pStmt.setString(7, card.getAddress());
-				
-				pStmt.setString(8, card.getPhone());
-				
-				pStmt.setString(9, card.getEmail());
-				
-				pStmt.setString(10, card.getRemarks());
-				
-				pStmt.setInt(11, card.getNumber());
+				pStmt.setInt(4, card.getTypeId());
 			
 	
 			// SQL文を実行する
@@ -148,16 +132,16 @@ public class EventDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp2?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "DELETE FROM Bc WHERE number=?";
+			String sql = "DELETE FROM event WHERE event_id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			pStmt.setInt(1, card.getNumber());
+			pStmt.setInt(1, card.getEventId());
 
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
