@@ -8,11 +8,23 @@
   <title>エンプロ良イ👍｜カレンダー</title>
   <link rel="stylesheet" href="calendar.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
+ <style>
+    /* シフトやイベントの件数を表示するためのスタイル */
+    .shift-count, .event-count {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 12px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      padding: 2px 5px;
+    }
+  </style>
 </head>
 <body>
   <header>
 	<h1 id="logo">
-      <a href="tencho_calendar.jsp"><img src="images/logo.png" width=300 height=auto alt="エンプロ良イ👍"></a>
+      <a href="tencho_calendar.jsp"><img src="img/logo.png" width=300 height=auto alt="エンプロ良イ👍"></a>
     </h1>
     <ul id="nav">
       <li><a href="tencho_calelndar.jsp">カレンダー</a></li>
