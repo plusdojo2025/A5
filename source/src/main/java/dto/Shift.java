@@ -3,18 +3,11 @@ package dto;
 import java.io.Serializable;
 
 public class Shift implements Serializable {
-	private int shiftId; // シフトID
 	private String shiftDate; // シフトの日
 	private String shiftStart; // シフト開始時間
 	private String shiftEnd; // シフト終了時間
 	private int userId; // ユーザーID
 	
-	public int getShiftId() {
-		return shiftId;
-	}
-	public void setShiftId(int shiftId) {
-		this.shiftId = shiftId;
-	}
 	public String getShiftDate() {
 		return shiftDate;
 	}
@@ -37,6 +30,13 @@ public class Shift implements Serializable {
 		return userId;
 	}
 	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	
+	public Shift(String shiftDate, String shiftStart, String shiftEnd, int userId) {
+		this.shiftDate = shiftDate;
+		this.shiftStart = shiftStart;
+		this.shiftEnd = shiftEnd;
 		this.userId = userId;
 	}
 }

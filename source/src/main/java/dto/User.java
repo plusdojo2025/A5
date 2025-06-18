@@ -33,4 +33,10 @@ public class User implements Serializable {
 		this.flag = flag;
 	}
 	
+	public User(int id, String pw, String name, int flag) {
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+		this.flag = flag;
+	}
 }
