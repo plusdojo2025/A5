@@ -32,37 +32,42 @@
     
 <main>
   <style>
-        #header{
-            color:#000000
-        }
-        .headerNav ul{
-    margin: 30px 0 0 0;
-    padding: 0 0 0 0;
-    list-style-type: none;
-
-    display: flex;
-    gap: 40px;
-    justify-content: center;
-
-    border: 2px solid #000000;
-            border-radius: 1px;
+    #nav {
+  margin: 30px 0 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  border: 2px solid #000;
+  border-radius: 4px;
 }
-        #ddAreaFileRef {
-            border: 2px solid #000000;
-            border-radius: 10px;
-            width: 80%;
-            
-            text-align: center;
-            line-height: 100px;
-            color: #000000;
-            margin: 20px auto;
-            font-family: sans-serif;
-        }
+#nav li a {
+  text-decoration: none;
+  color: #000;
+  padding: 8px 12px;
+}
+#nav li a:hover {
+  background-color: #ddd;
+  border-radius: 4px;
+}
+#ddAreaFileRef {
+  border: 2px solid #000;
+  border-radius: 10px;
+  width: 80%;
+  text-align: center;
+  line-height: 100px;
+  color: #000;
+  margin: 20px auto;
+  font-family: sans-serif;
+  transition: border-color 0.3s;
+}
+#ddAreaFileRef.hover {
+  border-color: blue;
+  color: blue;
+}
 
-        #ddAreaFileRef.hover {
-            border-color: #ff0000;
-            color: #0000ff;
-        }
+
         h2{
             margin: 2% auto;
             text-align: center;
@@ -90,7 +95,8 @@
 <form>
     <div id="ddAreaFileRef">ここにドラッグ＆ドロップ<br>
      (ファイルを左クリックし続けて引っ張ってきて枠内で離す)<br>
-     ファイルを参照する（エクスプローラーが開き、そこから選択）</div>
+     ファイルを参照する（エクスプローラーが開き、そこから選択）
+    </div>
     <input type="file" id="fileInput" multiple>
     <div id="fileList"></div>
         <!-- これらのDivでそのボタンを実現 -->

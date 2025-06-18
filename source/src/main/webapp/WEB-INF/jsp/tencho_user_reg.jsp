@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>エンプロ良イ👍｜ユーザー登録画面</title>
-<link rel="stylesheet" href="/webapp/css/style1.css">
+<link rel="stylesheet" href="<c:url value='/css/style1.css'/>">
 </head>
 
 <body>
@@ -34,36 +35,24 @@
 
               <p>追加するユーザーの種類を選択してください</p>
 
-              <label><input type="radio" name="workers" />店長</label> 
+              <label><input type="radio" name="employees" value="店長"/>店長</label> 
 
-              <label><input type="radio" name="workers" />店員</label>
+              <label><input type="radio" name="employees" value="店員"/>店員</label>
 
                 <br><br>
 
               
-                  <input type="text" placeholder="登録するユーザー名">
+                  <input type="text" name="name" placeholder="登録するユーザー名">
                 
 
                 <br><br>
               
               
-                  <input type="text" placeholder="登録するパスワード">
+                  <input type="text" name="password" placeholder="登録するパスワード">
                
 
                 <br><br>
 
-                <div class="regist_pw_button">
-                      
-                  <button>登録用パスワード<br>（店長のメールで送信済み）</button>
-
-                </div>
-
-              <br><br>
-
-              <p>登録用パスワードと登録ボタンのみで一覧を表示する</p>
-
-
-              <br><br>
 
                 <div class="regist_button">
                         <input type="submit" value="登録">
@@ -71,6 +60,8 @@
       </div>
       
     </form>
+    
+    <script src="/webapp/js/regist.js"></script>
       
   
 
