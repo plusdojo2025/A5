@@ -1,0 +1,72 @@
+@charset "UTF-8";
+
+body{
+    overflow-x:hidden;
+}
+
+/* ログイン画面に戻る */
+.top{
+    text-align:center;
+}
+.rogin_back{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    font-weight: bold;
+    border: solid 3px #000000;
+    text-align:center;
+    width:50%;
+    margin:0 auto;
+}
+.rogin_back p{
+    margin: 0; 
+    padding: 0;
+}
+
+/* 店長は赤文字です */
+
+p{
+    padding-left:250px;
+    margin-left:200px;
+    color:#ff0000;
+}
+
+
+/* 表とボタン */
+.table_up_del {
+  width: 100%;
+  margin-left: 90px; /* ← 余白を削除 */
+}
+
+.up_del_button {
+  padding-top: 50px;
+  font-size: 30px;
+  padding-right: -100px;
+}
+
+.no-bottom-border {
+  border: none;
+}
+
+.update_button{
+    background-color:#ffde59;
+}
+
+.delete_button{
+    background-color:#5271ff;
+}
+
+th,td{
+    border: 1px solid #333;
+}
+
+table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px auto;
+        }
+        
+td {
+            border: 1px solid #000;
+            width: 50px;
+            height: 50px;
+        }
