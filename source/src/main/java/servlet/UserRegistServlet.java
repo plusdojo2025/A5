@@ -11,8 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.BcDAO;
-import dto.Bc;
+import dao.UserDAO;
+
+
 
 /**
  * Servlet implementation class RegistServlet
@@ -64,9 +65,9 @@ public class UserRegistServlet extends HttpServlet {
 		else if(role.equals("1")) {role="店員";}
 
 		// 登録処理を行う
-				BcDAO bDao = new BcDAO(); 
-				Bc newUser =new Bc(role,name,password);
-				List<Bc> userList = bDao.select(newUser); //↓短縮バージョン
+				UserDAO bDao = new UserDAO(); 
+				User newUser =new User(role,name,password);
+				List<User> userList = bDao.select(newUser); //↓短縮バージョン
 
 				//List<Bc> cardList = bDao.select(new Bc(0, company,department,position ,name,phone,email, zipcode,address));
 
