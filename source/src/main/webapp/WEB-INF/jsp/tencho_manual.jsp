@@ -14,17 +14,21 @@
         
     </style>
 	<header>
-    <h1 id="header" style="text-align: center;">エンプロ良イ👍</h1>
-    <nav class="headerNav">
-        <ul>
-            <li><a href=""></a>カレンダー</li>
-            <li><a href=""></a>シフト</li>
-            <li><a href=""></a>イベント</li>
-            <li><a href=""></a>マニュアル</li>
-            <li><a href=""></a>その他▼</li>
-        </ul>
-    </nav>
-    </header>
+	<h1 id="logo">
+      <a href="tencho_calendar.jsp"><img src="img/logo.png" width=300 height=auto alt="エンプロ良イ👍"></a>
+    </h1>
+    <ul id="nav">
+      <li><a href="tencho_calelndar.jsp">カレンダー</a></li>
+      <li><a href="tencho_shift.jsp">シフト</a></li>
+      <li><a href="tencho_event.jsp">イベント</a></li>
+      <li><a href="tencho_manual.jsp">マニュアル</a></li>
+	  <details>
+		<summary class="details-summary">その他</summary>
+		      <li><a href="tencho_user_edit.jsp">ユーザー管理</a></li>
+			  <li><a href="tencho_login.jsp">ログアウト</a></li>
+		</details>
+    </ul>
+  </header> 
     
 <main>
   <style>
@@ -122,21 +126,56 @@
         });
 
         function handleFiles(files) {
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const fileElement = document.createElement('div');
-                fileElement.textContent = file.name;
-                fileList.appendChild(fileElement);
-            }
-        }
+    fileList.innerHTML = '';  // 表示リセット（任意）
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileElement = document.createElement('div');
+        fileElement.textContent = file.name;
+        fileList.appendChild(fileElement);
+    }
+    
+    // ファイルをサーバーへ送信
+    uploadFiles(files);
+}
+
+        // 以下gpt送る処理
+        function uploadFiles(files) {
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+        formData.append('file', files[i]);  // 'file' はサーバー側と一致させる
+    }
+
+    fetch('/ManualServlet', { 
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(result => {
+        alert('アップロード成功: ' + result);
+    })
+    .catch(error => {
+        alert('アップロード失敗: ' + error);
+    });
+}
+// クリックによるアップロードを実行
+document.getElementById('uploadTrigger').addEventListener('click', () => {
+    const files = fileInput.files;
+    if (files.length === 0) {
+        alert('ファイルを選択してください');
+        return;
+    }
+
+    uploadFiles(files); // ← 既にある関数を使う
+});
+
+
 </script>
     <h3>
     重要度を設定：
     </h3>
 
-    <h2>
-    登録
-    </h2>
+    <h2 id="uploadTrigger" style="cursor: pointer;">登録</h2>
+
 </form>
 <h3>
     登録済みマニュアル一覧
