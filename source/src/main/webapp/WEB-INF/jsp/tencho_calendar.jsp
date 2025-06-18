@@ -8,6 +8,18 @@
   <title>エンプロ良イ👍｜カレンダー</title>
   <link rel="stylesheet" href="calendar.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
+ <style>
+    /* シフトやイベントの件数を表示するためのスタイル */
+    .shift-count, .event-count {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      font-size: 12px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      padding: 2px 5px;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -34,6 +46,11 @@
 
   <!--カレンダー-->
   <div id="calendar"></div>
+   <!-- シフトとイベントの件数表示 -->
+  <div style="text-align: center; margin-top: 20px;">
+    <h3>シフトの件数: <%= request.getAttribute("shiftCount") %>件</h3>
+    <h3>イベントの件数: <%= request.getAttribute("eventCount") %>件</h3>
+  </div>
   
   <!--シフト表-->
   <div id="shift">シフト</div><br>
@@ -50,6 +67,11 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
+    
+    const shiftData = <%= request.getAttribute("shiftData") %>; // 日付別シフト件数
+    const eventData = <%= request.getAttribute("eventData") %>; // 日付別イベント件数
+
+    /*
       const events = [
         {
           id: "",
@@ -60,14 +82,17 @@
           borderColor: "red",
           editable: true
         }
-      ];
+      ]; */
 
       const elem = document.getElementById("calendar");
 
       const calendar = new FullCalendar.Calendar(elem, {
         initialView: "dayGridMonth",
         initialDate: new Date(),
-        events: events,
+        events: [],
+        dayCellContent: function(info) {
+            const date = info.dateStr;
+        
       });
 
       calendar.render();
