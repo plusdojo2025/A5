@@ -1,0 +1,98 @@
+@charset "UTF-8";
+
+body {
+font-family: sans-serif;
+padding: 20px;
+}
+
+form {
+margin-bottom: 20px;
+}
+
+label {
+margin-right: 10px;
+}
+
+h1 {
+margin-bottom: 10px;
+}
+
+.day {
+margin-bottom: 40px;
+}
+
+.date-label {
+font-weight: bold;
+margin-bottom: 10px;
+}
+
+.timeline {
+border: 1px solid #ccc;
+position: relative;
+padding-top: 30px;
+height: 60px;
+}
+
+.time-labels {
+display: flex;
+justify-content: space-between;
+font-size: 12px;
+position: absolute;
+top: 0;
+width: 100%;
+}
+
+.shift-bar-container {
+position: relative;
+height: 40px;
+}
+
+.shift-bar {
+position: absolute;
+height: 40px;
+background-color: #4CAF50;
+color: white;
+text-align: center;
+line-height: 40px;
+border-radius: 4px;
+font-size: 14px;
+}
+/* タイムライン風シフト用の追記 */
+
+.timeline-wrapper {
+position: relative;
+border: 1px solid #ccc;
+min-width: 800px; /* 横スクロール用 */
+padding-top: 30px;
+padding-bottom: 20px;
+overflow-x: auto;
+}
+
+.time-scale {
+display: flex;
+justify-content: space-between;
+position: absolute;
+top: 0;
+width: 100%;
+font-size: 12px;
+border-bottom: 1px solid #ddd;
+}
+
+.shift-row {
+position: relative;
+height: 40px;
+margin-bottom: 10px;
+}
+
+.shift-bar {
+position: absolute;
+height: 100%;
+background-color: #4CAF50;
+color: white;
+text-align: center;
+line-height: 40px;
+border-radius: 4px;
+font-size: 14px;
+white-space: nowrap;
+padding: 0 5px;
+}
