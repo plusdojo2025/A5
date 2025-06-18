@@ -92,7 +92,8 @@
         }   /* 画面上から隠すCSS処理 */
     </style>
 
-<form>
+<form method="post" enctype="multipart/form-data"><!-- 今後のために一応書いておく、Fetchなら不要、Postになったら役に立つ -->
+
     <div id="ddAreaFileRef">ここにドラッグ＆ドロップ<br>
      (ファイルを左クリックし続けて引っ張ってきて枠内で離す)<br>
      ファイルを参照する（エクスプローラーが開き、そこから選択）
@@ -151,7 +152,7 @@
         formData.append('file', files[i]);  // 'file' はサーバー側と一致させる
     }
 
-    fetch('/ManualServlet', { 
+    fetch('<%= request.getContextPath() %>/ManualServlet', { 
         method: 'POST',
         body: formData
     })

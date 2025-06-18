@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.User;
+
 public class UserDAO {
 	// 引数card指定された項目で検索して、取得されたデータのリストを返す
 	public List<User> select(User reg) {
@@ -24,30 +26,32 @@ public class UserDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT *  FROM user_name WHERE password LIKE ? AND tencho_flag LIKE ?  " ;
+			String sql = "SELECT *  FROM User WHERE pw LIKE ? AND name LIKE ? AND flag LIKE ? ORDER BY id" ;
 			
 			//String sql = "SELECT *  FROM user_name WHERE password LIKE ? AND tencho_flag LIKE ?  " ;
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			if (reg.getUser_name() != null) {
-				pStmt.setString(1,  "%" + reg.getUser_name() + "%");
+			
+			
+			if (reg.getPw() != null) {
+				pStmt.setString(1,  "%" + reg.getPw() + "%");
 			} else {
 				pStmt.setString(1, "%");
 			}
 			
 			
-			if (reg.getPassword() != null) {
-				pStmt.setString(2,  "%" + reg.getPassword() + "%");
+			if (reg.getName() != null) {
+				pStmt.setString(2,  "%" + reg.getName() + "%");
 			} else {
 				pStmt.setString(2, "%");
 			}
 			
-			
-			if (reg.getTencho_flag() != null) {
-				pStmt.setString(3,  "%" + reg.getTencho_flag() + "%");
+
+			if (reg.getFlag() != null) {
+				pStmt.setInteger(3,  "%" + reg.getFlag() + "%");
 			} else {
-				pStmt.setString(3, "%");
+				pStmt.setInteger(3, "%");
 			}
 			
 			
@@ -61,27 +65,23 @@ public class UserDAO {
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {				
 				User user = new User();
-				User.setuser_Name(rs.getString("user_name"));
-				User.setPassword(rs.getString("password"));
-				User.setTencho_flag(rs.getString("Tencho_flag"));
+				User.Id(rs.getString("ID"));
+				User.Pw(rs.getString("pw"));
+				User.Name(rs.getString("name"));
+				User.Flag(rs.getInteger(("flag"));
 				
-/*				Bc bc = new Bc(rs.getInt("number"),
-						       rs.getString("company"),
-						       rs.getString("department"),
-						       rs.getString("position"),
+				User user = new user(rs.getInt("id"),
+						       rs.getString("pw"),
 						       rs.getString("name"),
-						       rs.getString("phone"),
-						       rs.getString("email"),
-						       rs.getString("zipcode"),
-						       rs.getString("address"));*/
-				userList.add(User);
+						       rs.getInteger("flag"),
+				userList.add(user);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			UserList = null;
+			userList = null;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			UserList = null;
+			userList = null;
 		} finally {
 			// データベースを切断
 			if (conn != null) {
@@ -117,20 +117,20 @@ public class UserDAO {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			if (reg.getUser_name() != null) {
-				pStmt.setString(1, reg.getUser_name());
+			if (reg.getPw() != null) {
+				pStmt.setString(1, reg.getPw());
 			} else {
 				pStmt.setString(1, "");
 			}
-			if (reg.getPassword() != null) {
-				pStmt.setString(2, reg.getPassword());
+			if (reg.getName() != null) {
+				pStmt.setString(2, reg.getName());
 			} else {
 				pStmt.setString(2, "");
 			}
-			if (reg.getTencho_flag() != null) {
-				pStmt.setString(3, reg.getTencho_flag());
+			if (reg.getFlag() != null) {
+				pStmt.setInteger(4, reg.getFlag());
 			} else {
-				pStmt.setString(3, "");
+				pStmt.setString(4, "");
 			}
 			
 			
@@ -178,27 +178,30 @@ public class UserDAO {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			
+
 			// SQL文を完成させる
-			if (reg.getUser_name() != null) {
-				pStmt.setString(1, reg.getUser_name());
+			if (reg.getPw() != null) {
+				pStmt.setString(1, reg.getPw());
 			} else {
 				pStmt.setString(1, "");
 			}
-			if (reg.getPassword() != null) {
-				pStmt.setString(2, reg.getPassword());
+			if (reg.getName() != null) {
+				pStmt.setString(2, reg.getName());
 			} else {
 				pStmt.setString(2, "");
 			}
-			if (reg.getTencho_flag() != null) {
-				pStmt.setString(3, reg.getTencho_flag());
+			if (reg.getFlag() != null) {
+				pStmt.setInteger(3, reg.getFlag());
 			} else {
 				pStmt.setString(3, "");
 			}
 			
+			
+			
 						
 						
 			
-			pStmt.setInt(4, reg.getNumber());
+			pStmt.setInt(4, reg.getId());
 
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {

@@ -49,7 +49,7 @@
 
                             <tr>
                                 <td>001</td>
-                                <td></td>
+                                <td input type="text" name="name" value=${ }></td>
                                 <td></td>
                                 
                                 

@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.BcDAO;
-import dto.Bc;
+import dao.UserDAO;
 
 /**
  * Servlet implementation class UpdateDeleteServlet
@@ -51,7 +50,7 @@ public class UserManageServlet extends HttpServlet {
 				String password = request.getParameter("password");
 
 		// 更新または削除を行う
-		BcDAO bDao = new BcDAO();
+		UserDAO bDao = new UserDAO();
 		if (request.getParameter("submit").equals("更新")) {
 			if (bDao.update(new Bc(ID,name, password))) { // 更新成功
 				request.setAttribute("result", new Result("更新が成功しました", "正常に動作しました", "/webapp/MenuServlet"));
