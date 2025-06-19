@@ -5,6 +5,25 @@
 <head>
 <meta charset="UTF-8">
 <title>エンプロ良イ👍｜シフト申請</title>
+
+<style>
+head,main {
+	margin: 0 auto 0 auto;
+}
+button {
+	font-size: 16px;
+	padding: 5px 20px;
+	width: 120px;
+	height: 120px;
+}
+
+.momo {
+	font-size: 16px;
+	padding: 5px 20px;
+	width: 120px;
+	height: 44px;
+}
+</style>
 </head>
 <body>
 	<header>
@@ -28,8 +47,21 @@
 	    </ul>
 	</header>
 	<main>
+	<ul>
+	<li><button type="button">追加</button></li>
+	<li><button type="button">追加</button></li>
+	<li><button type="button">追加</button></li>
+	<li><button type="button">追加</button></li>
+	<li><button type="button">追加</button></li>
+	<li><button type="button">追加</button></li>
+	<li><button type="button">追加</button></li>
+	<li><button type="button">追加</button></li>
+	<li><button type="button">追加</button></li>
+	</ul>
+	<button type="button" class="momo">保存</button>
 	</main>
 	<footer>
+	<a href="#top"><button type="button" class="momo">上に戻る</button></a>
 	</footer>
 </body>
 </html>

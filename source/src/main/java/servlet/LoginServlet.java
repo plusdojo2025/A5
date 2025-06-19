@@ -3,8 +3,8 @@ package servlet;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
-import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,9 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.IdPwDAO;
-import dto.IdPw;
-import dto.LoginUser;
+import dao.UserDAO;
+import dto.User;
 
 /**
  * Servlet implementation class LoginServlet
@@ -44,30 +43,36 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-		String userid = request.getParameter("userid");
+		String userName = request.getParameter("username");
 		String pw = request.getParameter("pw");
 
 		// ログイン処理を行う
-		IdPwDAO iDao = new IdPwDAO();
-		String user = iDao.isLoginOK(new IdPw(userid, pw));
-		if (user != null) { // ログイン成功
-			// セッションスコープに名前を格納する
+		UserDAO uDao = new UserDAO();
+		User user = new User();
+		user.setName(userName);
+		user.setPw(pw);
+		
+		List<User> loginUser = uDao.login(user);
+		if (loginUser != null) { // ログイン成功
+			// セッションスコープにユーザーネーム・店長フラグを格納する
 			HttpSession session = request.getSession();
-			LoginUser loginuser = new LoginUser(user);
-			session.setAttribute("user", loginuser.getName());
+			String loginUserName = (loginUser.get(0)).getName();
+			int loginUserFlag = (loginUser.get(0)).getFlag();
+			session.setAttribute("user", loginUserName);
+			session.setAttribute("flag", loginUserFlag);
 			
 			// 日時を取得しセッションスコープに格納する
 			Date now = new Date();
 			SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			String formatDate = date.format(now);
 			session.setAttribute("date", formatDate);
-
-			// メニューサーブレットにリダイレクトする
-			response.sendRedirect("/webapp/MenuServlet");
+			
+			
+			response.sendRedirect("/webapp/Servlet");
 		} else { // ログイン失敗
 			// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
-			request.setAttribute("result", new Result("ログイン失敗！", "IDまたはPWに間違いがあります。", "/webapp/LoginServlet"));
-
+			// request.setAttribute("result", new Result("ログイン失敗！", "IDまたはPWに間違いがあります。", "/webapp/LoginServlet"));
+			
 			// 結果ページにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
 			dispatcher.forward(request, response);

@@ -7,7 +7,7 @@ public class Manual implements Serializable {
 	private String manualFile; // マニュアルファイル名
 	private int importance; // 重要度
 	private Date date; // アップロード日
-	private int fileId;
+	private int fileId; // ファイルID
 	
 	public String getManualFile() {
 		return manualFile;
@@ -40,5 +40,11 @@ public class Manual implements Serializable {
 		this.fileId = fileId;
 	}
 	
-	
+	public Manual(String manualFile, int importance, Date date, int fileId) {
+		this.manualFile = manualFile;
+		this.importance = importance;
+		this.date = date;
+		this.fileId = fileId;
+	}
+
 }
