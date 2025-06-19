@@ -46,7 +46,7 @@ public class EventDao {
 					pStmt.setString(3, "%");
 				}
 					pStmt.setInt(4,card.getTypeId());
-				}
+				
 				
 
 
