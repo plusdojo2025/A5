@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>エンプロ良イ👍｜ユーザー管理画面</title>
-<link rel="stylesheet" href="/webapp/css/style2.css">
+<link rel="stylesheet" href="<c:url value='/css/style2.css'/>">
 </head>
 <!-- タイトル -->
        <div class="top">

@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.Map" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,17 +8,16 @@
   <title>エンプロ良イ👍｜カレンダー</title>
   <link rel="stylesheet" href="calendar.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
- <style>
-    /* シフトやイベントの件数を表示するためのスタイル */
+  <style>
     .shift-count, .event-count {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      font-size: 12px;
-      background-color: rgba(255, 255, 255, 0.7);
-      border-radius: 50%;
-      padding: 2px 5px;
+      font-size: 10px;
+      background: rgba(255, 255, 255, 0.8);
+      margin-top: 2px;
+      padding: 1px 3px;
+      border-radius: 3px;
     }
+    .shift-count { color: red; }
+    .event-count { color: blue; }
   </style>
 </head>
 <body>
@@ -44,67 +43,69 @@
   <button type="button" id="eventBtn">イベント</button>
   </div>
 
-  <!--カレンダー-->
   <div id="calendar"></div>
-   <!-- シフトとイベントの件数表示 -->
-  <div style="text-align: center; margin-top: 20px;">
-    <h3>シフトの件数: <%= request.getAttribute("shiftCount") %>件</h3>
-    <h3>イベントの件数: <%= request.getAttribute("eventCount") %>件</h3>
-  </div>
   
-  <!--シフト表-->
+    <!--シフト表-->
   <div id="shift">シフト</div><br>
 
   <!--イベント-->
   <div id="event">イベント</div>
 
-  <footer></footer>
+  
 
-  <!-- Script -->
-  <script src="https://unpkg.com/@popperjs/core@2" defer></script>
-  <script src="https://unpkg.com/tippy.js@6" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js" defer></script>
-
+  <!-- JavaScript へデータを埋め込む -->
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    	// サーバーから取得したシフト件数とイベント件数のデータ（サンプル）
-    const shiftData = <%= request.getAttribute("shiftData") %>; // 日付別シフト件数
-    const eventData = <%= request.getAttribute("eventData") %>; // 日付別イベント件数
+    const shiftData = {
+      <% Map<String,Integer> m = (Map<String,Integer>)request.getAttribute("shiftData");
+         if (m != null) {
+           for (Map.Entry<String,Integer> e : m.entrySet()) {
+             out.print("\"" + e.getKey() + "\": " + e.getValue() + ",");
+           }
+         }
+      %>
+    };
 
-    /*
-      const events = [
-        {
-          id: "",
-          start: "",
-          title: "",
-          description: "",
-          backgroundColor: "red",
-          borderColor: "red",
-          editable: true
-        }
-      ]; */
+    const eventData = {
+      <% Map<String,Integer> m2 = (Map<String,Integer>)request.getAttribute("eventData");
+         if (m2 != null) {
+           for (Map.Entry<String,Integer> e : m2.entrySet()) {
+             out.print("\"" + e.getKey() + "\": " + e.getValue() + ",");
+           }
+         }
+      %>
+    };
+  </script>
 
-      const elem = document.getElementById("calendar");
-
-      const calendar = new FullCalendar.Calendar(elem, {
-        initialView: "dayGridMonth",
-        initialDate: new Date(),
-        events: [],// 必要に応じてイベントを追加
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const calendarEl = document.getElementById('calendar');
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
         dayCellContent: function(info) {
-            const date = info.dateStr;
-            
-            // シフト件数の表示
-            const shiftCount = shiftData[date] || 0;
-            const eventCount = eventData[date] || 0;
-            
-         // シフト数とイベント数を表示
-            const shiftEl = document.createElement('span');
-            shiftEl.classList.add('shift-count');
-            shiftEl.textContent = shiftCount;
-        
-      });
+          const dateStr = info.date.toISOString().slice(0,10);
+          const sc = shiftData[dateStr] || 0;
+          const ec = eventData[dateStr] || 0;
 
+          const el = document.createElement('div');
+          el.innerHTML = info.dayNumberText;
+
+          const scEl = document.createElement('div');
+          scEl.className = 'shift-count';
+          scEl.innerText = `S:${sc}`;
+
+          const ecEl = document.createElement('div');
+          ecEl.className = 'event-count';
+          ecEl.innerText = `E:${ec}`;
+
+          el.appendChild(scEl);
+          el.appendChild(ecEl);
+
+          return { domNodes: [el] };
+        }
+      });
       calendar.render();
+      
 	   // ボタンがクリックされたらページ内の対応するIDにスクロールする
       document.getElementById("shiftBtn").addEventListener("click", function () {
         document.getElementById("shift").scrollIntoView({ behavior: "smooth" });
@@ -113,6 +114,7 @@
       document.getElementById("eventBtn").addEventListener("click", function () {
         document.getElementById("event").scrollIntoView({ behavior: "smooth" });
       });
+
     });
   </script>
 </body>
