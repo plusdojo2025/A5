@@ -85,17 +85,29 @@ public class ShiftDAO {
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			
-			// SQL文(SELECT文で日付・開始時間・終了時間・ユーザーネームを持ってくる)
+			// SQL文(SELECT文で日付(範囲指定）・開始時間・終了時間・ユーザーネームを持ってくる)
 			String sql = "SELECT shift_date, shift_start, shift_end, user_name "
 						+ "FROM shift "
 						+ "JOIN user ON shift.user_id = user.id "
-						+ "WHERE shift_date LIKE ? "
+						+ "WHERE shift_date BETWEEN ? AND ? "
 						+ "AND shift_start LIKE ? "
 						+ "AND shift_end LIKE ? "
 						+ "AND user.user_name LIKE ? "
 						+ "ORDER BY shift_id";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
+			// SQL文を完成させる
+			pStmt.setDate(1, "%" + userShift.getShiftDate() + "%");
+			pStmt.setString(2, "%" + card.getDep() + "%");
+			pStmt.setString(3, "%" + card.getPos() + "%");
+			pStmt.setString(4, "%" + card.getCompany() + "%");
+			pStmt.setString(5, "%" + card.getPostCode() + "%");
+			pStmt.setString(6, "%" + card.getAddress() + "%");
+			pStmt.setString(7, "%" + card.getPhone() + "%");
+			pStmt.setString(8, "%" + card.getFax() + "%");
+			pStmt.setString(9, "%" + card.getEmail() + "%");
+			pStmt.setString(10, "%" + card.getRemarks() + "%");
+
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 			
