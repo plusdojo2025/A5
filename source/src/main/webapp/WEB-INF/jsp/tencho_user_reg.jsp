@@ -35,25 +35,25 @@
 
               <p>追加するユーザーの種類を選択してください</p>
 
-              <label><input type="radio" name="employees" value="店長"/>店長</label> 
+              <label><input id="my-radio" type="radio" name="employees" value="店長"/>店長</label> 
 
-              <label><input type="radio" name="employees" value="店員"/>店員</label>
+              <label><input id="my-radio" type="radio" name="employees" value="店員"/>店員</label>
 
                 <br><br>
 
               
-                  <input type="text" name="name" placeholder="登録するユーザー名">
+                  <input id="name" type="text" name="name" placeholder="登録するユーザー名">
                 
 
                 <br><br>
               
               
-                  <input type="text" name="password" placeholder="登録するパスワード">
+                  <input id="password" type="text" name="password" placeholder="登録するパスワード">
                
 
                 <br><br>
 
-
+			<!-- 登録ボタン -->
                 <div class="regist_button">
                         <input type="submit" value="登録">
                 </div>

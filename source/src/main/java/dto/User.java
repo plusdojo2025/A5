@@ -32,11 +32,14 @@ public class User implements Serializable {
 	public void setFlag(int flag) {
 		this.flag = flag;
 	}
-	
+	public User() {
+		
+	}
 	public User(int id, String pw, String name, int flag) {
 		this.id = id;
 		this.pw = pw;
 		this.name = name;
 		this.flag = flag;
 	}
+	
 }
