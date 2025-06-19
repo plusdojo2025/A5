@@ -27,12 +27,12 @@ public class UserManageServlet extends HttpServlet {
 	//画面表示：ユーザー登録画面へ
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException {
-			// ログインしていなかったらログインサーブレットにリダイレクトする（ログイン画面に戻る）
+			/*// ログインしていなかったらログインサーブレットにリダイレクトする（ログイン画面に戻る）
 			HttpSession session = request.getSession();
 			if (session.getAttribute("id") == null) {
 				response.sendRedirect("/webapp/LoginServlet");
 			}
-	}
+	}*/
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
