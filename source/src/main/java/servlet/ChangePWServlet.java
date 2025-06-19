@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.UserDAO;
-import dto.User;
 
 
 
@@ -66,9 +65,9 @@ public class UserRegistServlet extends HttpServlet {
 		else if(role.equals("1")) {role="店員";}
 
 		// 登録処理を行う
-				UserDAO Dao = new UserDAO(); 
+				UserDAO bDao = new UserDAO(); 
 				User newUser =new User(role,name,password);
-				List<User> userList = Dao.select(newUser); //↓短縮バージョン
+				List<User> userList = bDao.select(newUser); //↓短縮バージョン
 
 				//List<Bc> cardList = bDao.select(new Bc(0, company,department,position ,name,phone,email, zipcode,address));
 
