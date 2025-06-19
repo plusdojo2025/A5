@@ -1,18 +1,19 @@
 package dto;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class UserShift implements Serializable {
-	private String shiftDate; // シフトの日
+	private Date shiftDate; // シフトの日
 	private String shiftStart; // シフト開始時間
 	private String shiftEnd; // シフト終了時間
 	private String userName; // ユーザーネーム
 	
-	public String getShiftDate() {
+	public Date getShiftDate() {
 		return shiftDate;
 	}
 	public void setShiftDate(String shiftDate) {
-		this.shiftDate = shiftDate;
+		this.shiftDate = Date.valueOf(shiftDate); // String型「YYYY-MM-DD」をSQLのDATE型に入れられるように変換
 	}
 	public String getShiftStart() {
 		return shiftStart;
@@ -34,7 +35,7 @@ public class UserShift implements Serializable {
 	}
 	
 	public UserShift(String shiftDate, String shiftStart, String shiftEnd, String userName) {
-		this.shiftDate = shiftDate;
+		this.shiftDate = Date.valueOf(shiftDate); // String型「YYYY-MM-DD」をSQLのDATE型に入れられるように変換
 		this.shiftStart = shiftStart;
 		this.shiftEnd = shiftEnd;
 		this.userName = userName;

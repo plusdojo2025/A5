@@ -12,7 +12,7 @@ import dto.Shift;
 import dto.UserShift;
 
 public class ShiftDAO {
-	// 引数card指定された項目で検索して、取得されたデータのリストを返す
+	// 
 	public List<UserShift> select() {
 		Connection conn = null;
 		List<UserShift> shiftList = new ArrayList<UserShift>();
