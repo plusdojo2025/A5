@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 
-import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,23 +44,23 @@ public class UserManageServlet extends HttpServlet {
 
 		// リクエストパラメータを取得する
 				request.setCharacterEncoding("UTF-8");
-				
+				String id   =request.getParameter("id");
 				String name = request.getParameter("name");
 				String password = request.getParameter("password");
 
 		// 更新または削除を行う
-		UserDAO bDao = new UserDAO();
+		UserDAO dao = new UserDAO();
 		if (request.getParameter("submit").equals("更新")) {
-			if (bDao.update(new Bc(ID,name, password))) { // 更新成功
-				request.setAttribute("result", new Result("更新が成功しました", "正常に動作しました", "/webapp/MenuServlet"));
+			if (dao.update(new User(id,name, password))) { // 更新成功
+				request.setAttribute("result");
 			} else { // 更新失敗
-				request.setAttribute("result", new Result("更新ができませんでした", "正常に動作しませんでした", "/webapp/MenuServlet"));
+				request.setAttribute("result");
 			}
 		} else {
-			if (bDao.delete(new Bc(ID,name,password))) { // 削除成功
-				request.setAttribute("result", new Result("削除が成功しました", "正常に動作しました", "/webapp/MenuServlet"));
+			if (dao.delete(new User(id,name,password))) { // 削除成功
+				request.setAttribute("result");
 			} else { // 削除失敗
-				request.setAttribute("result", new Result("削除が失敗しました", "正常に動作しませんでした", "/webapp/MenuServlet"));
+				request.setAttribute("result");
 			}
 		}
 

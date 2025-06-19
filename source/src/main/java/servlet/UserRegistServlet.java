@@ -30,12 +30,12 @@ public class UserRegistServlet extends HttpServlet {
 	//画面表示
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// ログインしていなかったらログインサーブレットにリダイレクトする（ログイン画面に戻る）
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("id") == null) {
-//			response.sendRedirect(request.getContextPath() + "/LoginServlet");
-//			return;
-//		}
+		//ログインしていなかったらログインサーブレットにリダイレクトする（ログイン画面に戻る）
+		HttpSession session = request.getSession();
+		if (session.getAttribute("id") == null) {
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
+			return;
+		}
 
 		// 登録ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_reg.jsp");
@@ -70,7 +70,7 @@ public class UserRegistServlet extends HttpServlet {
 				newUser.setPw(password);
 				newUser.setFlag(tencho_flag);
 				
-				boolean result = dao.insert(newUser); //↓短縮バージョン
+				boolean result = dao.insert(newUser); 
 
 				if(result==true) {
 					List<User> userList = dao.selectAll();
@@ -83,8 +83,7 @@ public class UserRegistServlet extends HttpServlet {
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_edit.jsp");
 					dispatcher.forward(request, response);
 				}
-				//List<Bc> cardList = bDao.select(new Bc(0, company,department,position ,name,phone,email, zipcode,address));
-
+				
 				
 				
 			}

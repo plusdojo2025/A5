@@ -51,7 +51,7 @@
 
                             <tr>
                                 <td>001</td>
-                                <td input type="text" name="name" value=${ }></td>
+                                <!--  <td input type="text" name="name" value=${dd}></td>-->
                                 <td></td>
                                 
                                 
