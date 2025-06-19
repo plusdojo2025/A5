@@ -34,6 +34,10 @@ public class Shift implements Serializable {
 		this.userId = userId;
 	}
 	
+	public Shift() {
+		
+	}
+	
 	public Shift(String shiftDate, String shiftStart, String shiftEnd, int userId) {
 		this.shiftDate = Date.valueOf(shiftDate); // String型「YYYY-MM-DD」をSQLのDATE型に入れられるように変換
 		this.shiftStart = shiftStart;

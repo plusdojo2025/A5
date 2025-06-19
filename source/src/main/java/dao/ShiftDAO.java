@@ -12,8 +12,8 @@ import dto.Shift;
 import dto.UserShift;
 
 public class ShiftDAO {
-	// 
-	public List<UserShift> select() {
+	// ユーザーのシフトをすべて持ってくる
+	public List<UserShift> selectAll() {
 		Connection conn = null;
 		List<UserShift> shiftList = new ArrayList<UserShift>();
 		
@@ -70,7 +70,71 @@ public class ShiftDAO {
 		// 結果を返す
 		return shiftList;
 	}
-
+	
+	// 指定した任意のシフトをもってくる
+	public List<UserShift> select(UserShift userShift) {
+		Connection conn = null;
+		List<UserShift> shiftList = new ArrayList<UserShift>();
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp1?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			// SQL文(SELECT文で日付・開始時間・終了時間・ユーザーネームを持ってくる)
+			String sql = "SELECT shift_date, shift_start, shift_end, user_name "
+						+ "FROM shift "
+						+ "JOIN user ON shift.user_id = user.id "
+						+ "WHERE shift_date LIKE ? "
+						+ "AND shift_start LIKE ? "
+						+ "AND shift_end LIKE ? "
+						+ "AND user.user_name LIKE ? "
+						+ "ORDER BY shift_id";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+			
+			// 結果表をコレクションにコピーする
+			while (rs.next()) {
+				UserShift shift = new UserShift(
+					rs.getString(""), 
+					rs.getString(""),
+					rs.getString(""),
+					rs.getString("")
+				);
+				shiftList.add(shift);
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			shiftList = null;
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			shiftList = null;
+		}
+		finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+					shiftList = null;
+				}
+			}
+		}
+		
+		// 結果を返す
+		return shiftList;
+	}
+	
 	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
 	public boolean insert(Shift shift) {
 		Connection conn = null;

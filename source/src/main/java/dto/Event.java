@@ -34,6 +34,10 @@ public class Event implements Serializable {
 		this.typeId = typeId;
 	}
 	
+	public Event() {
+		
+	}
+	
 	public Event(String eventDate, String eventStart, String eventEnd, int typeId) {
 		this.eventDate = Date.valueOf(eventDate); // String型「YYYY-MM-DD」をSQLのDATE型に入れられるように変換
 		this.eventStart = eventStart;
