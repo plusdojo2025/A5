@@ -9,10 +9,6 @@
 <title>エンプロ良イ👍｜ユーザー管理画面</title>
 <link rel="stylesheet" href="<c:url value='/css/style2.css'/>">
 </head>
-<!-- タイトル -->
-       <div class="top">
-          <h2>エンプロ良イ👍</h2>
-        </div>
 
 <body>
 
