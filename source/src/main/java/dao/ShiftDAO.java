@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.Shift;
 import dto.UserShift;
 
 public class ShiftDAO {
@@ -138,8 +137,8 @@ public class ShiftDAO {
 		return shiftList;
 	}
 	
-	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
-	public boolean insert(Shift shift) {
+	// シフトを登録し、成功したらtrueを返す
+	public boolean insert(UserShift userShift) {
 		Connection conn = null;
 		boolean result = false;
 		
@@ -153,14 +152,14 @@ public class ShiftDAO {
 					"root", "password");
 			
 			// SQL文を準備する
-			String sql = "INSERT INTO shift VALUES (0, ?, ?, ?, ?)";
+			String sql = "INSERT INTO shift VALUES (0, ?, ?, ?, (SELECT id FROM user WHERE user_name LIKE ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
-				pStmt.setDate(1, shift.getShiftDate());
-				pStmt.setString(2, shift.getShiftStart());
-				pStmt.setString(3, shift.getShiftEnd());
-				pStmt.setInt(4, shift.getUserId());
+				pStmt.setDate(1, userShift.getShiftDate());
+				pStmt.setString(2, userShift.getShiftStart());
+				pStmt.setString(3, userShift.getShiftEnd());
+				pStmt.setString(4, userShift.getUserName());
 			
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
@@ -189,8 +188,8 @@ public class ShiftDAO {
 		return result;
 	}
 	
-	// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
-	public boolean update(Shift shift) {
+	// シフトを更新し、成功したらtrueを返す
+	public boolean update(UserShift userShift) {
 		Connection conn = null;
 		boolean result = false;
 		
@@ -205,31 +204,17 @@ public class ShiftDAO {
 			
 			// SQL文を準備する
 			String sql = "UPDATE shift SET "
-					+ "name = ?, "
-					+ "dep_id = (SELECT id FROM department WHERE dep = ?), "
-					+ "pos_id = (SELECT id FROM post WHERE pos = ?), "
-					+ "company = ?, "
-					+ "post_code = ?, "
-					+ "address = ?, "
-					+ "phone = ?, "
-					+ "fax = ?, "
-					+ "email = ?, "
-					+ "remarks = ? "
-					+ "WHERE no = ?";
+					+ "shift_date LIKE ?, "
+					+ "shift_start LIKE ?, "
+					+ "shift_end LIKE ?, "
+					+ "user_id = (SELECT id FROM user WHERE user_name LIKE ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
-				pStmt.setString(1, card.getName());
-				pStmt.setString(2, card.getDep());
-				pStmt.setString(3, card.getPos());
-				pStmt.setString(4, card.getCompany());
-				pStmt.setString(5, card.getPostCode());
-				pStmt.setString(6, card.getAddress());
-				pStmt.setString(7, card.getPhone());
-				pStmt.setString(8, card.getFax());
-				pStmt.setString(9, card.getEmail());
-				pStmt.setString(10, card.getRemarks());
-				pStmt.setInt(11, card.getNo());
+				pStmt.setDate(1, userShift.getShiftDate());
+				pStmt.setString(2, userShift.getShiftStart());
+				pStmt.setString(3, userShift.getShiftEnd());
+				pStmt.setString(4, userShift.getUserName());
 				
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
@@ -255,7 +240,7 @@ public class ShiftDAO {
 	}
 	
 	// 引数cardで指定された番号のレコードを削除し、成功したらtrueを返す
-	public boolean delete(Bc card) {
+	public boolean delete(UserShift userShift) {
 		// cardからnumber
 		
 		// Bc trueCard = new Bc();
@@ -272,7 +257,7 @@ public class ShiftDAO {
 					"root", "password");
 			
 			// SQL文を準備する
-			String sql = "DELETE FROM business_card WHERE no=?";
+			String sql = "DELETE FROM business_card WHERE shift_date LIKE ?, shift_start LIKE ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
