@@ -38,23 +38,20 @@ public class ShiftDAO {
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
 				UserShift userShift = new UserShift(
-					rs.getString(""), 
-					rs.getString(""),
-					rs.getString(""),
-					rs.getString("")
+					rs.getString("shift_date"), 
+					rs.getString("shift_start"),
+					rs.getString("shift_end"),
+					rs.getString("user_name")
 				);
 				shiftList.add(userShift);
 			}
-		}
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			shiftList = null;
-		}
-		catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			shiftList = null;
-		}
-		finally {
+		} finally {
 			// データベースを切断
 			if (conn != null) {
 				try {
@@ -85,11 +82,11 @@ public class ShiftDAO {
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			
-			// SQL文(SELECT文で日付(範囲指定）・開始時間・終了時間・ユーザーネームを持ってくる)
+			// SQL文(SELECT文で日付・開始時間・終了時間・ユーザーネームを持ってくる)
 			String sql = "SELECT shift_date, shift_start, shift_end, user_name "
 						+ "FROM shift "
 						+ "JOIN user ON shift.user_id = user.id "
-						+ "WHERE shift_date BETWEEN ? AND ? "
+						+ "WHERE shift_date LIKE ? " // 一旦保留
 						+ "AND shift_start LIKE ? "
 						+ "AND shift_end LIKE ? "
 						+ "AND user.user_name LIKE ? "
@@ -97,27 +94,21 @@ public class ShiftDAO {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
-			pStmt.setDate(1, "%" + userShift.getShiftDate() + "%");
-			pStmt.setString(2, "%" + card.getDep() + "%");
-			pStmt.setString(3, "%" + card.getPos() + "%");
-			pStmt.setString(4, "%" + card.getCompany() + "%");
-			pStmt.setString(5, "%" + card.getPostCode() + "%");
-			pStmt.setString(6, "%" + card.getAddress() + "%");
-			pStmt.setString(7, "%" + card.getPhone() + "%");
-			pStmt.setString(8, "%" + card.getFax() + "%");
-			pStmt.setString(9, "%" + card.getEmail() + "%");
-			pStmt.setString(10, "%" + card.getRemarks() + "%");
-
+			pStmt.setDate(1, userShift.getShiftDate());
+			pStmt.setString(2, userShift.getShiftStart());
+			pStmt.setString(3, userShift.getShiftEnd());
+			pStmt.setString(4, userShift.getUserName());
+			
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 			
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
 				UserShift shift = new UserShift(
-					rs.getString(""), 
-					rs.getString(""),
-					rs.getString(""),
-					rs.getString("")
+					rs.getDate("shift_date"), 
+					rs.getString("shift_start"),
+					rs.getString("shift_end"),
+					rs.getString("user_name")
 				);
 				shiftList.add(shift);
 			}
@@ -166,7 +157,7 @@ public class ShiftDAO {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
-				pStmt.setString(1, shift.getShiftDate());
+				pStmt.setDate(1, shift.getShiftDate());
 				pStmt.setString(2, shift.getShiftStart());
 				pStmt.setString(3, shift.getShiftEnd());
 				pStmt.setInt(4, shift.getUserId());
