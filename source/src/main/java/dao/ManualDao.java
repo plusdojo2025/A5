@@ -99,8 +99,8 @@ public class ManualDao {
 
 			// SQL文を準備する (上で追加した分だけ？マークを追加）
 			String sql = "INSERT INTO Bc VALUES (?, ?, ?, ?)"; 
-			//Stringは?で良さそうだが、他のデータ型の場合はどうなるんだろう…
-			//回答→入れたいものがあるときは絶対"?"で、オートインクリメントは"0"でよいらしい。
+//										Stringは?で良さそうだが、他のデータ型の場合はどうなるんだろう…
+//										回答→入れたいものがあるときは絶対"?"で、オートインクリメントは"0"でよいらしい。
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる (ここでは4個のデータを受けるため4個分の文を書く必要性がある
