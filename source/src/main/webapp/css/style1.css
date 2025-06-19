@@ -1,8 +1,11 @@
 @charset "UTF-8";
 
+/*タイトル*/
 .top{
     text-align:center;
 }
+
+/* ログイン画面に戻るボタン*/
 .rogin_back{
     padding: 0.5em 1em;
     margin: 2em 0;
@@ -17,12 +20,7 @@
     padding: 0;
 }
 
-.label{
-    margin-left:20px;
-    margin-top:20px;
-    font-size: clamp(13px,4vw,30px);
-}
-
+/*選択画面部分*/
 
 .user_choice{
     padding: 0.5em 1em;
@@ -34,6 +32,27 @@
     text-align:center;
 }
 
+/*ラジオボタン全体*/
+
+.label{
+    margin-left:20px;
+    margin-top:20px;
+    font-size: clamp(13px,4vw,30px);
+}
+
+/*ラジオボタンの色変更*/
+#my-radio{
+    background-color:#ff9a03; 
+  
+}
+
+/*ラジオボタン　プレースホルダーの設定*/
+::placeholder {
+	text-align: center;
+}
+
+
+/*登録ボタン*/
 .regist_button input{
     padding: 0.5em 1em;
     margin: 2em 0;
@@ -41,10 +60,9 @@
     border: solid 3px #000000;
 }
 
-::placeholder {
-	text-align: center;
-}
 
-.my-radio{
-    accent-color:#ff9a03;
+#output{
+    color:red;
+    text-align:center;
+    font-size:16px;
 }

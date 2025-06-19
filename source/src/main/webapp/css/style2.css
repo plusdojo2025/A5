@@ -4,10 +4,12 @@ body{
     overflow-x:hidden;
 }
 
-/* ログイン画面に戻る */
+/* タイトル　*/
 .top{
     text-align:center;
 }
+
+/* ログイン画面に戻る */
 .rogin_back{
     padding: 0.5em 1em;
     margin: 2em 0;
@@ -37,23 +39,6 @@ p{
   margin-left: 90px; /* ← 余白を削除 */
 }
 
-.up_del_button {
-  padding-top: 50px;
-  font-size: 30px;
-  padding-right: -100px;
-}
-
-.no-bottom-border {
-  border: none;
-}
-
-.update_button{
-    background-color:#ffde59;
-}
-
-.delete_button{
-    background-color:#5271ff;
-}
 
 th,td{
     border: 1px solid #333;
@@ -63,10 +48,26 @@ table {
             border-collapse: collapse;
             width: 50%;
             margin: 20px auto;
-        }
+}
         
 td {
             border: 1px solid #000;
             width: 50px;
             height: 50px;
-        }
+}
+/*テーブルの枠線を消す*/
+
+.no-bottom-border {
+  border: none;
+}
+
+/*変更ボタン　色変更　*/
+.update_button{
+    background-color:#ffde59;
+}
+
+/*削除ボタン　色変更　*/
+.delete_button{
+    background-color:#5271ff;
+}
+

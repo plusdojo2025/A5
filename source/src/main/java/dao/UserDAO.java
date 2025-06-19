@@ -8,9 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.User;
+
 public class UserDAO {
 	// 引数card指定された項目で検索して、取得されたデータのリストを返す
-	public List<User> select(User reg) {
+	public List<User> selectAll() {
 		Connection conn = null;
 		List<User> userList = new ArrayList<User>();
 
@@ -24,35 +26,11 @@ public class UserDAO {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT *  FROM user_name WHERE password LIKE ? AND tencho_flag LIKE ?  " ;
+			String sql = "SELECT *  FROM user  ORDER BY id" ;
 			
-			//String sql = "SELECT *  FROM user_name WHERE password LIKE ? AND tencho_flag LIKE ?  " ;
+			//String sql = "SELECT *  FROM User WHERE  ORDER BY id" ;
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
-			// SQL文を完成させる
-			if (reg.getUser_name() != null) {
-				pStmt.setString(1,  "%" + reg.getUser_name() + "%");
-			} else {
-				pStmt.setString(1, "%");
-			}
-			
-			
-			if (reg.getPassword() != null) {
-				pStmt.setString(2,  "%" + reg.getPassword() + "%");
-			} else {
-				pStmt.setString(2, "%");
-			}
-			
-			
-			if (reg.getTencho_flag() != null) {
-				pStmt.setString(3,  "%" + reg.getTencho_flag() + "%");
-			} else {
-				pStmt.setString(3, "%");
-			}
-			
-			
-			
-			
 			
 			
 			// SQL文を実行し、結果表を取得する
@@ -61,27 +39,17 @@ public class UserDAO {
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {				
 				User user = new User();
-				User.setuser_Name(rs.getString("user_name"));
-				User.setPassword(rs.getString("password"));
-				User.setTencho_flag(rs.getString("Tencho_flag"));
-				
-/*				Bc bc = new Bc(rs.getInt("number"),
-						       rs.getString("company"),
-						       rs.getString("department"),
-						       rs.getString("position"),
-						       rs.getString("name"),
-						       rs.getString("phone"),
-						       rs.getString("email"),
-						       rs.getString("zipcode"),
-						       rs.getString("address"));*/
-				userList.add(User);
+				user.setId(rs.getInt("id"));
+				user.setPw(rs.getString("password"));
+				user.setName(rs.getString("user_name"));
+				user.setFlag(rs.getInt("tencho_flag"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			UserList = null;
+			userList = null;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			UserList = null;
+			userList = null;
 		} finally {
 			// データベースを切断
 			if (conn != null) {
@@ -97,8 +65,10 @@ public class UserDAO {
 		// 結果を返す
 		return userList;
 	}
+	
+	
 
-	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
+	// 引数userで指定されたレコードを登録し、成功したらtrueを返す
 	public boolean insert(User reg) {
 		Connection conn = null;
 		boolean result = false;
@@ -108,34 +78,19 @@ public class UserDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp2?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "INSERT INTO Bc VALUES (0, ?, ?, ?)";
+			String sql = "INSERT INTO user VALUES (null, ?, ?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			if (reg.getUser_name() != null) {
-				pStmt.setString(1, reg.getUser_name());
-			} else {
-				pStmt.setString(1, "");
-			}
-			if (reg.getPassword() != null) {
-				pStmt.setString(2, reg.getPassword());
-			} else {
-				pStmt.setString(2, "");
-			}
-			if (reg.getTencho_flag() != null) {
-				pStmt.setString(3, reg.getTencho_flag());
-			} else {
-				pStmt.setString(3, "");
-			}
+			pStmt.setString(1, reg.getName());
+			pStmt.setString(2, reg.getPw());
+			pStmt.setInt(3, reg.getFlag());
 			
-			
-			
-
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
 				result = true;
@@ -159,7 +114,7 @@ public class UserDAO {
 		return result;
 	}
 
-	// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
+	// 引数userで指定されたレコードを更新し、成功したらtrueを返す
 	public boolean update(User reg) {
 		Connection conn = null;
 		boolean result = false;
@@ -169,36 +124,22 @@ public class UserDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp2?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "UPDATE Bc SET company=? ,department=? ,position=? ,name=? , phone=? ,email=? ,zipcode=? ,address=? WHERE number=? ";
+			String sql = "UPDATE user SET user_name=? ,password=?  WHERE id=? ";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			
+
 			// SQL文を完成させる
-			if (reg.getUser_name() != null) {
-				pStmt.setString(1, reg.getUser_name());
-			} else {
-				pStmt.setString(1, "");
-			}
-			if (reg.getPassword() != null) {
-				pStmt.setString(2, reg.getPassword());
-			} else {
-				pStmt.setString(2, "");
-			}
-			if (reg.getTencho_flag() != null) {
-				pStmt.setString(3, reg.getTencho_flag());
-			} else {
-				pStmt.setString(3, "");
-			}
+			pStmt.setString(1, reg.getName());
+			pStmt.setString(2, reg.getPw());
+			pStmt.setInt(3, reg.getId());
 			
-						
-						
 			
-			pStmt.setInt(4, reg.getNumber());
 
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
@@ -223,8 +164,8 @@ public class UserDAO {
 		return result;
 	}
 
-	// 引数cardで指定された番号のレコードを削除し、成功したらtrueを返す
-	public boolean delete(User card) {
+	// 引数userで指定された番号のレコードを削除し、成功したらtrueを返す
+	public boolean delete(User reg) {
 		Connection conn = null;
 		boolean result = false;
 
@@ -233,16 +174,16 @@ public class UserDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp2?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "DELETE FROM User WHERE ID=?";
+			String sql = "DELETE FROM user WHERE id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			pStmt.setInt(1, reg.getID());
+			pStmt.setInt(1, reg.getId());
 
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {

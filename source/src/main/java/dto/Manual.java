@@ -1,12 +1,12 @@
 package dto;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class Manual implements Serializable {
 	private String manualFile; // マニュアルファイル名
 	private int importance; // 重要度
-	private String date; // アップロード日
-	private int fileId; // ファイルID
+	private Date date; // アップロード日
 	
 	public String getManualFile() {
 		return manualFile;
@@ -20,16 +20,20 @@ public class Manual implements Serializable {
 	public void setImportance(int importance) {
 		this.importance = importance;
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 	public void setDate(String date) {
-		this.date = date;
+		this.date = Date.valueOf(date); // String型「YYYY-MM-DD」をSQLのDATE型に入れられるように変換
 	}
-	public int getFileId() {
-		return fileId;
+	
+	public Manual() {
+		
 	}
-	public void setFileId(int fileId) {
-		this.fileId = fileId;
+	
+	public Manual(String manualFile, int importance, String date) {
+		this.manualFile = manualFile;
+		this.importance = importance;
+		this.date = Date.valueOf(date); // String型「YYYY-MM-DD」をSQLのDATE型に入れられるように変換
 	}
 }

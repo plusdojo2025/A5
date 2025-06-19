@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.BcDAO;
-import dto.Bc;
+import dao.UserDAO;
+import dto.User;
+
+
 
 /**
  * Servlet implementation class RegistServlet
@@ -25,7 +27,7 @@ public class UserRegistServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	//画面表示：ユーザー登録画面へ
+	//画面表示
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// ログインしていなかったらログインサーブレットにリダイレクトする（ログイン画面に戻る）
@@ -55,27 +57,36 @@ public class UserRegistServlet extends HttpServlet {
 
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-		String role = request.getParameter("employees");
-		String name = request.getParameter("name");
+		String user_name = request.getParameter("user_name");
 		String password = request.getParameter("password");
+		Integer tencho_flag =Integer.parseInt(request.getParameter("tencho_flag"));
 		
-		//リクエストパラメータのチェック
-		if(role.equals("0")) {role="店長";}
-		else if(role.equals("1")) {role="店員";}
+		
 
 		// 登録処理を行う
-				BcDAO bDao = new BcDAO(); 
-				Bc newUser =new Bc(role,name,password);
-				List<Bc> userList = bDao.select(newUser); //↓短縮バージョン
+				UserDAO dao = new UserDAO(); 
+				User newUser =new User();
+				newUser.setName(user_name);
+				newUser.setPw(password);
+				newUser.setFlag(tencho_flag);
+				
+				boolean result = dao.insert(newUser); //↓短縮バージョン
 
+				if(result==true) {
+					List<User> userList = dao.selectAll();
+					request.setAttribute("userList", userList);
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_edit.jsp");
+					dispatcher.forward(request, response);
+					
+				}else {
+					request.setAttribute("errMsg","登録できませんでした。");
+					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_edit.jsp");
+					dispatcher.forward(request, response);
+				}
 				//List<Bc> cardList = bDao.select(new Bc(0, company,department,position ,name,phone,email, zipcode,address));
 
-				// 登録結果をリクエストスコープに格納する
-				request.setAttribute("userList", userList);
-
-				// 結果ページにフォワードする
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_edit.jsp");
-				dispatcher.forward(request, response);
+				
+				
 			}
 		}
 
