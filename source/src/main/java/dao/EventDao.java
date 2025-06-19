@@ -55,13 +55,13 @@ public class EventDao {
 
 				// 結果表をコレクションにコピーする
 				while (rs.next()) {
-					Event bc = new Event(
+					Event event = new Event(
 									rs.getString("event_date"),
 									rs.getString("event_start"),
 									rs.getString("event_end"),
 									rs.getInt("event_id"),
 									rs.getInt("type_id"));
-					cardList.add(bc);
+					cardList.add(event);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -161,12 +161,12 @@ public class EventDao {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "UPDATE event SET event_date=?, event_start=?, event_end=?,event_id=?, type_id=? WHERE event_number=?";
+			String sql = "UPDATE event SET event_date=?, event_start=?, event_end=?,event_id=?, type_id=? WHERE event_id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
 			
-				pStmt.setString(1, card.getEventDate());
+				pStmt.setDate(1, card.getEventDate());
 			
 				pStmt.setString(2, card.getEventStart());
 			

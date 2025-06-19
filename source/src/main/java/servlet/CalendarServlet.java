@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CalendarServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/your_database";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/a5";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "password";
 
