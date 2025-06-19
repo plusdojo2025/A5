@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,12 +52,14 @@ public class LoginServlet extends HttpServlet {
 		user.setName(userName);
 		user.setPw(pw);
 		
-		List loginUser = uDao.login(user);
+		List<User> loginUser = uDao.login(user);
 		if (loginUser != null) { // ログイン成功
-			// セッションスコープに名前を格納する
+			// セッションスコープにユーザーネーム・店長フラグを格納する
 			HttpSession session = request.getSession();
-			LoginUser loginuser = new LoginUser(user);
-			session.setAttribute("user", loginuser.getName());
+			String loginUserName = (loginUser.get(0)).getName();
+			int loginUserFlag = (loginUser.get(0)).getFlag();
+			session.setAttribute("user", loginUserName);
+			session.setAttribute("flag", loginUserFlag);
 			
 			// 日時を取得しセッションスコープに格納する
 			Date now = new Date();
@@ -66,11 +67,11 @@ public class LoginServlet extends HttpServlet {
 			String formatDate = date.format(now);
 			session.setAttribute("date", formatDate);
 			
-			// メニューサーブレットにリダイレクトする
+			
 			response.sendRedirect("/webapp/Servlet");
 		} else { // ログイン失敗
 			// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
-			request.setAttribute("result", new Result("ログイン失敗！", "IDまたはPWに間違いがあります。", "/webapp/LoginServlet"));
+			// request.setAttribute("result", new Result("ログイン失敗！", "IDまたはPWに間違いがあります。", "/webapp/LoginServlet"));
 			
 			// 結果ページにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
