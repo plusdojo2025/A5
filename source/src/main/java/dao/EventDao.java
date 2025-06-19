@@ -3,11 +3,87 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import dto.Event;
 
 public class EventDao {
+	// 引数card指定された項目で検索して、取得されたデータのリストを返す
+		public List<Event> select(Event card) {
+			Connection conn = null;
+			List<Event> cardList = new ArrayList<Event>();
+
+			try {
+				// JDBCドライバを読み込む
+				Class.forName("com.mysql.cj.jdbc.Driver");
+
+				// データベースに接続する
+				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
+						+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+						"root", "password");
+
+				// SQL文を準備する
+				String sql = "SELECT event_date, event_start, event_end, event_id, type_id FROM event WHERE event_date LIKE ? AND event_start LIKE ? AND event_end LIKE ? AND type_id = ? ORDER BY event_id";
+				PreparedStatement pStmt = conn.prepareStatement(sql);
+
+				// SQL文を完成させる
+				if (card.getEventDate() != null) {
+					pStmt.setString(1, "%" + card.getEventDate() + "%");
+				} else {
+					pStmt.setString(1, "%");
+				}
+				if (card.getEventStart() != null) {
+					pStmt.setString(2, "%" + card.getEventStart() + "%");
+				} else {
+					pStmt.setString(2, "%");
+				}
+				if (card.getEventEnd() != null) {
+					pStmt.setString(3, "%" + card.getEventEnd() + "%");
+				} else {
+					pStmt.setString(3, "%");
+				}
+					pStmt.setInt(4,card.getTypeId());
+				}
+				
+
+
+				// SQL文を実行し、結果表を取得する
+				ResultSet rs = pStmt.executeQuery();
+
+				// 結果表をコレクションにコピーする
+				while (rs.next()) {
+					Event bc = new Event(
+									rs.getString("event_date"),
+									rs.getString("event_start"),
+									rs.getString("event_end"),
+									rs.getInt("event_id"),
+									rs.getInt("type_id"));
+					cardList.add(bc);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				cardList = null;
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				cardList = null;
+			} finally {
+				// データベースを切断
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+						cardList = null;
+					}
+				}
+			}
+
+			// 結果を返す
+			return cardList;
+		}
 
 	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
 	public boolean insert(Event card) {

@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,48 +15,43 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class MenuServlet
- */
-@WebServlet("/CalenderServlet")
+@WebServlet("/CalendarServlet")
 public class CalendarServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	private static final String DB_URL = "jdbc:mysql://localhost:3306/your_database";
+    private static final long serialVersionUID = 1L;
+
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/your_database";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "password";
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-	             Statement stmt = conn.createStatement()) {
-			String shiftQuery = "SELECT date, COUNT(shift_id) AS shift_count FROM shift GROUP BY date";
-            ResultSet shiftResult = stmt.executeQuery(shiftQuery);
-            int shiftCount = 0;
-            if (shiftResult.next()) {
-                shiftCount = shiftResult.getInt("shift_count");
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Map<String, Integer> shiftData = new LinkedHashMap<>();
+        Map<String, Integer> eventData = new LinkedHashMap<>();
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String shiftQuery = "SELECT date, COUNT(shift_id) AS shift_count FROM shift GROUP BY date";
+            try (Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(shiftQuery)) {
+                while (rs.next()) {
+                    shiftData.put(rs.getString("date"), rs.getInt("shift_count"));
+                }
             }
+
             String eventQuery = "SELECT event_date, COUNT(event_id) AS event_count FROM event GROUP BY event_date";
-            ResultSet eventResult = stmt.executeQuery(eventQuery);
-            int eventCount = 0;
-            if (eventResult.next()) {
-                eventCount = eventResult.getInt("event_count");
+            try (Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery(eventQuery)) {
+                while (rs.next()) {
+                    eventData.put(rs.getString("event_date"), rs.getInt("event_count"));
+                }
             }
-            request.setAttribute("shiftCount", shiftCount);
-            request.setAttribute("eventCount", eventCount);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_calendar.jsp");
-		dispatcher.forward(request, response);
-		}
 
-		protected void doPost(HttpServletRequest request, HttpServletResponse response)
-				throws ServletException, IOException {
-			request.setCharacterEncoding("UTF-8");
-			}
-	}
+        request.setAttribute("shiftData", shiftData);
+        request.setAttribute("eventData", eventData);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_calendar.jsp");
+        dispatcher.forward(request, response);
+    }
+}
