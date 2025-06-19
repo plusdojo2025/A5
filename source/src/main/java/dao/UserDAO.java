@@ -12,7 +12,7 @@ import dto.User;
 
 public class UserDAO {
 	// 引数card指定された項目で検索して、取得されたデータのリストを返す
-	public List<User> selectAll(User reg) {
+	public List<User> selectAll() {
 		Connection conn = null;
 		List<User> userList = new ArrayList<User>();
 

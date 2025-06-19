@@ -1,8 +1,8 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.List;
 
+import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,31 +12,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.UserDAO;
-
-
+import dto.LoginUser;
 
 /**
- * Servlet implementation class RegistServlet
+ * Servlet implementation class LoginServlet
  */
-@WebServlet("/UserRegistServlet")
-public class UserRegistServlet extends HttpServlet {
+@WebServlet("/LoginServlet")
+public class ChangePWServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	//画面表示：ユーザー登録画面へ
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// ログインしていなかったらログインサーブレットにリダイレクトする（ログイン画面に戻る）
-//		HttpSession session = request.getSession();
-//		if (session.getAttribute("id") == null) {
-//			response.sendRedirect(request.getContextPath() + "/LoginServlet");
-//			return;
-//		}
-
-		// 登録ページにフォワードする
+		// フォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_reg.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -47,36 +38,27 @@ public class UserRegistServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
-			response.sendRedirect("/webapp/LoginServlet");
-			return;
-		}
-
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-		String role = request.getParameter("employees");
-		String name = request.getParameter("name");
-		String password = request.getParameter("password");
-		
-		//リクエストパラメータのチェック
-		if(role.equals("0")) {role="店長";}
-		else if(role.equals("1")) {role="店員";}
+		String id = request.getParameter("login_name");
+		String password = request.getParameter("");
 
-		// 登録処理を行う
-				UserDAO bDao = new UserDAO(); 
-				User newUser =new User(role,name,password);
-				List<User> userList = bDao.select(newUser); //↓短縮バージョン
+		// ログイン処理を行う
+		UserDAO iDao = new UserDAO();
+		if (iDao.isLoginOK(new User(id, password))) { // ログイン成功
+			// セッションスコープにIDを格納する
+			HttpSession session = request.getSession();
+			session.setAttribute("id", new LoginUser(id));
 
-				//List<Bc> cardList = bDao.select(new Bc(0, company,department,position ,name,phone,email, zipcode,address));
+			// メニューサーブレットにリダイレクトする
+			response.sendRedirect("/webapp/MenuServlet");
+		} else { // ログイン失敗
+			// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
+			request.setAttribute("result", new Result("ログイン失敗！", "idまたはPasswordに間違いがあります。", "/webapp/LoginServlet"));
 
-				// 登録結果をリクエストスコープに格納する
-				request.setAttribute("userList", userList);
-
-				// 結果ページにフォワードする
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_edit.jsp");
-				dispatcher.forward(request, response);
-			}
+			// 結果ページにフォワードする
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
+			dispatcher.forward(request, response);
 		}
-
+	}
+}
