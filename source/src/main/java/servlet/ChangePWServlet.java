@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.UserDAO;
-import dto.LoginUser;
+import dto.User;
 
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/LoginServlet")
+@WebServlet("/ChangePWServlet")
 public class ChangePWServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -40,12 +40,12 @@ public class ChangePWServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-		String id = request.getParameter("login_name");
-		String password = request.getParameter("");
+		String password = request.getParameter("pw");
+		
 
 		// ログイン処理を行う
-		UserDAO iDao = new UserDAO();
-		if (iDao.isLoginOK(new User(id, password))) { // ログイン成功
+		UserDAO Dao = new UserDAO();
+		if (Dao.isLoginOK(new User(password))) { // ログイン成功
 			// セッションスコープにIDを格納する
 			HttpSession session = request.getSession();
 			session.setAttribute("id", new LoginUser(id));
