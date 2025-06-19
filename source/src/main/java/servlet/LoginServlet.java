@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.RequestDispatcher;
@@ -13,9 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.IdPwDAO;
-import dto.IdPw;
-import dto.LoginUser;
+import dao.UserDAO;
+import dto.User;
 
 /**
  * Servlet implementation class LoginServlet
@@ -44,13 +44,17 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-		String userid = request.getParameter("userid");
+		String userName = request.getParameter("username");
 		String pw = request.getParameter("pw");
 
 		// ログイン処理を行う
-		IdPwDAO iDao = new IdPwDAO();
-		String user = iDao.isLoginOK(new IdPw(userid, pw));
-		if (user != null) { // ログイン成功
+		UserDAO uDao = new UserDAO();
+		User user = new User();
+		user.setName(userName);
+		user.setPw(pw);
+		
+		List loginUser = uDao.login(user);
+		if (loginUser != null) { // ログイン成功
 			// セッションスコープに名前を格納する
 			HttpSession session = request.getSession();
 			LoginUser loginuser = new LoginUser(user);
@@ -61,13 +65,13 @@ public class LoginServlet extends HttpServlet {
 			SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			String formatDate = date.format(now);
 			session.setAttribute("date", formatDate);
-
+			
 			// メニューサーブレットにリダイレクトする
-			response.sendRedirect("/webapp/MenuServlet");
+			response.sendRedirect("/webapp/Servlet");
 		} else { // ログイン失敗
 			// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
 			request.setAttribute("result", new Result("ログイン失敗！", "IDまたはPWに間違いがあります。", "/webapp/LoginServlet"));
-
+			
 			// 結果ページにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
 			dispatcher.forward(request, response);
