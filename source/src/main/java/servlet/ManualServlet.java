@@ -27,14 +27,14 @@ public class ManualServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-    	System.out.println("ManualServlet doPost called");  // ここをテスト用として追加
+    	System.out.println("ManualServlet doPost called");  // ここをテスト用として追加,サーバー側のコンソールにデバッグ用として出力させる
         response.setContentType("text/plain; charset=UTF-8");
 
         try {
             // 複数ファイルを受け取る
             for (Part part : request.getParts()) {
                 if (part.getName().equals("file") && part.getSize() > 0) {
-                    // ファイル名取得（ブラウザ依存で複雑なこともあるので注意）
+                    // ファイル名取得
                     String submittedFileName = getFileName(part);
 
                     // 保存先のファイルを作成
