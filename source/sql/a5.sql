@@ -15,8 +15,8 @@ tenchou_flag int NOT NULL
 create table shift (
 shift_id int PRIMARY KEY AUTO_INCREMENT,
 shift_date date NOT NULL,
-shift_start datetime,
-shift_end datetime,
+shift_start VARCHAR(6),
+shift_end VARCHAR(6),
 user_id int,
 FOREIGN KEY (user_id) REFERENCES user(id)
 );
@@ -30,8 +30,8 @@ type_name VARCHAR(8) NOT NULL
 /* event作成 */
 create table event (
 event_date date NOT NULL,
-event_start datetime,
-event_end datetime,
+event_start VARCHAR(6),
+event_end VARCHAR(6),
 event_id int PRIMARY KEY AUTO_INCREMENT,
 type_id int,
 FOREIGN KEY (type_id) REFERENCES event_type(type_id)
