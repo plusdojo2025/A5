@@ -7,6 +7,7 @@ public class Event implements Serializable {
 	private Date eventDate; // イベントの日
 	private String eventStart; // イベントの開始時間
 	private String eventEnd; // イベントの終了時間
+	private int eventId; // イベントID
 	private int typeId; // イベントの内容
 	
 	public Date getEventDate() {
@@ -27,6 +28,12 @@ public class Event implements Serializable {
 	public void setEventEnd(String eventEnd) {
 		this.eventEnd = eventEnd;
 	}
+	public int getEventId() {
+		return eventId;
+	}
+	public void setEventId(int eventId) {
+		this.eventId = eventId;
+	}
 	public int getTypeId() {
 		return typeId;
 	}
@@ -34,10 +41,15 @@ public class Event implements Serializable {
 		this.typeId = typeId;
 	}
 	
-	public Event(String eventDate, String eventStart, String eventEnd, int typeId) {
+	public Event() {
+		
+	}
+	
+	public Event(String eventDate, String eventStart, String eventEnd, int eventId, int typeId) {
 		this.eventDate = Date.valueOf(eventDate); // String型「YYYY-MM-DD」をSQLのDATE型に入れられるように変換
 		this.eventStart = eventStart;
 		this.eventEnd = eventEnd;
+		this.eventId = eventId;
 		this.typeId = typeId;
 	}
 }

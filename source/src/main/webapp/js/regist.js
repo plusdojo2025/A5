@@ -21,9 +21,4 @@ document.getElementById('user_choice_form').onsubmit = function(event){
     
     };
     
-    const result = confirm("こちらの内容で登録してよろしいですか？");
-    if (!result) {
-        event.preventDefault(); 
-    }
     
-    };
