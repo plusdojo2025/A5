@@ -10,7 +10,7 @@
 	<header>
 	</header>
 	<main>
-		<form>
+		<form method="POST" action="/A5/LoginServlet">
 			<table>
 				<tr>
 					<td>
