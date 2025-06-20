@@ -1,8 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
-import javax.naming.spi.DirStateFactory.Result;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +28,7 @@ public class ChangePWServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// フォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_reg.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_pw_change.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -40,25 +40,25 @@ public class ChangePWServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-		String password = request.getParameter("pw");
+		String currentPassword = request.getParameter("currentPassword");
+		String newPassword = request.getParameter("newPassword");
+		String confirmPassword = request.getParameter("confirmPassword");
+		String message="";
+
 		
-
-		// ログイン処理を行う
-		UserDAO Dao = new UserDAO();
-		if (Dao.isLoginOK(new User(password))) { // ログイン成功
-			// セッションスコープにIDを格納する
-			HttpSession session = request.getSession();
-			session.setAttribute("id", new LoginUser(id));
-
-			// メニューサーブレットにリダイレクトする
-			response.sendRedirect("/webapp/MenuServlet");
-		} else { // ログイン失敗
-			// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
-			request.setAttribute("result", new Result("ログイン失敗！", "idまたはPasswordに間違いがあります。", "/webapp/LoginServlet"));
-
-			// 結果ページにフォワードする
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
-			dispatcher.forward(request, response);
+		UserDAO dao = new UserDAO();
+		User Password =new User();
+		Password.setPw(currentPassword);
+		Password.setPw(newPassword);
+		Password.setPw(confirmPassword);
+		
+		boolean result = dao.insert(Password); 
+		
+		if(currentPassword.equals(user.getPassword())) {
+			message="現在のパスワードが一致しません";
+		}else if(newPassword.equals(confirmPassword)) {
+			
 		}
-	}
+		
+		
 }

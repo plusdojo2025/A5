@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.jni.User;
+
 import dao.UserDAO;
 
 /**
@@ -27,11 +29,14 @@ public class UserManageServlet extends HttpServlet {
 	//画面表示：ユーザー登録画面へ
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException {
-			// ログインしていなかったらログインサーブレットにリダイレクトする（ログイン画面に戻る）
+			/*// ログインしていなかったらログインサーブレットにリダイレクトする（ログイン画面に戻る）
 			HttpSession session = request.getSession();
 			if (session.getAttribute("id") == null) {
 				response.sendRedirect("/webapp/LoginServlet");
-			}
+			}*/
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_edit.jsp");
+		dispatcher.forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -51,16 +56,20 @@ public class UserManageServlet extends HttpServlet {
 		// 更新または削除を行う
 		UserDAO dao = new UserDAO();
 		if (request.getParameter("submit").equals("更新")) {
-			if (dao.update(new User(id,name, password))) { // 更新成功
+			if (dao.update(new User(id,name,password))) { // 更新成功
 				request.setAttribute("result");
 			} else { // 更新失敗
-				request.setAttribute("result");
+				request.setAttribute("errMsg","更新できませんでした。");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_edit.jsp");
+				dispatcher.forward(request, response);
 			}
 		} else {
 			if (dao.delete(new User(id,name,password))) { // 削除成功
 				request.setAttribute("result");
 			} else { // 削除失敗
-				request.setAttribute("result");
+				request.setAttribute("errMsg","削除できませんでした。");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_edit.jsp");
+				dispatcher.forward(request, response);
 			}
 		}
 

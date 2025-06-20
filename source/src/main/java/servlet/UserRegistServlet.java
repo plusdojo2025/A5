@@ -30,12 +30,12 @@ public class UserRegistServlet extends HttpServlet {
 	//画面表示
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//ログインしていなかったらログインサーブレットにリダイレクトする（ログイン画面に戻る）
+	/*	//ログインしていなかったらログインサーブレットにリダイレクトする（ログイン画面に戻る）
 		HttpSession session = request.getSession();
 		if (session.getAttribute("id") == null) {
 			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
-		}
+		}*/
 
 		// 登録ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_reg.jsp");

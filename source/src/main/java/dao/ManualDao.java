@@ -46,10 +46,10 @@ public class ManualDao {
 			} else {
 				pStmt.setString(3, "%");
 			}
-			if (card.getFileId() != null) {
-				pStmt.setString(4, "%" + card.getFileId() + "%");
+			if (card.getFileId() >=0) {
+				pStmt.setInt(4,+ card.getFileId());
 			} else {
-				pStmt.setString(4, "%");
+//				pStmt.setInt(4, "%");←INTであるため？elseの中は要らないっぽい。整数が不確定要素ではないので？INTに"%"は要らない
 			}
 			
 			// SQL文を実行し、結果表を取得する
@@ -57,11 +57,11 @@ public class ManualDao {
 
 			// 結果表をコレクションにコピーする (ここも上で追加した分は対応する分を追加で作成する必要がある
 			while (rs.next()) {
-				Manual manual = new Manual(rs.getString("manual_file"),rs.getInt("importance"),rs.getDate("date_up"),rs.getString("file_id"));
+				Manual manual = new Manual(rs.getString("manual_file"),rs.getInt("importance"),rs.getDate("date_up"),rs.getInt("file_id"));
 				cardList.add(manual);
-			}
+			}}}
 //いったん保留↑
-		} catch (SQLException e) {
+		 catch (SQLException e) {
 			e.printStackTrace();
 			cardList = null;
 		} catch (ClassNotFoundException e) {
@@ -93,12 +93,12 @@ public class ManualDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp2?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
 			// SQL文を準備する (上で追加した分だけ？マークを追加）
-			String sql = "INSERT INTO Bc VALUES (?, ?, ?, ?)"; 
+			String sql = "INSERT INTO manual_file VALUES (?, ?, ?, NULL)"; 
 //										Stringは?で良さそうだが、他のデータ型の場合はどうなるんだろう…
 //										回答→入れたいものがあるときは絶対"?"で、オートインクリメントは"0"でよいらしい。
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -115,15 +115,11 @@ public class ManualDao {
 //				pStmt.setInt(2);←INTであるため？elseの中は要らないっぽい。整数が不確定要素ではないので？
 			}
 			if (card.getDate() != null) {
-				pStmt.setDate(3,card.getDate());
+				pStmt.setDate(3, java.sql.Date.valueOf(java.time.LocalDate.now()));
 			} else {
 				pStmt.setString(3, "%");
 			}
-			if (card.getFileId() != null) {
-				pStmt.setString(4, "%" + card.getFileId() + "%");
-			} else {
-				pStmt.setString(4, "%");
-			}
+			
 			
 
 
@@ -151,7 +147,7 @@ public class ManualDao {
 	}
 
 	// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
-	public boolean update(Bc card) {
+	public boolean update(Manual card) {
 		Connection conn = null;
 		boolean result = false;
 
@@ -160,77 +156,37 @@ public class ManualDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp2?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "UPDATE Bc SET zipcode=?, company=?, address=?, department=?, tel=?, position=?,"
-					+ "fax=?, email=?, MailDomain=?, PersonName=?, memo=? WHERE RegisterNumber=?";
+			String sql = "UPDATE Manual SET manual_file=?, importance=?, date_up=? WHERE file_id=?";
+//										↑主キーであるfile_idを除いた3つを更新、場所の指定は主キー。
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
-			// SQL文を完成させる
-			/*if (card.getNumber() != null) {
-				pStmt.setString(1, card.getNumber());
+			// SQL文を完成させる (ここでは4個のデータを受けるため4個分の文を書く必要性がある
+			if (card.getManualFile() != null) {
+				pStmt.setString(1, "%" + card.getManualFile() + "%");
 			} else {
-				pStmt.setString(1, "");
-			}*/
-			if (card.getZipcode() != null) {
-				pStmt.setString(1, card.getZipcode());
-			} else {
-				pStmt.setString(1, "");
+				pStmt.setString(1, "%");
 			}
-			if (card.getCompany() != null) {
-				pStmt.setString(2, card.getCompany());
+			if (card.getImportance() >=0 ) {
+				pStmt.setInt(2,card.getImportance());
 			} else {
-				pStmt.setString(2, "");
+//				pStmt.setInt(2);←INTであるため？elseの中は要らないっぽい。整数が不確定要素ではないので？
 			}
-			if (card.getAddress() != null) {
-				pStmt.setString(3, card.getAddress());
+			if (card.getDate() != null) {
+				pStmt.setDate(3,card.getDate());
 			} else {
-				pStmt.setString(3, "");
+				pStmt.setString(3, "%");
 			}
-			if (card.getDepartment() != null) {
-				pStmt.setString(4, card.getDepartment());
+			if (card.getFileId() >=0) {
+				pStmt.setInt(4,+ card.getFileId());
 			} else {
-				pStmt.setString(4, "");
+//				pStmt.setInt(4, "%");←INTであるため？elseの中は要らないっぽい。整数が不確定要素ではないので？INTに"%"は要らない
 			}
-			if (card.getTel() != null) {
-				pStmt.setString(5, card.getTel());
-			} else {
-				pStmt.setString(5, "");
-			}
-			if (card.getPosition() != null) {
-				pStmt.setString(6, card.getPosition());
-			} else {
-				pStmt.setString(6, "");
-			}
-			if (card.getFax() != null) {
-				pStmt.setString(7, card.getFax());
-			} else {
-				pStmt.setString(7, "");
-			}
-			if (card.getEmail() != null) {
-				pStmt.setString(8, card.getEmail());
-			} else {
-				pStmt.setString(8, "");
-			}
-			if (card.getMailDomain() != null) {
-				pStmt.setString(9, card.getMailDomain());
-			} else {
-				pStmt.setString(9, "");
-			}
-			if (card.getPersonName() != null) {
-				pStmt.setString(10, card.getPersonName());
-			} else {
-				pStmt.setString(10, "");
-			}
-			if (card.getMemo() != null) {
-				pStmt.setString(11, card.getMemo());
-			} else {
-				pStmt.setString(11, "");
-			}
-			pStmt.setInt(12, card.getNumber());
+			
 
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
@@ -256,7 +212,7 @@ public class ManualDao {
 	}
 
 	// 引数cardで指定された番号のレコードを削除し、成功したらtrueを返す
-	public boolean delete(Bc card) {
+	public boolean delete(Manual card) {
 		Connection conn = null;
 		boolean result = false;
 
@@ -265,16 +221,16 @@ public class ManualDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp2?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "DELETE FROM Bc WHERE RegisterNumber=?";
+			String sql = "DELETE FROM Bc WHERE file_id=?";	//主キーで場所を指定
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
-			pStmt.setInt(1, card.getNumber());
+			pStmt.setInt(1, card.getFileId());
 
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
