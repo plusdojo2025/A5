@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class CalShift {
 
-	//カレンダーに表示するイベントの日付と件数を格納する
+	//カレンダーに表示するシフトの日付と件数を格納する
 	private Date shiftData;
 	private int count;
 	
