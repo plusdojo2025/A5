@@ -1,8 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -45,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String userName = request.getParameter("user");
 		String pw = request.getParameter("pw");
-
+		
 		// ログイン処理を行う
 		UserDAO uDao = new UserDAO();
 		User user = new User();
@@ -60,12 +58,6 @@ public class LoginServlet extends HttpServlet {
 			int loginUserFlag = (loginUser.get(0)).getFlag();
 			session.setAttribute("user", loginUserName);
 			session.setAttribute("flag", loginUserFlag);
-			
-			// 日時を取得しセッションスコープに格納する
-			Date now = new Date();
-			SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			String formatDate = date.format(now);
-			session.setAttribute("date", formatDate);
 			
 			response.sendRedirect("/A5/EventServlet");
 		} else { // ログイン失敗
