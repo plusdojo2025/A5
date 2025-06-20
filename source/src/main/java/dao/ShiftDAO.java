@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.Shift;
+import dto.CalShift;
 import dto.UserShift;
 
 public class ShiftDAO {
@@ -22,7 +22,7 @@ public class ShiftDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp1?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			
@@ -78,7 +78,7 @@ public class ShiftDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp1?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			
@@ -138,8 +138,8 @@ public class ShiftDAO {
 		return shiftList;
 	}
 	
-	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
-	public boolean insert(Shift shift) {
+	// シフトを登録し、成功したらtrueを返す
+	public boolean insert(UserShift userShift) {
 		Connection conn = null;
 		boolean result = false;
 		
@@ -148,19 +148,19 @@ public class ShiftDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp1?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			
 			// SQL文を準備する
-			String sql = "INSERT INTO shift VALUES (0, ?, ?, ?, ?)";
+			String sql = "INSERT INTO shift VALUES (0, ?, ?, ?, (SELECT id FROM user WHERE user_name LIKE ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
-				pStmt.setDate(1, shift.getShiftDate());
-				pStmt.setString(2, shift.getShiftStart());
-				pStmt.setString(3, shift.getShiftEnd());
-				pStmt.setInt(4, shift.getUserId());
+				pStmt.setDate(1, userShift.getShiftDate());
+				pStmt.setString(2, userShift.getShiftStart());
+				pStmt.setString(3, userShift.getShiftEnd());
+				pStmt.setString(4, userShift.getUserName());
 			
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
@@ -189,8 +189,8 @@ public class ShiftDAO {
 		return result;
 	}
 	
-	// 引数cardで指定されたレコードを更新し、成功したらtrueを返す
-	public boolean update(Shift shift) {
+	// シフトを更新し、成功したらtrueを返す
+	public boolean update(UserShift userShift) {
 		Connection conn = null;
 		boolean result = false;
 		
@@ -199,37 +199,23 @@ public class ShiftDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp1?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			
 			// SQL文を準備する
 			String sql = "UPDATE shift SET "
-					+ "name = ?, "
-					+ "dep_id = (SELECT id FROM department WHERE dep = ?), "
-					+ "pos_id = (SELECT id FROM post WHERE pos = ?), "
-					+ "company = ?, "
-					+ "post_code = ?, "
-					+ "address = ?, "
-					+ "phone = ?, "
-					+ "fax = ?, "
-					+ "email = ?, "
-					+ "remarks = ? "
-					+ "WHERE no = ?";
+					+ "shift_date LIKE ?, "
+					+ "shift_start LIKE ?, "
+					+ "shift_end LIKE ?, "
+					+ "user_id = (SELECT id FROM user WHERE user_name LIKE ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
-				pStmt.setString(1, card.getName());
-				pStmt.setString(2, card.getDep());
-				pStmt.setString(3, card.getPos());
-				pStmt.setString(4, card.getCompany());
-				pStmt.setString(5, card.getPostCode());
-				pStmt.setString(6, card.getAddress());
-				pStmt.setString(7, card.getPhone());
-				pStmt.setString(8, card.getFax());
-				pStmt.setString(9, card.getEmail());
-				pStmt.setString(10, card.getRemarks());
-				pStmt.setInt(11, card.getNo());
+				pStmt.setDate(1, userShift.getShiftDate());
+				pStmt.setString(2, userShift.getShiftStart());
+				pStmt.setString(3, userShift.getShiftEnd());
+				pStmt.setString(4, userShift.getUserName());
 				
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
@@ -254,11 +240,8 @@ public class ShiftDAO {
 		return result;
 	}
 	
-	// 引数cardで指定された番号のレコードを削除し、成功したらtrueを返す
-	public boolean delete(Bc card) {
-		// cardからnumber
-		
-		// Bc trueCard = new Bc();
+	// 日付とユーザーネームでシフトを抽出し、削除する
+	public boolean delete(UserShift userShift) {
 		Connection conn = null;
 		boolean result = false;
 		
@@ -267,16 +250,17 @@ public class ShiftDAO {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp1?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			
 			// SQL文を準備する
-			String sql = "DELETE FROM business_card WHERE no=?";
+			String sql = "DELETE FROM shift WHERE shift_date LIKE ? AND user_id = (SELECT id FROM user WHERE user_name LIKE ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
-			pStmt.setInt(1, card.getNo());
+			pStmt.setDate(1, userShift.getShiftDate());
+			pStmt.setString(2, userShift.getUserName());
 			
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
@@ -303,9 +287,54 @@ public class ShiftDAO {
 		return result;
 	}
 	
-	public List<Contact> send(Contact message) {
-		List<Contact> contactList = new ArrayList<>();
-		contactList.add(message);
-		return contactList;
+	//イベントの日付と、その日付に付随するイベントの件数を取得するメソッド
+	public List<CalShift> getShift() {
+		Connection conn = null;
+		List<CalShift> calShiftList = new ArrayList<>();
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			// SQL文を準備する
+			String sql = "SELECT shift_date, COUNT(shift_id) AS shift_count FROM shift GROUP BY shift_date";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+			
+			// 結果表をコレクションにコピーする
+			while (rs.next()) {
+				CalShift shift = new CalShift();
+				shift.setShiftData(rs.getDate("shift_date"));
+				shift.setCount(rs.getInt("shift_count"));
+				calShiftList.add(shift);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			calShiftList = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			calShiftList = null;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					calShiftList = null;
+				}
+			}
+		}
+		
+		// 結果を返す
+		return calShiftList;
 	}
+
 }

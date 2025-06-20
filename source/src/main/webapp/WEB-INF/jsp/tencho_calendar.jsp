@@ -20,7 +20,7 @@
     .event-count { color: blue; }
   </style>
 </head>
-<body>
+<body id="top">
   <header>
 	<h1 id="logo">
       <a href="tencho_calendar.jsp"><img src="img/logo.png" width=300 height=auto alt="エンプロ良イ👍"></a>
@@ -45,65 +45,100 @@
 
   <div id="calendar"></div>
   
-    <!--シフト表-->
+  <!--シフト表-->
   <div id="shift">シフト</div><br>
 
   <!--イベント-->
   <div id="event">イベント</div>
 
-  
-
+  <!-- フッター -->
+<footer>
+        <div class="gotop">
+            <a href="#top"><img src="img/gotop.png" alt="ページトップへ戻る" width=70px height=auto></a>
+        </div>
+    </footer>
+    
   <!-- JavaScript へデータを埋め込む -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
   <script>
+	//変数shiftDateに日付と人数の情報をオブジェクト形式で入れる
     const shiftData = {
-      <% Map<String,Integer> m = (Map<String,Integer>)request.getAttribute("shiftData");
-         if (m != null) {
-           for (Map.Entry<String,Integer> e : m.entrySet()) {
-             out.print("\"" + e.getKey() + "\": " + e.getValue() + ",");
-           }
-         }
-      %>
+			//CalendarServletから渡されたデータ(Map形式)を受け取って変数mに入れる
+    <% Map<String, Integer> m = (Map<String, Integer>) request.getAttribute("shiftData");
+			//Mapの中身を1件ずつ取り出してJavaScriptの形式に出力している部分
+    		if (m != null) {
+    		    int count = 0;
+    		    for (Map.Entry<String, Integer> e : m.entrySet()) {
+    		    	//e.getKeyは日付、e.getValueはその日の人数、\" はダブルクォーテーションを文字として表示するためのエスケープ
+    		        out.print("\"" + e.getKey() + "\": " + e.getValue());
+    		        count++;
+    		        //JavaScriptの形式が崩れないように、最後の項目以外ならカンマを出力
+    		        if (count < m.size()) out.print(",");
+    		    }
+    		}
+    		%>
     };
 
     const eventData = {
       <% Map<String,Integer> m2 = (Map<String,Integer>)request.getAttribute("eventData");
          if (m2 != null) {
+        	int count = 0;
            for (Map.Entry<String,Integer> e : m2.entrySet()) {
-             out.print("\"" + e.getKey() + "\": " + e.getValue() + ",");
+             out.print("\"" + e.getKey() + "\": " + e.getValue());
+             count++;
+             if(count < m2.size())out.print(",");
            }
          }
       %>
     };
-  </script>
+/*   const shiftData = {
+    "2025-06-19": 3,
+    "2025-06-20": 2
+  };
 
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
-  <script>
+  const eventData = {
+    "2025-06-19": 1,
+    "2025-06-20": 0
+  };
+ */  
     document.addEventListener('DOMContentLoaded', () => {
       const calendarEl = document.getElementById('calendar');
       const calendar = new FullCalendar.Calendar(calendarEl, {
+    	  //月表示にする設定
         initialView: 'dayGridMonth',
+        //セルのカスタマイズ
         dayCellContent: function(info) {
+        	//セルの日付をyyyy-mm-ddの形にする
           const dateStr = info.date.toISOString().slice(0,10);
+        	//その日付のシフト数とイベント数を取得、データがなければ0
           const sc = shiftData[dateStr] || 0;
           const ec = eventData[dateStr] || 0;
 
+          //日付の数字を表示する<div>を作る
           const el = document.createElement('div');
           el.innerHTML = info.dayNumberText;
 
+        //シフト数を表示する<div>を作り、「S:〇」と表示
+        //<div class="shift-count"></div> と同義
           const scEl = document.createElement('div');
+        	//shift-countというcssクラス名をつけて、あとでcssで指定できるようにする
           scEl.className = 'shift-count';
           scEl.innerText = `S:${sc}`;
 
+        //イベント数を表示する<div>を作り、「E:〇」と表示
           const ecEl = document.createElement('div');
           ecEl.className = 'event-count';
           ecEl.innerText = `E:${ec}`;
 
+          //日付のセルにシフト数とイベント数の情報を追加
           el.appendChild(scEl);
           el.appendChild(ecEl);
 
+          //FullCalendarにカスタマイズを伝える
           return { domNodes: [el] };
         }
-      });
+      });      
+      //カレンダーを表示
       calendar.render();
       
 	   // ボタンがクリックされたらページ内の対応するIDにスクロールする

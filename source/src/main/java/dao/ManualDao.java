@@ -21,7 +21,7 @@ public class ManualDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp2?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
@@ -93,12 +93,12 @@ public class ManualDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp2?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
 			// SQL文を準備する (上で追加した分だけ？マークを追加）
-			String sql = "INSERT INTO Bc VALUES (?, ?, ?, ?)"; 
+			String sql = "INSERT INTO Manual VALUES (?, ?, ?, NULL)"; 
 //										Stringは?で良さそうだが、他のデータ型の場合はどうなるんだろう…
 //										回答→入れたいものがあるときは絶対"?"で、オートインクリメントは"0"でよいらしい。
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -115,15 +115,11 @@ public class ManualDao {
 //				pStmt.setInt(2);←INTであるため？elseの中は要らないっぽい。整数が不確定要素ではないので？
 			}
 			if (card.getDate() != null) {
-				pStmt.setDate(3,card.getDate());
+				pStmt.setDate(3, java.sql.Date.valueOf(java.time.LocalDate.now()));
 			} else {
 				pStmt.setString(3, "%");
 			}
-			if (card.getFileId() >=0) {
-				pStmt.setInt(4,+ card.getFileId());
-			} else {
-//				pStmt.setInt(4, "%");←INTであるため？elseの中は要らないっぽい。整数が不確定要素ではないので？INTに"%"は要らない
-			}
+			
 			
 
 
@@ -160,7 +156,7 @@ public class ManualDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp2?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
@@ -225,12 +221,12 @@ public class ManualDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp2?"
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "DELETE FROM Bc WHERE file_id=?";	//主キーで場所を指定
+			String sql = "DELETE FROM Manual WHERE file_id=?";	//主キーで場所を指定
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
