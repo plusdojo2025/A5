@@ -311,7 +311,7 @@ public class ShiftDAO {
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
 				CalShift shift = new CalShift();
-				shift.setShiftDate(rs.getDate("shift_date"));
+				shift.setShiftData(rs.getDate("shift_date"));
 				shift.setCount(rs.getInt("shift_count"));
 				calShiftList.add(shift);
 			}

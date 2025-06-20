@@ -117,7 +117,7 @@
 						<td><input type="text" name="date" value="<%= d.format(DateTimeFormatter.ofPattern("MM/dd (E)", locale)) %>" readonly="readonly"></td>
 					</tr>
 					<tr>
-						<td>start<input type="time" list="daliststart" step="600" id="<%= d.format(DateTimeFormatter.ofPattern("MM-dd", locale)) %>" name="start" min="9:00" max="18:00">
+						<td>start<input type="time" list="daliststart" step="600" id="d-<%= d.format(DateTimeFormatter.ofPattern("MM-dd", locale)) %>" name="start" min="9:00" max="18:00">
 						<datalist id="daliststart">
 							<option value="9:00"></option>
 							<option value="9:10"></option>
@@ -195,7 +195,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>end<input type="time" list="dalistend" step="600" id="<%= d.format(DateTimeFormatter.ofPattern("MM_dd", locale)) %>" name="end" min="9:00" max="18:00">
+						<td>end<input type="time" list="dalistend" step="600" id="d_<%= d.format(DateTimeFormatter.ofPattern("MM_dd", locale)) %>" name="end" min="9:00" max="18:00">
 						<datalist id="dalistend">
 							<option value="9:00"></option>
 							<option value="9:10"></option>
