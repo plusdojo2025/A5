@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -14,6 +15,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dao.EventDao;
+import dto.CalEvent;
 
 @WebServlet("/CalendarServlet")
 public class CalendarServlet extends HttpServlet {
@@ -47,14 +51,18 @@ public class CalendarServlet extends HttpServlet {
                     shiftData.put(rs.getString("shift_date"), rs.getInt("shift_count"));
                 }
             }
-            //イベント件数を日付ごとに取得
-            String eventQuery = "SELECT event_date, COUNT(event_id) AS event_count FROM event GROUP BY event_date";
-            try (Statement stmt = conn.createStatement();
-                 ResultSet rs = stmt.executeQuery(eventQuery)) {
-                while (rs.next()) {
-                    eventData.put(rs.getString("event_date"), rs.getInt("event_count"));
-                }
-            }
+//            //イベント件数を日付ごとに取得
+//            String eventQuery = "SELECT event_date, COUNT(event_id) AS event_count FROM event GROUP BY event_date";
+//            try (Statement stmt = conn.createStatement();
+//                 ResultSet rs = stmt.executeQuery(eventQuery)) {
+//                while (rs.next()) {
+//                    eventData.put(rs.getString("event_date"), rs.getInt("event_count"));
+//                }
+//            }
+            EventDao dao = new EventDao();
+            List<CalEvent> list = dao.getEvent();
+            //jspが見えるところにセット
+            request.setAttribute("calEvent", list);
 
         } catch (Exception e) {
             e.printStackTrace();
