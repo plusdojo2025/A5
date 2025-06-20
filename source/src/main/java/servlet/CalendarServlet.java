@@ -38,9 +38,12 @@ public class CalendarServlet extends HttpServlet {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
         	//シフト件数を日付ごとに取得
             String shiftQuery = "SELECT shift_date, COUNT(shift_id) AS shift_count FROM shift GROUP BY shift_date";
+            //データベースにクエリを送るためのStatementを作成し、shiftQueryを実行、結果はResultSetに返ってくる
             try (Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(shiftQuery)) {
+            	//ResultSetに次の行がある限りループ
                 while (rs.next()) {
+                	//Map<String, Integer> 型のshiftDataに保存
                     shiftData.put(rs.getString("shift_date"), rs.getInt("shift_count"));
                 }
             }
