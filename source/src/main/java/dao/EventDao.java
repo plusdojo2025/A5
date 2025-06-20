@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.Event;
+import dto.EventType;
 
 public class EventDao {
 	// 引数card指定された項目で検索して、取得されたデータのリストを返す
@@ -120,11 +121,8 @@ public class EventDao {
 			} else {
 				pStmt.setString(3, "");
 			}
-			if (card.getTypeId() != null) {
-				pStmt.setInt(4, "" + card.getTypeId() + "");
-			} else {
-				pStmt.setInt(4, "");
-			}
+				pStmt.setInt(4, card.getTypeId());
+			
 
 			
 			
