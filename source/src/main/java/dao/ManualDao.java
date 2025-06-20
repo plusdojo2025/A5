@@ -98,7 +98,7 @@ public class ManualDao {
 					"root", "password");
 
 			// SQL文を準備する (上で追加した分だけ？マークを追加）
-			String sql = "INSERT INTO manual_file VALUES (?, ?, ?, NULL)"; 
+			String sql = "INSERT INTO Manual VALUES (?, ?, ?, NULL)"; 
 //										Stringは?で良さそうだが、他のデータ型の場合はどうなるんだろう…
 //										回答→入れたいものがあるときは絶対"?"で、オートインクリメントは"0"でよいらしい。
 			PreparedStatement pStmt = conn.prepareStatement(sql);
@@ -226,7 +226,7 @@ public class ManualDao {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "DELETE FROM Bc WHERE file_id=?";	//主キーで場所を指定
+			String sql = "DELETE FROM Manual WHERE file_id=?";	//主キーで場所を指定
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
