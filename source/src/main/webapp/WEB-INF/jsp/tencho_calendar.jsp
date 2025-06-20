@@ -45,7 +45,7 @@
 
   <div id="calendar"></div>
   
-    <!--シフト表-->
+  <!--シフト表-->
   <div id="shift">シフト</div><br>
 
   <!--イベント-->
@@ -54,30 +54,35 @@
   
 
   <!-- JavaScript へデータを埋め込む -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
   <script>
     const shiftData = {
-      <% Map<String,Integer> m = (Map<String,Integer>)request.getAttribute("shiftData");
-         if (m != null) {
-           for (Map.Entry<String,Integer> e : m.entrySet()) {
-             out.print("\"" + e.getKey() + "\": " + e.getValue() + ",");
-           }
-         }
-      %>
+    		<%
+    		Map<String, Integer> m = (Map<String, Integer>) request.getAttribute("shiftData");
+    		if (m != null) {
+    		    int count = 0;
+    		    for (Map.Entry<String, Integer> e : m.entrySet()) {
+    		        out.print("\"" + e.getKey() + "\": " + e.getValue());
+    		        count++;
+    		        if (count < m.size()) out.print(",");
+    		    }
+    		}
+    		%>
     };
 
     const eventData = {
       <% Map<String,Integer> m2 = (Map<String,Integer>)request.getAttribute("eventData");
          if (m2 != null) {
+        	int count = 0;
            for (Map.Entry<String,Integer> e : m2.entrySet()) {
-             out.print("\"" + e.getKey() + "\": " + e.getValue() + ",");
+             out.print("\"" + e.getKey() + "\": " + e.getValue());
+             count++;
+             if(count < m2.size())out.print(",");
            }
          }
       %>
     };
-  </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
-  <script>
+ 
     document.addEventListener('DOMContentLoaded', () => {
       const calendarEl = document.getElementById('calendar');
       const calendar = new FullCalendar.Calendar(calendarEl, {
