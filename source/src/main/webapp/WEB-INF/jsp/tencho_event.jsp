@@ -8,7 +8,7 @@
 			java.util.*"
 %>
 <%
-	// 現在の年月
+	//現在の年月
 	LocalDate now = LocalDate.now();
 	YearMonth ym = YearMonth.of(now.getYear(), now.getMonth());
 	Locale locale = Locale.JAPAN;
@@ -260,7 +260,7 @@
 							<option value="18:00"></option>
 						</datalist></td>
 						<td><button type="button">▲</button><br><button type="button">▼</button></td>
-						<td><button type="button" onclick="getId(this)">削除</button></td>
+						<td><button type="button">削除</button></td>
 					</tr>
 					<% d = d.plusDays(1); } %>
 				</table>
