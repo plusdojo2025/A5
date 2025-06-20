@@ -1,0 +1,33 @@
+@charset "UTF-8";
+body {
+  margin: 0 0 0 0;	/* マージンなし（後で個別に設定） */
+  padding: 0 0 0 0;	/* パディングなし（後で個別に設定） */
+  width: 100%;
+  justify-content:center;
+  color: #000000;
+  font-size: 16px;
+  background-color: #e2e2e2;
+}
+ header {
+      padding: 20px;
+      text-align: center;
+    }
+#nav  {
+  display: flex;		/* インラインで横に表示する */
+  justify-content: center;
+  list-style-type: none;	/* 先頭の記号をなくす */
+  gap: 40px;		/* 区切りを空ける */
+}
+/*
+#others{
+    display: none;
+}
+    */
+#my-calendar{
+     max-width: 700px;
+     width: 100%;
+     margin: auto;
+    background-color:#fff;
+
+}
+

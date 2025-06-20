@@ -20,7 +20,7 @@
     .event-count { color: blue; }
   </style>
 </head>
-<body>
+<body id="top">
   <header>
 	<h1 id="logo">
       <a href="tencho_calendar.jsp"><img src="img/logo.png" width=300 height=auto alt="エンプロ良イ👍"></a>
@@ -51,8 +51,13 @@
   <!--イベント-->
   <div id="event">イベント</div>
 
-  
-
+  <!-- フッター -->
+<footer>
+        <div class="gotop">
+            <a href="#top"><img src="img/gotop.png" alt="ページトップへ戻る"></a>
+        </div>
+    </footer>
+    
   <!-- JavaScript へデータを埋め込む -->
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
   <script>
