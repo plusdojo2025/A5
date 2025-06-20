@@ -23,17 +23,23 @@ public class CalendarServlet extends HttpServlet {
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "password";
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         Map<String, Integer> shiftData = new LinkedHashMap<>();
         Map<String, Integer> eventData = new LinkedHashMap<>();
 
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String shiftQuery = "SELECT date, COUNT(shift_id) AS shift_count FROM shift GROUP BY date";
+            String shiftQuery = "SELECT shift_date, COUNT(shift_id) AS shift_count FROM shift GROUP BY shift_date";
             try (Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(shiftQuery)) {
                 while (rs.next()) {
-                    shiftData.put(rs.getString("date"), rs.getInt("shift_count"));
+                    shiftData.put(rs.getString("shift_date"), rs.getInt("shift_count"));
                 }
             }
 
@@ -48,7 +54,7 @@ public class CalendarServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        
         request.setAttribute("shiftData", shiftData);
         request.setAttribute("eventData", eventData);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_calendar.jsp");

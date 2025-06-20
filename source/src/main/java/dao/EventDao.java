@@ -12,7 +12,7 @@ import dto.Event;
 
 public class EventDao {
 	// 引数card指定された項目で検索して、取得されたデータのリストを返す
-		public List<Event> select(Event card) {
+		public List<Event> select(EventType card) {
 			Connection conn = null;
 			List<Event> cardList = new ArrayList<Event>();
 
@@ -26,7 +26,8 @@ public class EventDao {
 						"root", "password");
 
 				// SQL文を準備する
-				String sql = "SELECT event_date, event_start, event_end, event_id, type_id FROM event WHERE event_date LIKE ? AND event_start LIKE ? AND event_end LIKE ? AND type_id = ? ORDER BY event_id";
+				String sql = "SELECT event_date, event_start, event_end, event_id, type_name FROM event JOIN event_type ON event.type_id = event_type.type_id"
+						+ " WHERE event_date LIKE ? AND event_start LIKE ? AND event_end LIKE ? AND type_name = ? ORDER BY event_id";
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 
 				// SQL文を完成させる
@@ -45,7 +46,7 @@ public class EventDao {
 				} else {
 					pStmt.setString(3, "%");
 				}
-					pStmt.setInt(4,card.getTypeId());
+					pStmt.setString(4, card.getEventType());
 				
 				
 
@@ -119,7 +120,11 @@ public class EventDao {
 			} else {
 				pStmt.setString(3, "");
 			}
-			pStmt.setInt(4, card.getTypeId());
+			if (card.getTypeId() != null) {
+				pStmt.setInt(4, "" + card.getTypeId() + "");
+			} else {
+				pStmt.setInt(4, "");
+			}
 
 			
 			
