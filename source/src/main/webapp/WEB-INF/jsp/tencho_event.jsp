@@ -17,10 +17,34 @@
 	List<Map<String, String>> weekList = new ArrayList<>();
 	
 	// 月初から1週間ずつ処理
-	LocalDate firstDay = ym.atDay(1).with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY));
-	LocalDate date = firstDay.with(DayOfWeek.MONDAY);
+	LocalDate firstDay = ym.atDay(1);
 	int weekCount = 1;
 	
+	// 1日～日曜日を処理
+	DayOfWeek firstDayWeek = firstDay.getDayOfWeek();
+	LocalDate firstWeekStart = firstDay;
+	LocalDate firstWeekEnd;
+	
+	// 1日が月曜なら、その週は1日～7日まで
+	if (firstDayWeek == DayOfWeek.MONDAY) {
+		firstWeekEnd = firstWeekStart.plusDays(6);
+	} else {
+		firstWeekEnd = firstDay.with(TemporalAdjusters.next(DayOfWeek.MONDAY)).minusDays(1);
+	}
+	
+	if (firstWeekEnd.getMonth() != ym.getMonth()) {
+		firstWeekEnd = ym.atEndOfMonth();
+	}
+	
+	Map<String, String> firstWeek = new HashMap<>();
+	firstWeek.put("label", ym.getMonthValue() + "月第" + weekCount + "週");
+	firstWeek.put("start", firstWeekStart.toString());
+	firstWeek.put("end", firstWeekEnd.toString());
+	weekList.add(firstWeek);
+	
+	weekCount++;
+	
+	LocalDate date = firstWeekEnd.plusDays(1);
 	while (date.getMonth() == ym.getMonth()) {
 		LocalDate weekStart = date;
 		LocalDate weekEnd = date.plusDays(6);
