@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			String loginUserName = (loginUser.get(0)).getName();
 			int loginUserFlag = (loginUser.get(0)).getFlag();
-			session.setAttribute("user", loginUserName);
+			session.setAttribute("name", loginUserName);
 			session.setAttribute("flag", loginUserFlag);
 			
 			response.sendRedirect("/A5/EventServlet");

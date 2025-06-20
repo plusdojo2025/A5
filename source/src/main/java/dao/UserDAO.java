@@ -81,7 +81,7 @@ public class UserDAO {
 					"root", "password");
 			
 			// ユーザーネームとパスワードを参照し正しければユーザーネームと店長フラグを持ってくる
-			String sql = "SELECT user_name, tenchou_flag FROM user WHERE user_name LIKE ? AND password LIKE ?";
+			String sql = "SELECT id, user_name, tenchou_flag FROM user WHERE user_name LIKE ? AND password LIKE ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, user.getName());
 			pStmt.setString(2, user.getPw());
@@ -92,6 +92,7 @@ public class UserDAO {
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
 				User logUser = new User();
+				logUser.setId(rs.getInt("id"));
 				logUser.setName(rs.getString("user_name"));
 				logUser.setFlag(rs.getInt("tenchou_flag"));
 				loginUser.add(logUser);

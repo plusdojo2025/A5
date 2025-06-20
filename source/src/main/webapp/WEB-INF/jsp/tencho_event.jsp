@@ -8,7 +8,7 @@
 			java.util.*"
 %>
 <%
-	// 現在の年月
+	//現在の年月
 	LocalDate now = LocalDate.now();
 	YearMonth ym = YearMonth.of(now.getYear(), now.getMonth());
 	Locale locale = Locale.JAPAN;
@@ -17,10 +17,34 @@
 	List<Map<String, String>> weekList = new ArrayList<>();
 	
 	// 月初から1週間ずつ処理
-	LocalDate firstDay = ym.atDay(1).with(TemporalAdjusters.firstInMonth(DayOfWeek.MONDAY));
-	LocalDate date = firstDay.with(DayOfWeek.MONDAY);
+	LocalDate firstDay = ym.atDay(1);
 	int weekCount = 1;
 	
+	// 1日～日曜日を処理
+	DayOfWeek firstDayWeek = firstDay.getDayOfWeek();
+	LocalDate firstWeekStart = firstDay;
+	LocalDate firstWeekEnd;
+	
+	// 1日が月曜なら、その週は1日～7日まで
+	if (firstDayWeek == DayOfWeek.MONDAY) {
+		firstWeekEnd = firstWeekStart.plusDays(6);
+	} else {
+		firstWeekEnd = firstDay.with(TemporalAdjusters.next(DayOfWeek.MONDAY)).minusDays(1);
+	}
+	
+	if (firstWeekEnd.getMonth() != ym.getMonth()) {
+		firstWeekEnd = ym.atEndOfMonth();
+	}
+	
+	Map<String, String> firstWeek = new HashMap<>();
+	firstWeek.put("label", ym.getMonthValue() + "月第" + weekCount + "週");
+	firstWeek.put("start", firstWeekStart.toString());
+	firstWeek.put("end", firstWeekEnd.toString());
+	weekList.add(firstWeek);
+	
+	weekCount++;
+	
+	LocalDate date = firstWeekEnd.plusDays(1);
 	while (date.getMonth() == ym.getMonth()) {
 		LocalDate weekStart = date;
 		LocalDate weekEnd = date.plusDays(6);
@@ -93,7 +117,7 @@
 						<td><input type="text" name="date" value="<%= d.format(DateTimeFormatter.ofPattern("MM/dd (E)", locale)) %>" readonly="readonly"></td>
 					</tr>
 					<tr>
-						<td>start<input type="time" list="daliststart" step="600" id="<%= d.format(DateTimeFormatter.ofPattern("MM-dd", locale)) %>" name="start" min="9:00" max="18:00">
+						<td>start<input type="time" list="daliststart" step="600" id="d-<%= d.format(DateTimeFormatter.ofPattern("MM-dd", locale)) %>" name="start" min="9:00" max="18:00">
 						<datalist id="daliststart">
 							<option value="9:00"></option>
 							<option value="9:10"></option>
@@ -171,7 +195,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>end<input type="time" list="dalistend" step="600" id="<%= d.format(DateTimeFormatter.ofPattern("MM_dd", locale)) %>" name="end" min="9:00" max="18:00">
+						<td>end<input type="time" list="dalistend" step="600" id="d_<%= d.format(DateTimeFormatter.ofPattern("MM_dd", locale)) %>" name="end" min="9:00" max="18:00">
 						<datalist id="dalistend">
 							<option value="9:00"></option>
 							<option value="9:10"></option>
@@ -236,7 +260,7 @@
 							<option value="18:00"></option>
 						</datalist></td>
 						<td><button type="button">▲</button><br><button type="button">▼</button></td>
-						<td><button type="button" onclick="getId(this)">削除</button></td>
+						<td><button type="button">削除</button></td>
 					</tr>
 					<% d = d.plusDays(1); } %>
 				</table>
