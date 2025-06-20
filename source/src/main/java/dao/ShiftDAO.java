@@ -239,11 +239,8 @@ public class ShiftDAO {
 		return result;
 	}
 	
-	// 引数cardで指定された番号のレコードを削除し、成功したらtrueを返す
+	// 日付とユーザーネームでシフトを抽出し、削除する
 	public boolean delete(UserShift userShift) {
-		// cardからnumber
-		
-		// Bc trueCard = new Bc();
 		Connection conn = null;
 		boolean result = false;
 		
@@ -257,11 +254,12 @@ public class ShiftDAO {
 					"root", "password");
 			
 			// SQL文を準備する
-			String sql = "DELETE FROM business_card WHERE shift_date LIKE ?, shift_start LIKE ?";
+			String sql = "DELETE FROM shift WHERE shift_date LIKE ? AND user_id = (SELECT id FROM user WHERE user_name LIKE ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
-			pStmt.setInt(1, card.getNo());
+			pStmt.setDate(1, userShift.getShiftDate());
+			pStmt.setString(2, userShift.getUserName());
 			
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
@@ -288,9 +286,4 @@ public class ShiftDAO {
 		return result;
 	}
 	
-	public List<Contact> send(Contact message) {
-		List<Contact> contactList = new ArrayList<>();
-		contactList.add(message);
-		return contactList;
-	}
 }
