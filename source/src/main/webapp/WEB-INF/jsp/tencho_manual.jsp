@@ -125,7 +125,7 @@
 
       <h3>重要度を設定：
 	<form>
-  	<p>色を選んでください：</p>
+  	<p>重要度を色で選んでください：</p>
   	<div class="color-option">
     <label>
       <input type="radio" name="color" value="red">

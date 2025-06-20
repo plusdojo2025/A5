@@ -31,7 +31,9 @@ public class ManualServlet extends HttpServlet {
     	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
         dispatcher.forward(request, response);
 
-    }//画面に遷移する↑
+    }//店長用画面に遷移する↑。IfでFlagが0なら店員用に飛ばす必要がある、どうやってやるんだ
+    
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
