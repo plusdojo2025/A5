@@ -1,0 +1,41 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<% response.sendRedirect("CalendarServlet"); %>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>エンプロ良イ👍｜ログイン</title>
+</head>
+<body>
+	<header>
+	</header>
+	<main>
+		<form>
+			<table>
+				<tr>
+					<td>
+						<label>
+							<input type="text" name="user" placeholder="ユーザー名">
+						</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>
+							<input type="password" name="pw" placeholder="パスワード">
+						</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type="submit" name="login" value="ログイン">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</main>
+	<footer>
+	</footer>
+</body>
+</html>
