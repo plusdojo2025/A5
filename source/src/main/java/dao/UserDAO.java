@@ -239,7 +239,7 @@ public class UserDAO {
 			// SQL文を完成させる
 			pStmt.setString(1, reg.getName());
 			pStmt.setString(2, reg.getPw());
-			pStmt.setInt(3, reg.getId());
+			
 			
 			
 
