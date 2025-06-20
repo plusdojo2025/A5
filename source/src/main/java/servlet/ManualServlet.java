@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -25,47 +26,43 @@ public class ManualServlet extends HttpServlet {
     private static final String UPLOAD_DIR = "A5/src/main/TestYouAgeAge";
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
+        dispatcher.forward(request, response);
+
+    }//画面に遷移する↑
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-    	System.out.println("ManualServlet doPost called");  // ここをテスト用として追加,サーバー側のコンソールにデバッグ用として出力させる
+        System.out.println("ManualServlet doPost called");
         response.setContentType("text/plain; charset=UTF-8");
-
+        // 保存先は Tomcat内の /uploads にするやで
+        String uploadPath = getServletContext().getRealPath("/uploads");
+        File uploads = new File(uploadPath);
+        if (!uploads.exists()) uploads.mkdirs();
         try {
-            // 複数ファイルを受け取る
             for (Part part : request.getParts()) {
-                if (part.getName().equals("file") && part.getSize() > 0) {
-                    // ファイル名取得
-                    String submittedFileName = getFileName(part);
-
-                    // 保存先のファイルを作成
-                    File uploads = new File(UPLOAD_DIR);
-                    if (!uploads.exists()) uploads.mkdirs();
-
-                    File file = new File(uploads, submittedFileName);
-
-                    // ファイルの書き込み
+                if ("file".equals(part.getName()) && part.getSize() > 0) {
+                    String fileName = getFileName(part);
+                    File file = new File(uploads, fileName);
                     try (InputStream input = part.getInputStream()) {
                         Files.copy(input, file.toPath());
                     }
                 }
             }
-
             response.getWriter().write("ファイルアップロード成功");
         } catch (Exception e) {
             e.printStackTrace();
             response.getWriter().write("ファイルアップロード失敗: " + e.getMessage());
         }
     }
-
-    // ファイル名をパースするヘルパー（headerの内容から）
     private String getFileName(Part part) {
-        String contentDisposition = part.getHeader("content-disposition");
-        if (contentDisposition == null) return "unknown";
-
-        for (String cdPart : contentDisposition.split(";")) {
-            if (cdPart.trim().startsWith("filename")) {
-                String fileName = cdPart.substring(cdPart.indexOf('=') + 1).trim().replace("\"", "");
-                // IEの場合パスが含まれることがあるので最後の部分だけ取り出す
+        String cd = part.getHeader("content-disposition");
+        if (cd == null) return "unknown";
+        for (String content : cd.split(";")) {
+            if (content.trim().startsWith("filename")) {
+                String fileName = content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
                 return fileName.substring(fileName.lastIndexOf(File.separator) + 1);
             }
         }
