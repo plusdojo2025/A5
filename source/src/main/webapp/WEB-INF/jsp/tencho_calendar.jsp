@@ -54,7 +54,7 @@
   <!-- フッター -->
 <footer>
         <div class="gotop">
-            <a href="#top"><img src="img/gotop.png" alt="ページトップへ戻る"></a>
+            <a href="#top"><img src="img/gotop.png" alt="ページトップへ戻る" width=70px height=auto></a>
         </div>
     </footer>
     
