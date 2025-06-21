@@ -43,6 +43,8 @@ public class UserDAO {
 				user.setPw(rs.getString("password"));
 				user.setName(rs.getString("user_name"));
 				user.setFlag(rs.getInt("tencho_flag"));
+				
+				 userList.add(user); //一覧表示
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -240,7 +242,7 @@ public class UserDAO {
 			// SQL文を完成させる
 			pStmt.setString(1, reg.getName());
 			pStmt.setString(2, reg.getPw());
-			pStmt.setInt(3, reg.getId());
+			
 			
 			
 

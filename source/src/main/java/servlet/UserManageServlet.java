@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,9 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.jni.User;
+/*import org.apache.tomcat.jni.User;*/
 
 import dao.UserDAO;
+import dto.User;
 
 /**
  * Servlet implementation class UpdateDeleteServlet
@@ -27,54 +27,42 @@ public class UserManageServlet extends HttpServlet {
 	 */
 	
 	//画面表示：ユーザー登録画面へ
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-				throws ServletException, IOException {
-			/*// ログインしていなかったらログインサーブレットにリダイレクトする（ログイン画面に戻る）
-			HttpSession session = request.getSession();
-			if (session.getAttribute("id") == null) {
-				response.sendRedirect("/webapp/LoginServlet");
-			}*/
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_edit.jsp");
-		dispatcher.forward(request, response);
-	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
-			response.sendRedirect("/webapp/LoginServlet");
-			return;
-		}
+				throws ServletException, IOException {
+		
+		
+				
+				response.setCharacterEncoding("UTF-8");
+				HttpSession session =request.getSession();
 
-		// リクエストパラメータを取得する
-				request.setCharacterEncoding("UTF-8");
-				String id   =request.getParameter("id");
+				if (session.getAttribute("id") == null) {
+					request.setAttribute("message", "ログインしてください。");
+					request.getRequestDispatcher("login.jsp").forward(request, response);
+					return;
+				}
+				
+
+				String id = request.getParameter("id");
 				String name = request.getParameter("name");
-				String password = request.getParameter("password");
+				String pw = request.getParameter("pw");
+				String flag = request.getParameter("flag");
+				String action = request.getParameter("action"); // "更新" or "削除"
 
-		// 更新または削除を行う
-		UserDAO dao = new UserDAO();
-		if (request.getParameter("submit").equals("更新")) {
-			if (dao.update(new User(id,name,password))) { // 更新成功
-				request.setAttribute("result");
-			} else { // 更新失敗
-				request.setAttribute("errMsg","更新できませんでした。");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_edit.jsp");
-				dispatcher.forward(request, response);
-			}
-		} else {
-			if (dao.delete(new User(id,name,password))) { // 削除成功
-				request.setAttribute("result");
-			} else { // 削除失敗
-				request.setAttribute("errMsg","削除できませんでした。");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_edit.jsp");
-				dispatcher.forward(request, response);
+				UserDAO dao = new UserDAO();
+				boolean result = false;
+
+				if ("更新".equals(action)) {
+					result = dao.update(new User(Integer.parseInt(id), pw, name, Integer.parseInt(flag)));
+				} else if ("削除".equals(action)) {
+					result = dao.delete(new User(Integer.parseInt(id), pw, name, Integer.parseInt(flag)));
+				}
+				if (result) {
+					request.setAttribute("message", action + "しました。");
+				} else {
+					request.setAttribute("message", action + "に失敗しました。");
+				}
+
+				// JSPにフォワード（画面遷移）
+				request.getRequestDispatcher("user_manage.jsp").forward(request, response);
 			}
 		}
-
-		// 結果ページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_edit.jsp");
-		dispatcher.forward(request, response);
-	}
-}

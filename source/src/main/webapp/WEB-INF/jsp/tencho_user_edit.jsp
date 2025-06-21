@@ -12,6 +12,32 @@
 
 <body>
 
+<header>
+  <h1 id="logo">
+    <a href="tencho_calendar.jsp">
+      <img src="img/logo.png" width="300" height="auto" alt="エンプロ良イ👍">
+    </a>
+  </h1>
+  <ul id="nav">
+    <li><a href="/A5/CalenderServlet/">カレンダー</a></li>
+    <li><a href="/A5/ShiftServlet/">シフト</a></li>
+    <li><a href="/A5/EventServlet/">イベント</a></li>
+    <li><a href="/A5/ManualServlet/">マニュアル</a></li>
+    <li>
+      <details>
+        <summary class="details-summary">その他</summary>
+        <ul>
+          <li><a href="/A5/UserManageServlet/">ユーザー管理</a></li>
+          <li><a href="/A5/LogoutServlet/">ログアウト</a></li>
+        </ul>
+      </details>
+    </li>
+  </ul>
+</header>
+ 
+ 	<br><br><br><br><br>
+  
+
 <!-- タイトル -->
        <div class="top">
           <h2>エンプロ良イ👍</h2>
@@ -22,7 +48,7 @@
       
       <div class="rogin_back">
 
-        <h2>ログイン画面に戻る</h2>
+        <h2><a href="/webapp/LoginServlet">ログイン画面に戻る</a></h2>
 
        </div>
 
@@ -32,11 +58,11 @@
 
         <br>
     
-        
+        <form id="user_edit_form" method="POST" action="<c:url value='/UserManageServlet' />">>
             <!-- 表 -->
              <div class="table_up_del">
 
-                    <table>
+                    <table border="1">
                         <tbody>
                             <tr>
                                 <th>ID</th>
@@ -46,7 +72,7 @@
                             </tr>
 
                             <tr>
-                                <td>001</td>
+                                <td></td>
                                 <!--  <td input type="text" name="name" value=${dd}></td>-->
                                 <td></td>
                                 
@@ -54,7 +80,7 @@
                             </tr>
 
                             <tr>
-                                <td>002</td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td class="no-bottom-border"><input class ="update_button"type="submit" value="変更"><input class="delete_button"type="submit" value="削除"></td>
@@ -62,7 +88,7 @@
                             </tr>
 
                             <tr>
-                                <td>003</td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 
@@ -123,13 +149,13 @@
                             </tr>
 
                             <tr>
-                                <td></td>
+                                <td>${user.id}</td>
                                 <td></td>
                                 <td></td>
                             </tr>
 
                             <tr>
-                                <td></td>
+                                <td>${user.id}</td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -141,6 +167,46 @@
                     </table>
 
                 </div>
+       </form>
+       
+       				<br>
+			            <br>
+			            <br>
+			            <br>
+			            <br>
+			            <br>
+			            <br>
+			            <br>
+			            <br>
+			            <br>
+			            <br>
+			            <br>
+			            <br>
+			            <br>
+			            <br>
+			            <br>
+			            <br>
+			            <br>
+			            <br>
+			            <br>
+			           
+
+
+
+   	<!-- フッター -->
+    <footer>
+    
+     	<div class="gotop">
+			 <a href="#top"><img src="img/gotop.png" alt="ページトップへ戻る" width=70px height=auto></a>
+		</div>
+		
+		<br>
+        <p>&copy; エンプロ良イ👍</p>
+        
+
+    </footer>
+			
+			
 
 </body>
 </html>

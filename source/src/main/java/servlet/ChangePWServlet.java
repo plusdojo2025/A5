@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,25 +39,39 @@ public class ChangePWServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		User sessionUser = (User)session.getAttribute("user");
+		int id = sessionUser.getId();
 		String currentPassword = request.getParameter("currentPassword");
 		String newPassword = request.getParameter("newPassword");
-		String confirmPassword = request.getParameter("confirmPassword");
-		String message="";
-
+		
 		
 		UserDAO dao = new UserDAO();
-		User Password =new User();
-		Password.setPw(currentPassword);
-		Password.setPw(newPassword);
-		Password.setPw(confirmPassword);
+		User user =new User();
+		user.setPw(currentPassword);
+		user.setPw(newPassword);
+		user.setId(id);
 		
-		boolean result = dao.insert(Password); 
+		boolean ans = dao.pwupdate(user);
 		
-		if(currentPassword.equals(user.getPassword())) {
-			message="現在のパスワードが一致しません";
-		}else if(newPassword.equals(confirmPassword)) {
-			
+		if(ans != true) {
+			//変更できたときの処理
+			response.sendRedirect("/webapp/LoginServlet");
+		}else {
+			//変更できなかったときの処理
+			request.setAttribute("error", "パスワード変更に失敗しました。");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_pw_change.jsp");
+			dispatcher.forward(request, response);
 		}
+
 		
 		
+		
+		
+		
+	
+	
 }
+	
+}
+

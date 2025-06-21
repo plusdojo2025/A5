@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import dao.ManualDao;
+import dto.Manual;
+
 @WebServlet("/ManualServlet")
 @MultipartConfig(
     fileSizeThreshold = 1024 * 1024, // 1MBまではメモリに保持
@@ -23,7 +26,7 @@ import javax.servlet.http.Part;
 public class ManualServlet extends HttpServlet {
 
     // ファイル保存ディレクトリ（サーバーのフォルダをパスで指定する
-    private static final String UPLOAD_DIR = "A5/src/main/TestYouAgeAge";
+//    private static final String UPLOAD_DIR = "A5/src/main/TestYouAgeAge";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -53,12 +56,29 @@ public class ManualServlet extends HttpServlet {
                     }
                 }
             }
-            response.getWriter().write("ファイルアップロード成功");
-        } catch (Exception e) {
-            e.printStackTrace();
-            response.getWriter().write("ファイルアップロード失敗: " + e.getMessage());
-        }
-    }
+        
+//            リクエストパラメータの取得？必要かな？
+            request.setCharacterEncoding("UTF-8");
+            String manual_file = request.getParameter("manual_file");
+            int importance = Integer.parseInt(request.getParameter("importance"));
+            String date_up = request.getParameter("date_up");
+//            送る側なので要らないかも→int file_id = Integer.parseInt(request.getParameter("file_id"));
+//            
+//            登録の処理を行いたい、名刺管理をベースにやってみるなう
+            ManualDao MDao = new ManualDao();
+
+                if (MDao.insert(new Manual(manual_file, importance, date_up, 0))) {    
+                    response.getWriter().write("ファイルアップロード成功");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                response.getWriter().write("ファイルアップロード失敗: " + e.getMessage());}
+}
+
+        
+            
+    
+  
     private String getFileName(Part part) {
         String cd = part.getHeader("content-disposition");
         if (cd == null) return "unknown";
