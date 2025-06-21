@@ -56,8 +56,12 @@ public class ChangePWServlet extends HttpServlet {
 		
 		if(ans != true) {
 			//変更できたときの処理
+			response.sendRedirect("/webapp/LoginServlet");
 		}else {
 			//変更できなかったときの処理
+			request.setAttribute("error", "パスワード変更に失敗しました。");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_pw_change.jsp");
+			dispatcher.forward(request, response);
 		}
 
 		

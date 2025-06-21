@@ -43,6 +43,8 @@ public class UserDAO {
 				user.setPw(rs.getString("password"));
 				user.setName(rs.getString("user_name"));
 				user.setFlag(rs.getInt("tencho_flag"));
+				
+				 userList.add(user); //一覧表示
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

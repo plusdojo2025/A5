@@ -19,22 +19,22 @@
          <br><br><br>
       
 
-<form id="user_pw_form" method="post" action="/webapp/updateServlet">
+<form id="user_pw_form" method="post" action=""<c:url value='/ChangePWServlet'/>">
        <!-- 選択画面部分 -->
 
        <div class="user_pw">
                 	<br><br>
 
                   <input type="text" placeholder="現在のパスワード">
-               
+               		value="${user.currentPassword != null ? user.currentPassword : ''}" required>
                 	<br><br>
               
                   <input type="text" placeholder="変更後のパスワード">
-              
+              		value="${user.newPassword != null ? user.newPassword : ''}" required>
                 	<br><br>
 
                   <input type="text" placeholder="変更後のパスワード（2回目）">
-               
+               		value="${user.newPassword != null ? user.newPassword : ''}" required>
               		<br><br>
 
                 <div class="update_button">
@@ -44,6 +44,10 @@
 	        
 	
 </form>
+			<!-- エラーメッセージ表示 -->
+			<c:if test="${not empty error}">
+    		<p style="color:red; font-weight:bold;">${error}</p>
+</c:if>
 
 </body>
 </html>
