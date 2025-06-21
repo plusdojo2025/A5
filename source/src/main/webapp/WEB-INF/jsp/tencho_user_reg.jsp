@@ -12,6 +12,8 @@
 
 <body>
 
+	<br><br><br>
+
 <header>
   <h1 id="logo">
     <a href="tencho_calendar.jsp">
@@ -37,12 +39,7 @@
  
  	<br><br><br><br><br>
   
-<!-- タイトル -->
-       <div class="top">
-          <h2>エンプロ良イ👍</h2>
-        </div>
 
-        <br><br>
    
     
 

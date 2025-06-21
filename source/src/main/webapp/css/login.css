@@ -1,4 +1,5 @@
 @charset "UTF-8";
+/*全体　背景色*/
 body{
   margin: 0 0 0 0;	/* マージンなし（後で個別に設定） */
   padding: 0 0 0 0;	/* パディングなし（後で個別に設定） */
@@ -28,6 +29,8 @@ body{
 
 }
 
+/* ヘッダーここまで */
+
 #login_button,#user_name,#password{
   padding: 0.5em 1em;
     margin: 2em 0;
@@ -46,9 +49,11 @@ body{
     
 }
 
+/* 上に戻るボタン */
 .gotop{
 	padding-left:50px;
 }
+
 /* フッター */
 
 footer p{
