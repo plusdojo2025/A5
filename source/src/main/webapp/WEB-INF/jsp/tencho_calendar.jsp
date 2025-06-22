@@ -7,6 +7,7 @@
   <meta charset="UTF-8">
   <title>エンプロ良イ👍｜カレンダー</title>
   <link rel="stylesheet" href="css/tencho_calendar.css">
+  <link rel="stylesheet" href="css/header_footer.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
 
 </head>

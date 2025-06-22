@@ -1,16 +1,25 @@
 @charset "UTF-8";
 
-body {
-  margin: 0 0 0 0;	/* マージンなし（後で個別に設定） */
-  padding: 0 0 0 0;	/* パディングなし（後で個別に設定） */
+/*全体　背景色*/
+body{
+  margin: 0;
+  padding: 0;
   width: 100%;
-  justify-content:center;
   color: #000000;
   font-size: 16px;
-  background-color: #e2e2e2;
+  background-color: #f4f4f4;
+  font-family: sans-serif;
 }
 
-/*　ヘッダー　*/
+/*全体*/
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+}
+
+ /*　ヘッダー　*/
  header {
       padding: 20px;
       text-align: center;
@@ -90,6 +99,8 @@ body {
 
 /*　ヘッダーここまで*/
 
+
+
 /*タイトル*/
 .top{
     text-align:center;
@@ -97,60 +108,60 @@ body {
 
 
 
-/*選択画面部分*/
+/*月週の切替ボタン*/
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  background: #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  gap: 10px;
+}
 
-.user_choice{
+.arrow {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mode-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mode-buttons button {
+  font-size: 14px;
+  padding: 3px 6px;
+  border: 1px solid #888;
+  background: white;
+  cursor: pointer;
+}
+
+/*月週の切替ボタン　ここまで*/
+
+
+
+/*タイトル*/
+.top{
+    text-align:center;
+}
+
+/*印刷ボタン*/
+.print_center{
+    text-align:center;
+}
+
+.print{
+    font-weight:bold;
     padding: 0.5em 1em;
     margin: 2em 0;
     font-weight: bold;
     border: solid 3px #000000;
-    width:50%;
-    margin:0 auto;
-    text-align:center;
 }
 
-/*ラジオボタン全体*/
-
-.label{
-    margin-left:20px;
-    margin-top:20px;
-    font-size: clamp(13px,4vw,30px);
-}
-
-/*ラジオボタンの色変更*/
-input[type="radio"]{
-   accent-color:#ff9a03; 
-  
-}
-
-/*ラジオボタン　プレースホルダーの設定*/
-::placeholder {
-	text-align: center;
-}
-
-#name,#password{
-	padding: 0.5em 1em;
-    margin: 2em 0;
-    font-weight: bold;
-    border: solid 3px #000000;
-}
-
-/*登録ボタン*/
-.regist_button input{
-    padding: 0.5em 1em;
-    margin: 2em 0;
-    font-weight: bold;
-    border: solid 3px #000000;
-}
-
-
-#output{
-    color:red;
-    text-align:center;
-    font-size:16px;
-}
-
-/*上へ戻るボタン*/
+/* 上に戻るボタン */
 .gotop{
 	padding-left:50px;
 }
