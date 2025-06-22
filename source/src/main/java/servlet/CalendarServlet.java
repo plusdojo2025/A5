@@ -31,6 +31,7 @@ public class CalendarServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+    	
 //        Map<String, Integer> shiftData = new HashMap<>();
 //        Map<String, Integer> eventData = new HashMap<>();
 
@@ -49,8 +50,8 @@ public class CalendarServlet extends HttpServlet {
             List<CalShift> slist = sdao.getShift();
             
             //consoleにslistの中身を表示
-            for (CalShift shift : slist) {
-                System.out.println("日付" + shift.getShiftData() + ", 件数" + shift.getCount());
+            for (CalShift cs : slist) {
+                System.out.println("日付" + cs.getShiftData() + ", 件数" + cs.getCount());
             }
             
             //jspが見えるところにセット
@@ -68,8 +69,8 @@ public class CalendarServlet extends HttpServlet {
             List<CalEvent> elist = edao.getEvent();
             
             //consoleにelistの中身を表示
-            for (CalEvent event : elist) {
-                System.out.println("日付" + event.getEventData() + ", 件数" + event.getCount());
+            for (CalEvent ce : elist) {
+                System.out.println("日付" + ce.getEventData() + ", 件数" + ce.getCount());
             }
             
             //jspが見えるところにセット
