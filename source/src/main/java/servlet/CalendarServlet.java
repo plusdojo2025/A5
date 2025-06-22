@@ -77,6 +77,8 @@ public class CalendarServlet extends HttpServlet {
             
             //jspが見えるところにセット
             request.setAttribute("calEvent", elist);
+            
+            
 
         
         //取得したデータをjspに渡す
