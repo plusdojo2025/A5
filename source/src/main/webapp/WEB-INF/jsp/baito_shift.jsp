@@ -86,11 +86,12 @@ width: 600px;
 position: absolute;
 top: 5px;
 height: 30px;
-background: #cce5ff;
-border: 1px solid #007bff;
+background: #e7191f;
+color: white;
 padding: 2px 5px;
 font-size: 12px;
 white-space: nowrap;
+text-align: center;
 }
 
 #shiftForm {
@@ -147,17 +148,9 @@ font-weight: bold;
 	    <ul id="nav">
 	      <li><a href="tencho_calelndar.jsp">カレンダー</a></li>
 	      <li><a href="tencho_shift.jsp">シフト</a></li>
-	      <li><a href="tencho_event.jsp">イベント</a></li>
+	      <li><a href="tencho_event.jsp">パスワード</a></li>
 	      <li><a href="tencho_manual.jsp">マニュアル</a></li>
-	      <li>
-		  <details>
-		  	<summary class="details-summary">その他</summary>
-		  	<ul>
-		  	<li><a href="tencho_user_edit.jsp">ユーザー管理</a></li>
-		  	<li><a href="tencho_login.jsp">ログアウト</a></li>
-		  	</ul>
-		  </details>
-		  </li>
+	      <li><a href="tencho_manual.jsp">ログアウト</a></li>
 	    </ul>
 	</header>
 	<main>
@@ -206,8 +199,13 @@ const grid = document.getElementById("timelineGrid");
 
 HOURS.forEach(h => {
 	const span = document.createElement("span");
-	span.textContent = h + ":00";
-	axis.appendChild(span);
+	if(h == '10' || h == '17'){
+		span.textContent = '';
+		axis.appendChild(span);
+	} else {
+		span.textContent = h;
+		axis.appendChild(span);
+	}
 });
 
 function renderTimeline(weekIndex) {
@@ -247,18 +245,19 @@ function renderTimeline(weekIndex) {
 		
 			const bar = document.createElement("div");
 			bar.className = "shift-bar";
-			bar.style.left = `${left}px`;
-			bar.style.width = `${width}px`;
-			bar.style.top = `${5 + index * 35}px`; // ← シフトごとに縦にずらす
-			bar.textContent = s.name + "（" + s.startTime + "〜" + s.endTime + "）";
+			bar.style.left = `${'$'}{left}px`;
+			bar.style.width = `${'$'}{width}px`;
+			bar.style.top = `${'$'}{5 + index * 35}px`; // ← シフトごとに縦にずらす
+			// bar.textContent = s.name + "（" + s.startTime + "〜" + s.endTime + "）";
+			bar.textContent = s.name;
 		
 			line.appendChild(bar);
 		});
 		
 		//⭐ 高さを調整（これが今回の修正点）
 		const rowHeight = Math.max(40, dailyShifts.length * 40);
-		line.style.height = `${rowHeight}px`;
-		row.style.height = `${rowHeight}px`;
+		line.style.height = `${'$'}{rowHeight}px`;
+		row.style.height = `${'$'}{rowHeight}px`;
 		
 		row.appendChild(line);
 		grid.appendChild(row);
