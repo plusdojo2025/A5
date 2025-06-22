@@ -43,15 +43,7 @@
        
 
         <br><br>
-      <!-- ログイン画面に戻るボタン -->
       
-      <div class="rogin_back">
-
-        <h2><a href="/A5/LoginServlet">ログイン画面に戻る</a></h2>
-
-       </div>
-
-       <br><br>
 
        <P class="note">＊店長は赤文字です</P>
 
@@ -59,53 +51,53 @@
     
         <form id="user_edit_form" method="POST" action="<c:url value='/UserManageServlet' />">
             <!-- 表 -->
-             <div class="table_up_del">
+        <div class="table_up_del">
 
-                 <table border="1">
-				      <thead>
-				        <tr>
-				          <th>ID</th>
-				          <th>ユーザーネーム</th>
-				          <th>パスワード</th>
-				        </tr>
-				      </thead>
+               <table border="1">
+			      <thead>
+			        <tr>
+			          <th>ID</th>
+			          <th>ユーザーネーム</th>
+			          <th>パスワード</th>
+			        </tr>
+			      </thead>
 		      
-	<tbody>
-        <c:forEach var="user" items="${userList}">
-          <tr>
-            <td>${user.id}</td>
-            
-            <td>
-              <input type="text" name="name" value="${user.name}" 
-                style="<c:if test='${user.flag == 1}'>color:red;</c:if> width:150px;" />
-            </td>
-            
-            <td>
-              <input type="password" name="pw" value="${user.pw}" style="width:150px;" />
-            </td>
-
-            <!-- hiddenでIDとflagを送る -->
-            <input type="text" name="id" value="${user.id}" />
-            <input type="text" name="name" value="${user.name}"/>
-            <input type="text" name="password" value="${user.pw}"/>
-
-            <td>
-              <!-- submitボタンにname="action"を付けて、Servletで判定できるように -->
-              <input type="submit" name="action" value="更新" class="update_button" />
-              <input type="submit" name="action" value="削除" class="delete_button" 
-                onclick="return confirm('本当に削除しますか？');" />
-            </td>
-            
-          </tr>
+		<tbody>
+    		<c:forEach var="user" items="${userList}">
+    	<tr>
+          <td>
+            ${user.id}
+            <input type="hidden" name="id" value="${user.id}" />
+          </td>
           
-        </c:forEach>
-        
-      </tbody>
-    </table>
-  </div>
+          <td>
+            <input type="text" name="name" value="${user.name}"
+              style="width:150px;<c:if test='${user.flag == 1}'>color:red;</c:if>" />
+          </td>
+          
+          <td>
+		      <!-- パスワードを伏せ字表示 -->
+		      <c:forEach begin="1" end="${fn:length(user.pw)}">＊</c:forEach>
+		      <input type="hidden" name="pw" value="${user.pw}" />
+    	  </td>
+          
+          <td>
+            <input type="password" name="pw" value="${user.pw}" style="width:150px;" />
+            <input type="hidden" name="flag" value="${user.flag}" />
+          </td>
+          
+          <td>
+            <input type="submit" name="action" value="更新" class="update_button" />
+            <input type="submit" name="action" value="削除" class="delete_button"
+              onclick="return confirm('本当に削除しますか？');" />
+          </td>
+      </tr>
+    </c:forEach>
+  </tbody>
+</table>
+</div>
 </form>
 
-    
        					<br>
 			            <br>
 			            <br>
