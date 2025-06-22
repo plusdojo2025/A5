@@ -31,6 +31,8 @@ public class CalendarServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+    	//userテーブルのtenchou_flagが1の場合tencho_calendar.jspへ。0の場合baito_calnedar.jspへ。
+    	
     	
 //        Map<String, Integer> shiftData = new HashMap<>();
 //        Map<String, Integer> eventData = new HashMap<>();

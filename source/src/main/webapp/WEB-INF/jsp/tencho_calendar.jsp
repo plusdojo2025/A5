@@ -72,22 +72,29 @@
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
   <script>
 	//変数shiftDateに日付と人数の情報をオブジェクト形式で入れる
-    const shiftData = {
+   // const shiftData = {
 			//CalendarServletから渡されたデータ(Map形式)を受け取って変数mに入れる
-    <% Map<String, Integer> smap = (Map<String,Integer>)request.getAttribute("shiftData");
+			<%
+		/* 	List<CalShift> calShift = (List<CalShift>)request.getAttribute("calShift");
+				for(CalShift cs : calshift){
+					System.out.print();
+				} */
+			
+			%>
+    <%-- <% Map<String, Integer> smap = (Map<String,Integer>)request.getAttribute("shiftData");
 			//Mapの中身を1件ずつ取り出してJavaScriptの形式に出力している部分
     		if (smap != null) {
     		    int count = 0;
     		    for (Map.Entry<String, Integer> e : smap.entrySet()) {
     		    	//JavaScriptで使えるように連想配列にする
     		    	//e.getKeyは日付、e.getValueはその日の人数、\" はダブルクォーテーションを文字として表示するためのエスケープ
-    		        out.print("\"" + e.getKey() + "\": " + e.getValue());
+    		        System.out.print("\"" + e.getKey() + "\": " + e.getValue());
     		        count++;
     		        //JavaScriptの形式が崩れないように、最後の項目以外ならカンマを出力
     		        if (count < smap.size()) out.print(",");
     		    }
     		}
-    		%>
+    		%> --%>
     };
     console.log("shiftData",shiftData);
 	
@@ -96,7 +103,7 @@
          if (emap != null) {
         	int count = 0;
            for (Map.Entry<String,Integer> e : emap.entrySet()) {
-             out.print("\"" + e.getKey() + "\": " + e.getValue());
+             System.out.print("\"" + e.getKey() + "\": " + e.getValue());
              count++;
              if(count < emap.size())out.print(",");
            }
