@@ -56,7 +56,7 @@ public class ChangePWServlet extends HttpServlet {
 		
 		if(ans != true) {
 			//変更できたときの処理
-			response.sendRedirect("/A5/LoginServlet");
+			response.sendRedirect("/webapp/LoginServlet");
 		}else {
 			//変更できなかったときの処理
 			request.setAttribute("error", "パスワード変更に失敗しました。");

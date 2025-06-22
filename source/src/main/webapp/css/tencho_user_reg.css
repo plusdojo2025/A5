@@ -115,13 +115,11 @@ body {
     margin-left:20px;
     margin-top:20px;
     font-size: clamp(13px,4vw,30px);
-    
 }
 
 /*ラジオボタンの色変更*/
 input[type="radio"]{
    accent-color:#ff9a03; 
-   
   
 }
 
