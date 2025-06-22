@@ -286,15 +286,15 @@ function renderInputRows(weekStart) {
 	const mm = String(date.getMonth() + 1).padStart(2, "0");
 	const dd = String(date.getDate()).padStart(2, "0");
 	const dayName = WEEKDAYS[date.getDay()];
-	const dateStr = `${yyyy}-${mm}-${dd}`;
-	const displayStr = `${mm}/${dd} (${dayName})`;
+	const dateStr = yyyy + "-" + mm + "-" + dd;
+	const displayStr = mm + "/" + dd + " (" + dayName + ")";
 
 	const row = document.createElement("div");
 	row.className = "shift-input-row";
 	row.dataset.date = dateStr;
 
 	row.innerHTML = `
-	<span class="input-date-label">${displayStr}</span>
+	<span class="input-date-label">${'$'}{displayStr}</span>
 	<input type="time" class="start-time" required>
 	<input type="time" class="end-time" required>
 	<input type="text" class="worker-name" placeholder="名前" required>
