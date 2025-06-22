@@ -43,15 +43,7 @@
        
 
         <br><br>
-      <!-- ログイン画面に戻るボタン -->
       
-      <div class="rogin_back">
-
-        <h2><a href="/A5/LoginServlet">ログイン画面に戻る</a></h2>
-
-       </div>
-
-       <br><br>
 
        <P class="note">＊店長は赤文字です</P>
 
