@@ -1,13 +1,14 @@
 document.getElementById('user_choice_form').onsubmit = function(event){
 	 const name =document.getElementById('name').value;
      const password =document.getElementById('password').value;
-  
+     
+  	
   
 
   
   if( name === '' || password ==='' ){
         event.preventDefault();
-        document.getElementById('output').textContent = '※必須項目を入力してください';
+        document.getElementById('output').textContent = '※ユーザー名とパスワードを入力してください';
         return;
     }else {
         document.getElementById('output').textContent = ''; 

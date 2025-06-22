@@ -61,8 +61,10 @@ public class UserManageServlet extends HttpServlet {
 				} else {
 					request.setAttribute("message", action + "に失敗しました。");
 				}
+				// 一覧取得してJSPへ渡す
+				request.setAttribute("userList", dao.selectAll());
 
-				// JSPにフォワード（画面遷移）
-				request.getRequestDispatcher("user_manage.jsp").forward(request, response);
+				// JSPにフォワード
+				request.getRequestDispatcher("tencho_user_edit.jsp").forward(request, response);
 			}
 		}
