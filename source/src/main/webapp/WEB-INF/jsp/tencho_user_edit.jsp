@@ -28,7 +28,7 @@
       <details>
         <summary class="details-summary">その他</summary>
         <ul>
-          <li><a href="/A5/UserManageServlet">ユーザー管理</a></li>
+          <li><a href="/A5/UserResistServlet">ユーザー管理</a></li>
           <li><a href="/A5/LogoutServlet">ログアウト</a></li>
         </ul>
       </details>
