@@ -17,7 +17,7 @@
       <a href="tencho_calendar.jsp"><img src="img/logo.png" width=300 height=auto alt="エンプロ良イ👍"></a>
     </h1>
     <ul id="nav">
-      <li><a href="tencho_calelndar.jsp">カレンダー</a></li>
+      <li><a href="tencho_calendar.jsp">カレンダー</a></li>
       <li><a href="tencho_shift.jsp">シフト</a></li>
       <li><a href="tencho_event.jsp">イベント</a></li>
       <li><a href="tencho_manual.jsp">マニュアル</a></li>
@@ -73,33 +73,37 @@
 	//変数shiftDateに日付と人数の情報をオブジェクト形式で入れる
     const shiftData = {
 			//CalendarServletから渡されたデータ(Map形式)を受け取って変数mに入れる
-    <% Map<String, Integer> m = (Map<String,Integer>)request.getAttribute("shiftData");
+    <% Map<String, Integer> smap = (Map<String,Integer>)request.getAttribute("shiftData");
 			//Mapの中身を1件ずつ取り出してJavaScriptの形式に出力している部分
-    		if (m != null) {
+    		if (smap != null) {
     		    int count = 0;
-    		    for (Map.Entry<String, Integer> e : m.entrySet()) {
+    		    for (Map.Entry<String, Integer> e : smap.entrySet()) {
+    		    	//JavaScriptで使えるように連想配列にする
     		    	//e.getKeyは日付、e.getValueはその日の人数、\" はダブルクォーテーションを文字として表示するためのエスケープ
     		        out.print("\"" + e.getKey() + "\": " + e.getValue());
     		        count++;
     		        //JavaScriptの形式が崩れないように、最後の項目以外ならカンマを出力
-    		        if (count < m.size()) out.print(",");
+    		        if (count < smap.size()) out.print(",");
     		    }
     		}
     		%>
     };
-
+    console.log("shiftData",shiftData);
+	
     const eventData = {
-      <% Map<String,Integer> m2 = (Map<String,Integer>)request.getAttribute("eventData");
-         if (m2 != null) {
+      <% Map<String,Integer> emap = (Map<String,Integer>)request.getAttribute("eventData");
+         if (emap != null) {
         	int count = 0;
-           for (Map.Entry<String,Integer> e : m2.entrySet()) {
+           for (Map.Entry<String,Integer> e : emap.entrySet()) {
              out.print("\"" + e.getKey() + "\": " + e.getValue());
              count++;
-             if(count < m2.size())out.print(",");
+             if(count < emap.size())out.print(",");
            }
          }
       %>
     };
+    console.log("eventData",eventData);
+    
 /*   const shiftData = {
     "2025-06-19": 3,
     "2025-06-20": 2
@@ -115,7 +119,8 @@
       const calendar = new FullCalendar.Calendar(calendarEl, {
     	  //月表示にする設定
         initialView: 'dayGridMonth',
-        //セルのカスタマイズ
+        
+		//セルのカスタマイズ
         dayCellContent: function(info) {
         	//セルの日付をyyyy-mm-ddの形にする
           const dateStr = info.date.toISOString().slice(0,10);

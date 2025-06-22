@@ -1,11 +1,7 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,13 +15,13 @@ import dao.ShiftDAO;
 import dto.CalEvent;
 import dto.CalShift;
 
+/**
+ * Servlet implementation class CalendarServlet
+ */
+
 @WebServlet("/CalendarServlet")
 public class CalendarServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/a5";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "password";
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -35,11 +31,9 @@ public class CalendarServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Map<String, Integer> shiftData = new LinkedHashMap<>();
-        Map<String, Integer> eventData = new LinkedHashMap<>();
+//        Map<String, Integer> shiftData = new HashMap<>();
+//        Map<String, Integer> eventData = new HashMap<>();
 
-        //データベース接続
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
         	//シフト件数を日付ごとに取得
 //            String shiftQuery = "SELECT shift_date, COUNT(shift_id) AS shift_count FROM shift GROUP BY shift_date";
 //            //データベースにクエリを送るためのStatementを作成し、shiftQueryを実行、結果はResultSetに返ってくる
@@ -53,6 +47,12 @@ public class CalendarServlet extends HttpServlet {
 //            }
             ShiftDAO sdao = new ShiftDAO();
             List<CalShift> slist = sdao.getShift();
+            
+            //consoleにslistの中身を表示
+            for (CalShift shift : slist) {
+                System.out.println("日付" + shift.getShiftData() + ", 件数" + shift.getCount());
+            }
+            
             //jspが見えるところにセット
             request.setAttribute("calShift", slist);
 
@@ -66,16 +66,26 @@ public class CalendarServlet extends HttpServlet {
 //            }
             EventDao edao = new EventDao();
             List<CalEvent> elist = edao.getEvent();
+            
+            //consoleにelistの中身を表示
+            for (CalEvent event : elist) {
+                System.out.println("日付" + event.getEventData() + ", 件数" + event.getCount());
+            }
+            
             //jspが見えるところにセット
             request.setAttribute("calEvent", elist);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         
         //取得したデータをjspに渡す
-        request.setAttribute("shiftData", shiftData);
-        request.setAttribute("eventData", eventData);
+            
+          //consoleにshiftDataの中身を表示
+//            for(Entry<String, Integer> list : shiftData.entrySet()) {
+//            	System.out.println("shiftDataの中身"+list);
+//            }
+           
+            
+//        request.setAttribute("shiftData", shiftData);
+//        request.setAttribute("eventData", eventData);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_calendar.jsp");
         dispatcher.forward(request, response);
     }

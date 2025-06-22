@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
+
 import dto.CalEvent;
 import dto.Event;
 import dto.EventType;
@@ -261,7 +263,7 @@ public class EventDao {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "SELECT shift_date, COUNT(shift_id) AS shift_count FROM shift GROUP BY shift_date";
+			String sql = "SELECT event_date, COUNT(event_id) AS event_count FROM event GROUP BY event_date";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			
@@ -269,11 +271,18 @@ public class EventDao {
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 
+			ResultSet rs1 = pStmt.executeQuery();
+			ResultSetMetaData rsmd = (ResultSetMetaData) rs1.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+			for (int i = 1; i <= columnCount; i++) {
+			    System.out.println("Column " + i + ": " + rsmd.getColumnName(i));
+			}
+			
 			// 結果表をコレクションにコピーする
-			while (rs.next()) {
+			while (rs1.next()) {
 				CalEvent event = new CalEvent();
-				event.setEventData(rs.getDate("shift_date"));
-				event.setCount(rs.getInt("shift_count"));
+				event.setEventData(rs1.getDate("event_date"));
+				event.setCount(rs1.getInt("event_count"));
 				cardList.add(event);
 			}
 		} catch (SQLException e) {
