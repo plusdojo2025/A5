@@ -50,15 +50,15 @@
 	       <div class="user_pw">
 	                	<br><br>
 	
-	                  <input id="curPw"type="text" placeholder="現在のパスワード">
+	                  <input id="curPw"type="text" placeholder="現在のパスワード" value="${pw}">
 	               		
 	                	<br><br>
 	              
-	                  <input id ="newPw" type="text" placeholder="変更後のパスワード">
+	                  <input id ="newPw" type="text" placeholder="変更後のパスワード" value="${pw}">
 	              		
 	                	<br><br>
 	
-	                  <input id="newPw" type="text" placeholder="変更後のパスワード（2回目）">
+	                  <input id="newPw" type="text" placeholder="変更後のパスワード（2回目）" value="${pw}">
 	               		
 	              		<br><br>
 	
