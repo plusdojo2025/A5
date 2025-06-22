@@ -21,7 +21,7 @@
   <ul id="nav">
     <li><a href="/A5/CalenderServlet">カレンダー</a></li>
     <li><a href="/A5/ShiftServlet">シフト</a></li>
-    <li><a href="/A5/EventServlet">イベント</a></li>
+    <li><a href="/A5/ChangePWServlet">パスワード</a></li>
     <li><a href="/A5/ManualServlet">マニュアル</a></li>
     <li>
       <details>
