@@ -1,0 +1,176 @@
+@charset "UTF-8";
+
+/*全体　背景色*/
+body{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  color: #000000;
+  font-size: 16px;
+  background-color: #f4f4f4;
+  font-family: sans-serif;
+}
+
+/*全体*/
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+}
+
+ /*　ヘッダー　*/
+ header {
+      padding: 20px;
+      text-align: center;
+    }
+    
+
+#nav  {
+      margin: 80px auto 0 auto;
+      padding-top: 30px ;
+      list-style: none;
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      border: 2px solid #000;
+      border-radius: 4px;
+      max-width:800px;
+      height:50px;
+      background-color:#cbb1ff;
+      
+}
+
+
+#nav li a {
+      text-decoration: none;
+      color: #000;
+      padding: 8px 12px;
+      font-weight:bold;
+      
+}
+      
+    
+    
+#nav li a:hover {
+      background-color: #ddd;
+      border-radius: 4px;
+    }
+    
+#details-summary{
+	  font-weight:bold;
+}
+    
+#details li{
+	list-style-type:none;
+}
+
+/* まとめて囲む親のulに枠 */
+.details-summary + ul {
+  border: 2px solid #333;      /* 太めの枠線 */
+  border-radius: 6px;          /* 角丸 */
+  overflow: hidden;            /* 角丸が崩れないように */
+  width: 200px;                /* お好みで幅調整 */
+  margin: 10px 0;
+  padding: 0;                  /* ulのデフォ余白削除 */
+  background-color: #f9f9f9;
+}
+
+/* liは枠の中のセクション */
+.details-summary + ul li {
+  list-style: none;            /* マーカー消し */
+  padding: 10px 15px;
+  text-align: center;          /* 真ん中寄せ */
+  cursor: pointer;
+  background-color:#cbb1ff;
+}
+
+/* liの間に境界線を1本だけ入れる（2つ目以降のliの上に線） */
+.details-summary + ul li + li {
+  border-top: 1px solid #666;
+}
+
+/* aタグはブロック化して全体をクリック可能に */
+.details-summary + ul li a {
+  display: block;
+  color: #333;
+  text-decoration: none;
+}
+
+/*　ヘッダーここまで*/
+
+
+
+/*タイトル*/
+.top{
+    text-align:center;
+}
+
+
+
+/*月週の切替ボタン*/
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  background: #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  gap: 10px;
+}
+
+.arrow {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mode-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mode-buttons button {
+  font-size: 14px;
+  padding: 3px 6px;
+  border: 1px solid #888;
+  background: white;
+  cursor: pointer;
+}
+
+/*月週の切替ボタン　ここまで*/
+
+
+
+/*タイトル*/
+.top{
+    text-align:center;
+}
+
+/*印刷ボタン*/
+.print_center{
+    text-align:center;
+}
+
+.print{
+    font-weight:bold;
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    font-weight: bold;
+    border: solid 3px #000000;
+}
+
+/* 上に戻るボタン */
+.gotop{
+	padding-left:50px;
+}
+
+/* フッター */
+
+footer p{
+    text-align:center;
+    font-size:0.7em;
+    margin-top:40px;
+}
+/* フッターここまで */
