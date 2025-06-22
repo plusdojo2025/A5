@@ -6,14 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>エンプロ良イ👍｜ユーザー登録画面</title>
-<link rel="stylesheet" href="<c:url value='/css/style1.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/tencho_user_reg.css'/>">
 
 </head>
 
 <body>
 
 	<br><br><br>
-
+	
+<!-- タイトル -->
 <header>
   <h1 id="logo">
     <a href="tencho_calendar.jsp">
@@ -21,16 +22,16 @@
     </a>
   </h1>
   <ul id="nav">
-    <li><a href="/A5/CalenderServlet/">カレンダー</a></li>
-    <li><a href="/A5/ShiftServlet/">シフト</a></li>
-    <li><a href="/A5/EventServlet/">イベント</a></li>
-    <li><a href="/A5/ManualServlet/">マニュアル</a></li>
+    <li><a href="/A5/CalenderServlet">カレンダー</a></li>
+    <li><a href="/A5/ShiftServlet">シフト</a></li>
+    <li><a href="/A5/EventServlet">イベント</a></li>
+    <li><a href="/A5/ManualServlet">マニュアル</a></li>
     <li>
       <details>
         <summary class="details-summary">その他</summary>
         <ul>
-          <li><a href="/A5/UserManageServlet/">ユーザー管理</a></li>
-          <li><a href="/A5/LogoutServlet/">ログアウト</a></li>
+          <li><a href="/A5/UserManageServlet">ユーザー管理</a></li>
+          <li><a href="/A5/LogoutServlet">ログアウト</a></li>
         </ul>
       </details>
     </li>
@@ -49,39 +50,44 @@
 		</c:if>
 
 			<!-- ユーザー登録フォーム -->
-		<form id="user_choice_form" method="POST" action="<c:url value='/UserRegistServlet' />">>
+		<form id="user_choice_form" method="POST" action="<c:url value='/UserRegistServlet' />">
 			<div class="user_choice">
 			    <p>追加するユーザーの種類を選択してください</p>
 			
 			    <label>
-			      <input type="radio" name="tencho_flag" value="1" 
+			      <input  type="radio" name="tencho_flag" value="1" 
 			        <c:if test="${tencho_flag == '1'}">checked</c:if> />店長
 			    </label>
 			    
 			    <label>
-			      <input type="radio" name="tencho_flag" value="0"
+			      <input  type="radio" name="tencho_flag" value="0"
 			        <c:if test="${tencho_flag == '0'}">checked</c:if> />店員
 			    </label>
 			
 			    <br><br>
 			
 			<input id="name" type="text" name="user_name" placeholder="登録するユーザー名" 
-			           value="${user_name}" required>
+			           value="${name}">
 			
 			    <br><br>
 			
 			    <input id="password" type="password" name="password" placeholder="登録するパスワード"
-			           value="${password}" required>
+			           value="${pw}">
 			
 			    <br><br>
 			
+			 	<p id="output"></p>
+			 	
 			    <div class="regist_button">
 			      <input type="submit" value="登録">
 			      
 			    </div>
+			   
 			  </div>
 			  
 			</form>
+			
+			 
 			
 		        
 					
@@ -129,7 +135,7 @@
 			  
 			    
 			
-			<script src="/webapp/js/regist.js"></script>
+			<script src="/A5/js/regist.js"></script>
 			
 	</body>
 </html>

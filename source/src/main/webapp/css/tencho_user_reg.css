@@ -8,10 +8,7 @@ body {
   color: #000000;
   font-size: 16px;
   background-color: #e2e2e2;
-  overflow-x:hidden;
 }
-
-
 
 /*　ヘッダー　*/
  header {
@@ -93,73 +90,70 @@ body {
 
 /*　ヘッダーここまで*/
 
-/* タイトル　*/
+/*タイトル*/
 .top{
     text-align:center;
 }
 
-/* ログイン画面に戻る */
-.rogin_back{
+
+
+/*選択画面部分*/
+
+.user_choice{
     padding: 0.5em 1em;
     margin: 2em 0;
     font-weight: bold;
     border: solid 3px #000000;
-    text-align:center;
     width:50%;
     margin:0 auto;
-}
-.rogin_back p{
-    margin: 0; 
-    padding: 0;
+    text-align:center;
 }
 
-/* 店長は赤文字です */
+/*ラジオボタン全体*/
 
-p{
-    padding-left:250px;
-    margin-left:200px;
-    color:#ff0000;
+.label{
+    margin-left:20px;
+    margin-top:20px;
+    font-size: clamp(13px,4vw,30px);
+}
+
+/*ラジオボタンの色変更*/
+input[type="radio"]{
+   accent-color:#ff9a03; 
+  
+}
+
+/*ラジオボタン　プレースホルダーの設定*/
+::placeholder {
+	text-align: center;
+}
+
+#name,#password{
+	padding: 0.5em 1em;
+    margin: 2em 0;
+    font-weight: bold;
+    border: solid 3px #000000;
+}
+
+/*登録ボタン*/
+.regist_button input{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    font-weight: bold;
+    border: solid 3px #000000;
 }
 
 
-/* 表とボタン */
-.table_up_del {
-  width: 100%;
-  margin-left: 90px; /* ← 余白を削除 */
+#output{
+    color:red;
+    text-align:center;
+    font-size:16px;
 }
 
-
-th,td{
-    border: 1px solid #333;
+/*上へ戻るボタン*/
+.gotop{
+	padding-left:50px;
 }
-
-table {
-            border-collapse: collapse;
-            width: 50%;
-            margin: 20px auto;
-}
-        
-td {
-            border: 1px solid #000;
-            width: 50px;
-            height: 50px;
-}
-/*テーブルの枠線を消す*/
-
-.no-bottom-border {
-  border: none;
-}
-
-/*変更ボタン　色変更　*/
-.update_button{
-    background-color:#ffde59;
-}
-
-/*削除ボタン　色変更　*/
-.delete_button{
-    background-color:#5271ff;
-}
-
 
 /* フッター */
 

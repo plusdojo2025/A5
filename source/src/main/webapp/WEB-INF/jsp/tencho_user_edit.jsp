@@ -1,17 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>エンプロ良イ👍｜ユーザー管理画面</title>
-<link rel="stylesheet" href="<c:url value='/css/style2.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/tencho_user_edit.css'/>">
 </head>
 
 <body>
-
+<br><br><br>
+<!-- タイトル -->
 <header>
   <h1 id="logo">
     <a href="tencho_calendar.jsp">
@@ -19,16 +20,16 @@
     </a>
   </h1>
   <ul id="nav">
-    <li><a href="/A5/CalenderServlet/">カレンダー</a></li>
-    <li><a href="/A5/ShiftServlet/">シフト</a></li>
-    <li><a href="/A5/EventServlet/">イベント</a></li>
-    <li><a href="/A5/ManualServlet/">マニュアル</a></li>
+    <li><a href="/A5/CalenderServlet">カレンダー</a></li>
+    <li><a href="/A5/ShiftServlet">シフト</a></li>
+    <li><a href="/A5/EventServlet">イベント</a></li>
+    <li><a href="/A5/ManualServlet">マニュアル</a></li>
     <li>
       <details>
         <summary class="details-summary">その他</summary>
         <ul>
-          <li><a href="/A5/UserManageServlet/">ユーザー管理</a></li>
-          <li><a href="/A5/LogoutServlet/">ログアウト</a></li>
+          <li><a href="/A5/UserManageServlet">ユーザー管理</a></li>
+          <li><a href="/A5/LogoutServlet">ログアウト</a></li>
         </ul>
       </details>
     </li>
@@ -38,138 +39,74 @@
  	<br><br><br><br><br>
   
 
-<!-- タイトル -->
-       <div class="top">
-          <h2>エンプロ良イ👍</h2>
-        </div>
+
+       
 
         <br><br>
       <!-- ログイン画面に戻るボタン -->
       
       <div class="rogin_back">
 
-        <h2><a href="/webapp/LoginServlet">ログイン画面に戻る</a></h2>
+        <h2><a href="/A5/LoginServlet">ログイン画面に戻る</a></h2>
 
        </div>
 
        <br><br>
 
-       <P>＊店長は赤文字です</P>
+       <P class="note">＊店長は赤文字です</P>
 
         <br>
     
-        <form id="user_edit_form" method="POST" action="<c:url value='/UserManageServlet' />">>
+        <form id="user_edit_form" method="POST" action="<c:url value='/UserManageServlet' />">
             <!-- 表 -->
              <div class="table_up_del">
 
-                    <table border="1">
-                        <tbody>
-                            <tr>
-                                <th>ID</th>
-                                <th>ユーザーネーム</th>
-                                <th>パスワード</th>
-                                
-                            </tr>
-
-                            <tr>
-                                <td></td>
-                                <!--  <td input type="text" name="name" value=${dd}></td>-->
-                                <td></td>
-                                
-                                
-                            </tr>
-
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="no-bottom-border"><input class ="update_button"type="submit" value="変更"><input class="delete_button"type="submit" value="削除"></td>
-                                
-                            </tr>
-
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                
-                            </tr>
-
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-
-                            <tr>
-                                <td>${user.id}</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-
-                            <tr>
-                                <td>${user.id}</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-
-                            
-
-                        </tbody>
+                 <table border="1">
+				      <thead>
+				        <tr>
+				          <th>ID</th>
+				          <th>ユーザーネーム</th>
+				          <th>パスワード</th>
+				        </tr>
+				      </thead>
+		      
+	<tbody>
+        <c:forEach var="user" items="${userList}">
+          <tr>
+            <td>${user.id}</td>
             
-                    </table>
+            <td>
+              <input type="text" name="name" value="${user.name}" 
+                style="<c:if test='${user.flag == 1}'>color:red;</c:if> width:150px;" />
+            </td>
+            
+            <td>
+              <input type="password" name="pw" value="${user.pw}" style="width:150px;" />
+            </td>
 
-                </div>
-       </form>
-       
-       				<br>
+            <!-- hiddenでIDとflagを送る -->
+            <input type="text" name="id" value="${user.id}" />
+            <input type="text" name="name" value="${user.name}"/>
+            <input type="text" name="password" value="${user.pw}"/>
+
+            <td>
+              <!-- submitボタンにname="action"を付けて、Servletで判定できるように -->
+              <input type="submit" name="action" value="更新" class="update_button" />
+              <input type="submit" name="action" value="削除" class="delete_button" 
+                onclick="return confirm('本当に削除しますか？');" />
+            </td>
+            
+          </tr>
+          
+        </c:forEach>
+        
+      </tbody>
+    </table>
+  </div>
+</form>
+
+    
+       					<br>
 			            <br>
 			            <br>
 			            <br>
