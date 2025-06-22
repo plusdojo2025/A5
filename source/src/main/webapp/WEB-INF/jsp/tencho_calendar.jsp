@@ -6,21 +6,12 @@
 <head>
   <meta charset="UTF-8">
   <title>エンプロ良イ👍｜カレンダー</title>
-  <link rel="stylesheet" href="calendar.css">
+  <link rel="stylesheet" href="css/tencho_calendar.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
-  <style>
-    .shift-count, .event-count {
-      font-size: 10px;
-      background: rgba(255, 255, 255, 0.8);
-      margin-top: 2px;
-      padding: 1px 3px;
-      border-radius: 3px;
-    }
-    .shift-count { color: red; }
-    .event-count { color: blue; }
-  </style>
+
 </head>
 <body id="top">
+
   <header>
 	<h1 id="logo">
       <a href="tencho_calendar.jsp"><img src="img/logo.png" width=300 height=auto alt="エンプロ良イ👍"></a>
@@ -37,13 +28,28 @@
 		</details>
     </ul>
   </header> 
+  
+  <div class="wrapper">
   <!--ボタン-->
-  <div style="text-align: center; margin-top: 20px;">
-  <button type="button" id="shiftBtn">シフト</button>
-  <button type="button" id="eventBtn">イベント</button>
+  <div class="button-area">
+  <a href="#shift">
+    <button type="button" id="shiftBtn">シフト</button>
+  </a>
+  <a href="#event">
+    <button type="button" id="eventBtn">イベント</button>
+  </a>
+</div>
   </div>
 
   <div id="calendar"></div>
+  
+ <!--  <style>
+      .shift-count, .event-count {
+      font-size: 30px;
+    }
+    .shift-count { color: red; }
+    .event-count { color: blue; }
+  </style> -->
   
   <!--シフト表-->
   <div id="shift">シフト</div><br>
@@ -53,18 +59,21 @@
 
   <!-- フッター -->
 <footer>
-        <div class="gotop">
-            <a href="#top"><img src="img/gotop.png" alt="ページトップへ戻る" width=70px height=auto></a>
-        </div>
+        <p class="gotop">
+            <a href="#top">
+            <img src="img/gotop.png" alt="ページトップへ戻る" width="70" height="auto">
+            </a>
+        </p>
     </footer>
-    
+</div>
+
   <!-- JavaScript へデータを埋め込む -->
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
   <script>
 	//変数shiftDateに日付と人数の情報をオブジェクト形式で入れる
     const shiftData = {
 			//CalendarServletから渡されたデータ(Map形式)を受け取って変数mに入れる
-    <% Map<String, Integer> m = (Map<String, Integer>) request.getAttribute("shiftData");
+    <% Map<String, Integer> m = (Map<String,Integer>)request.getAttribute("shiftData");
 			//Mapの中身を1件ずつ取り出してJavaScriptの形式に出力している部分
     		if (m != null) {
     		    int count = 0;
@@ -141,15 +150,6 @@
       //カレンダーを表示
       calendar.render();
       
-	   // ボタンがクリックされたらページ内の対応するIDにスクロールする
-      document.getElementById("shiftBtn").addEventListener("click", function () {
-        document.getElementById("shift").scrollIntoView({ behavior: "smooth" });
-      });
-
-      document.getElementById("eventBtn").addEventListener("click", function () {
-        document.getElementById("event").scrollIntoView({ behavior: "smooth" });
-      });
-
     });
   </script>
 </body>
