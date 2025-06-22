@@ -20,7 +20,5 @@ public class CalEvent {
 	public void setCount(int count) {
 		this.count = count;
 	}
-	
-	
 
 }
