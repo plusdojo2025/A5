@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
-body {
+/*全体　背景色*/
+body{
   margin: 0 0 0 0;	/* マージンなし（後で個別に設定） */
   padding: 0 0 0 0;	/* パディングなし（後で個別に設定） */
   width: 100%;
@@ -10,7 +11,8 @@ body {
   background-color: #e2e2e2;
 }
 
-/*　ヘッダー　*/
+
+ /*　ヘッダー　*/
  header {
       padding: 20px;
       text-align: center;
@@ -90,72 +92,75 @@ body {
 
 /*　ヘッダーここまで*/
 
+.li{
+	list-style-type:none;
+}
+
 /*タイトル*/
 .top{
     text-align:center;
 }
 
 
-
-/*選択画面部分*/
-
-.user_choice{
-    padding: 0.5em 1em;
-    margin: 2em 0;
-    font-weight: bold;
-    border: solid 3px #000000;
-    width:50%;
-    margin:0 auto;
-    text-align:center;
+head,main {
+	margin: 0 auto 0 auto;
 }
 
-/*ラジオボタン全体*/
-
-.label{
-    margin-left:20px;
-    margin-top:20px;
-    font-size: clamp(13px,4vw,30px);
-    
+/*追加ボタン*/
+.add_button{
+	list-style-type:none;
+	width:40%;
+	margin:0 auto;
+	
+	
 }
 
-/*ラジオボタンの色変更*/
-input[type="radio"]{
-   accent-color:#ff9a03; 
-   
+.add_button li {
+  margin-bottom: 10px; /* ボタンの間隔を空ける */
   
 }
 
-/*ラジオボタン　プレースホルダーの設定*/
-::placeholder {
-	text-align: center;
+
+/*ボタン全体*/
+button {
+	font-size: 16px;
+	padding: 5px 20px;
+	width: 20%;
+	height: 10%;
+	font-weight:bold;
+	
 }
 
-#name,#password{
-	padding: 0.5em 1em;
-    margin: 2em 0;
+/*追加ボタンのみ適用*/
+button.add{
+	background-color:#fdf9b4;
+	border: none;
+
+}
+
+
+
+/*保存、上に戻るボタン*/
+button.momo{
     font-weight: bold;
     border: solid 3px #000000;
 }
 
-/*登録ボタン*/
-.regist_button input{
-    padding: 0.5em 1em;
-    margin: 2em 0;
-    font-weight: bold;
-    border: solid 3px #000000;
+.momo {
+	font-size: 16px;
+	padding: 5px 20px;
+	width: 120px;
+	height: 44px;
+	
+	
 }
 
-
-#output{
-    color:red;
-    text-align:center;
-    font-size:16px;
+/*ボタンを真ん中に*/
+.center {
+  text-align: center;
+  margin-top: 20px;
 }
 
-/*上へ戻るボタン*/
-.gotop{
-	padding-left:50px;
-}
 
 /* フッター */
 

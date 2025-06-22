@@ -22,16 +22,16 @@
 			    </a>
 			  </h1>
 			  <ul id="nav">
-			    <li><a href="/A5/CalenderServlet/">カレンダー</a></li>
-			    <li><a href="/A5/ShiftServlet/">シフト</a></li>
-			    <li><a href="/A5/EventServlet/">イベント</a></li>
-			    <li><a href="/A5/ManualServlet/">マニュアル</a></li>
+			    <li><a href="/A5/CalenderServlet">カレンダー</a></li>
+			    <li><a href="/A5/ShiftServlet">シフト</a></li>
+			    <li><a href="/A5/EventServlet">イベント</a></li>
+			    <li><a href="/A5/ManualServlet">マニュアル</a></li>
 			    <li>
 			      <details>
 			        <summary class="details-summary">その他</summary>
 			        <ul>
-			          <li><a href="/A5/UserManageServlet/">ユーザー管理</a></li>
-			          <li><a href="/A5/LogoutServlet/">ログアウト</a></li>
+			          <li><a href="/A5/UserManageServlet">ユーザー管理</a></li>
+			          <li><a href="/A5/LogoutServlet">ログアウト</a></li>
 			        </ul>
 			      </details>
 			    </li>
@@ -61,10 +61,14 @@
 	                  <input id="newPw" type="text" placeholder="変更後のパスワード（2回目）">
 	               		
 	              		<br><br>
+	              		
+	              		 <p id="output"></p>
 	
 	                <div class="update_button">
 	                        <input type="submit" value="変更">
 	                </div>
+	                
+	               
 		      </div>
 		        
 		
@@ -110,6 +114,8 @@
 		        
 		
 		    </footer>
+		    
+		    <script src="/A5/js/change_Pw.js"></script>
 	
 </body>
 </html>

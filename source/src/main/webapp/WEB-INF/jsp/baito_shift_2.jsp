@@ -5,12 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>エンプロ良イ👍｜シフト申請</title>
-
+<link rel="stylesheet" href="<c:url value='/css/tencho_user_edit.css'/>">
 
 </head>
 
+
 <body>
-	<br><br><br>
+	
+<br><br><br>
 <!-- タイトル -->
 <header>
   <h1 id="logo">
@@ -37,17 +39,21 @@
  
  	<br><br><br><br><br>
   
-<main>
+
+
+       
+
+	<main>
 	<ul class="add_button">
-	<li><button type="button">追加</button></li>
-	<li><button type="button">追加</button></li>
-	<li><button type="button">追加</button></li>
-	<li><button type="button">追加</button></li>
-	<li><button type="button">追加</button></li>
-	<li><button type="button">追加</button></li>
-	<li><button type="button">追加</button></li>
-	<li><button type="button">追加</button></li>
-	<li><button type="button">追加</button></li>
+	<li><button type="button" class="add">追加</button></li>
+	<li><button type="button" class="add">追加</button></li>
+	<li><button type="button" class="add">追加</button></li>
+	<li><button type="button" class="add">追加</button></li>
+	<li><button type="button" class="add">追加</button></li>
+	<li><button type="button" class="add">追加</button></li>
+	<li><button type="button" class="add">追加</button></li>
+	<li><button type="button" class="add">追加</button></li>
+	<li><button type="button" class="add">追加</button></li>
 	</ul>
 
 	<br><br><br><br><br>
@@ -61,8 +67,11 @@
 	</div>
 
 	</main>
+
 	
+
 	
+
 
 						<br>
 			            <br>
@@ -92,9 +101,9 @@
     
 	<footer>
 	
+
 	<br>
         <p>&copy; エンプロ良イ👍</p>
 	</footer>
-
 </body>
 </html>
