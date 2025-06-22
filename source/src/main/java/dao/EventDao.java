@@ -271,6 +271,7 @@ public class EventDao {
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 
+			//コラムの確認
 			ResultSet rs1 = pStmt.executeQuery();
 			ResultSetMetaData rsmd = (ResultSetMetaData) rs1.getMetaData();
 			int columnCount = rsmd.getColumnCount();
