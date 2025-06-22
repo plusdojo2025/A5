@@ -5,24 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>エンプロ良イ👍｜シフト確認</title>
-<link rel="stylesheet" href="<c:url value='/css/tencho_shift.css'/>">
+<!-- <link rel="stylesheet" href="<c:url value='/css/tencho_shift.css'/>"> -->
 <style>
 
 head,main {
 	margin: 0 auto 0 auto;
-}
-button {
-	font-size: 16px;
-	padding: 5px 20px;
-	width: 120px;
-	height: 120px;
-}
-
-.momo {
-	font-size: 16px;
-	padding: 5px 20px;
-	width: 120px;
-	height: 44px;
 }
 
 body {
@@ -162,27 +149,44 @@ font-weight: bold;
 		</ul>
 
 	</header>
+	
 	<main>
-	<div class="time-axis" id="timeAxis"></div>
-<div class="timeline-grid" id="timelineGrid"></div>
+	
+	<!-- カレンダー表示切替ナビ -->
+	<div class="calendar-nav">
+		<button class="arrow left">◁</button>
+		<div class="mode-buttons">
+			<button>週 表示</button>
+			<button>月 表示</button>
+		</div>
+		<button class="arrow right">▷</button>
+	</div>
+	
+	
+	<div id="printArea">
+		<div class="time-axis" id="timeAxis"></div>
+		<div class="timeline-grid" id="timelineGrid"></div>
+	</div>
+	
+	<select id="weekSelector">
+	<option value="0">月 第1週</option>
+	<option value="1">第2週</option>
+	<option value="2">第3週</option>
+	<option value="3">第4週</option>
+	<option value="4">第5週</option>
+	</select>
 
-<select id="weekSelector">
-<option value="0">月 第1週</option>
-<option value="1">第2週</option>
-<option value="2">第3週</option>
-<option value="3">第4週</option>
-<option value="4">第5週</option>
-</select>
+	<div class="print_center">
+		<button type="button" class="print" onclick="printSection('printArea')">印刷</button>
+	</div>
 
-
-
-<div id="inputRowsContainer"></div>
-
-<!-- 一括追加ボタン -->
-<button id="bulkAddBtn">保存</button>
 	</main>
 	<footer>
-	<a href="#top"><button type="button" class="momo">上に戻る</button></a>
+	<div class="gotop">
+		 <a href="#top"><img src="img/gotop.png" alt="ページトップへ戻る" width=70px height=auto></a>
+	</div>
+	<br>
+	<p>&copy; エンプロ良イ👍</p>
 	</footer>
 
 <script>
@@ -223,7 +227,6 @@ function renderTimeline(weekIndex) {
 	const weekStart = new Date(2025, 5, 1); // 2025-06-01
 	weekStart.setDate(1 + weekIndex * 7);
 	
-	renderInputRows(weekStart);
 	
 	for (let i = 0; i < 7; i++) {
 		const currentDate = new Date(weekStart);
@@ -257,7 +260,6 @@ function renderTimeline(weekIndex) {
 			bar.style.left = `${'$'}{left}px`;
 			bar.style.width = `${'$'}{width}px`;
 			bar.style.top = `${'$'}{5 + index * 35}px`; // ← シフトごとに縦にずらす
-			// bar.textContent = s.name + "（" + s.startTime + "〜" + s.endTime + "）";
 			bar.textContent = s.name;
 		
 			line.appendChild(bar);
@@ -274,66 +276,33 @@ function renderTimeline(weekIndex) {
 }
 
 document.getElementById("weekSelector").addEventListener("change", e => {
-renderTimeline(parseInt(e.target.value));
+	renderTimeline(parseInt(e.target.value));
 });
 
 renderTimeline(0); // 初期表示：第1週
 
 function formatDate(date) {
 	return date.toLocaleDateString("sv-SE");
+};
+
+function printSection(sectionId) {
+    const section = document.getElementById(sectionId);
+
+    // 新しいウィンドウを開く
+    const printWindow = window.open('', '', 'width=800,height=600');
+
+    // HTML文書を作成
+    printWindow.document.open();
+    printWindow.document.write(`<html><head><title>印刷プレビュー</title><link rel="stylesheet" href="/A5/css/tencho_shift_print.css"/><script src="/A5/js/tencho_shift_print.js" defer></script></head><body>${section.outerHTML}</body></html>`);
+    printWindow.document.close();
+
+    printWindow.onload = function () {
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
+    };
 }
 
-function renderInputRows(weekStart) {
-	const container = document.getElementById("inputRowsContainer");
-	container.innerHTML = ""; // 一旦クリア
-
-	for (let i = 0; i < 7; i++) {
-	const date = new Date(weekStart);
-	date.setDate(date.getDate() + i);
-	const yyyy = date.getFullYear();
-	const mm = String(date.getMonth() + 1).padStart(2, "0");
-	const dd = String(date.getDate()).padStart(2, "0");
-	const dayName = WEEKDAYS[date.getDay()];
-	const dateStr = yyyy + "-" + mm + "-" + dd;
-	const displayStr = mm + "/" + dd + " (" + dayName + ")";
-
-	const row = document.createElement("div");
-	row.className = "shift-input-row";
-	row.dataset.date = dateStr;
-
-	row.innerHTML = `
-	<span class="input-date-label">${'$'}{displayStr}</span>
-	<input type="time" class="start-time" required>
-	<input type="time" class="end-time" required>
-	<input type="text" class="worker-name" placeholder="名前" required>
-	`;
-
-	
-	container.appendChild(row);
-	}
-}
-
-document.getElementById("bulkAddBtn").addEventListener("click", () => {
-	const rows = document.querySelectorAll(".shift-input-row");
-	let added = 0;
-	
-	rows.forEach(row => {
-		const date = row.dataset.date;
-		const start = row.querySelector(".start-time").value;
-		const end = row.querySelector(".end-time").value;
-		const name = row.querySelector(".worker-name").value;
-		
-		if (start && end && name) {
-			shifts.push({ date, startTime: start, endTime: end, name });
-			added++;
-		}
-	});
-	
-	const weekIndex = parseInt(document.getElementById("weekSelector").value);
-	renderTimeline(weekIndex);
-	
-	alert(`${added}件のシフトを追加しました。`);
-});
 
 
 </script>
