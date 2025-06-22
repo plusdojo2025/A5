@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>エンプロ良イ👍｜シフト申請</title>
-
+<link rel="stylesheet" href="<c:url value='/css/baito_shift.css'/>">
 
 </head>
 
