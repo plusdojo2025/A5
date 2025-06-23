@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -55,37 +54,17 @@ public class EventServlet extends HttpServlet {
 		
 		// 登録するデータを受け取り、データベースに登録する
 		EventDao eDao = new EventDao();
-		EventType event = new EventType();
 		for (int i = 0; i < eventDates.length; i++) {
 			if (eDao.insert(new EventType(eventDates[i], eventStarts[i], eventEnds[i], 0, events[i]))) {
-				
+				String result = "登録に成功しました。";
+				request.setAttribute("result", result);
+			} else {
+				String result = "登録に失敗しました。";
+				request.setAttribute("result", result);
+				break;
 			}
 		}
-		
-		
-		if (loginUser != null) { // ログイン成功
-			// セッションスコープにユーザーネーム・店長フラグを格納する
-			HttpSession session = request.getSession();
-			String loginUserName = (loginUser.get(0)).getName();
-			int loginUserFlag = (loginUser.get(0)).getFlag();
-			session.setAttribute("user", loginUserName);
-			session.setAttribute("flag", loginUserFlag);
-			
-			// 日時を取得しセッションスコープに格納する
-			Date now = new Date();
-			SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			String formatDate = date.format(now);
-			session.setAttribute("date", formatDate);
-			
-			
-			response.sendRedirect("/webapp/Servlet");
-		} else { // ログイン失敗
-			// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
-			// request.setAttribute("result", new Result("ログイン失敗！", "IDまたはPWに間違いがあります。", "/webapp/LoginServlet"));
-			
-			// 結果ページにフォワードする
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
-			dispatcher.forward(request, response);
-		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_event.jsp");
+		dispatcher.forward(request, response);
 	}
 }

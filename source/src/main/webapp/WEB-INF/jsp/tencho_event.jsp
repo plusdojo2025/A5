@@ -21,7 +21,7 @@
 			<li><a href="<c:url value='/ManualServlet'/>">マニュアル</a></li>
 			<details>
 				<summary class="details-summary">その他</summary>
-				<li><a href="baito_user_edit.jsp">ユーザー管理</a></li>s
+				<li><a href="baito_user_edit.jsp">ユーザー管理</a></li>
 				<li><a href="baito_login.jsp">ログアウト</a></li>
 			</details>
 		</ul>
