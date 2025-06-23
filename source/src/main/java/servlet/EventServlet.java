@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import dao.EventDao;
+import dto.EventType;
 
 /**
  * Servlet implementation class LoginServlet
@@ -32,21 +37,32 @@ public class EventServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	/*
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// もしもログインしていなかったらログインページにリダイレクトする
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") == null) {
+			response.sendRedirect("/webapp/LoginServlet");
+			return;
+		}
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
-		String userName = request.getParameter("username");
-		String pw = request.getParameter("pw");
+		String[] eventDates = request.getParameterValues("date");
+		String[] eventStarts = request.getParameterValues("start");
+		String[] eventEnds = request.getParameterValues("end");
+		String[] events = request.getParameterValues("event");
 
-		// ログイン処理を行う
-		UserDAO uDao = new UserDAO();
-		User user = new User();
-		user.setName(userName);
-		user.setPw(pw);
 		
-		List<User> loginUser = uDao.login(user);
+		// 登録するデータを受け取り、データベースに登録する
+		EventDao eDao = new EventDao();
+		EventType event = new EventType();
+		for (int i = 0; i < eventDates.length; i++) {
+			if (eDao.insert(new EventType(eventDates[i], eventStarts[i], eventEnds[i], 0, events[i]))) {
+				
+			}
+		}
+		
+		
 		if (loginUser != null) { // ログイン成功
 			// セッションスコープにユーザーネーム・店長フラグを格納する
 			HttpSession session = request.getSession();
@@ -72,5 +88,4 @@ public class EventServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 	}
-	*/
 }
