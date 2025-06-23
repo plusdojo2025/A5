@@ -38,7 +38,7 @@
     <h1 id="logo">
       <a href="tencho_calendar.jsp"><img src="img/logo.png" width="300" height="auto" alt="エンプロ良イ👍"></a>
     </h1>
-    <c:if test="${sessionScope.tenchouFlag == 1}">
+    <c:if test="${sessionScope.flag == 1}">
     <ul id="tnav">
       <li><a href="tencho_calendar.jsp">カレンダー</a></li>
       <li><a href="tencho_shift.jsp">シフト</a></li>
@@ -52,7 +52,7 @@
     </ul>
     </c:if>
     
-    <c:if test="${sessionScope.tenchouFlag == 0}">
+    <c:if test="${sessionScope.flag == 0}">
     <ul id="bnav">
       <li><a href="baito_calendar.jsp">カレンダー</a></li>
       <li><a href="baito_shift.jsp">シフト</a></li>

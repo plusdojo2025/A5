@@ -38,49 +38,22 @@ public class CalendarServlet extends HttpServlet {
             throws ServletException, IOException {
 
     	//userテーブルのtenchou_flagが1の場合tencho_calendar.jspへ。0の場合baito_calnedar.jspへ。
-    	 HttpSession session = request.getSession(false);
-    	 if(session == null || session.getAttribute("userId")==null) {
-    		 response.sendRedirect("LoginServlet");
-    		 return;
-    	 }
-    	 int userId = (int) session.getAttribute("userId");
-    	 	
-    	 
-    	   UserDAO udao = new UserDAO();
-           int tenchouFlag = udao.selectAll().stream()
-        		   .filter(u -> u.getId() == userId)
-        		   .findFirst()
-        		   .map(User::getFlag)
-        		   .orElse(0);
-           
-           session.setAttribute("tenchouFlag", tenchouFlag);
+    	HttpSession session = request.getSession(false);
+    	if (session == null || session.getAttribute("userId") == null) {
+    	    response.sendRedirect("LoginServlet");
+    	    return;
+    	}
+    	int userId = (int) session.getAttribute("userId");
+
+    	UserDAO udao = new UserDAO();
+    	int tenchouFlag = udao.selectAll().stream()
+    	        .filter(u -> u.getId() == userId)
+    	        .findFirst()
+    	        .map(User::getFlag)
+    	        .orElse(0);
+
+    	session.setAttribute("tenchouFlag", tenchouFlag);
     	
-//    	HttpSession session = request.getSession(false);
-//    	int tenchouFlag = 0; // デフォルト値
-//    	if (session != null && session.getAttribute("userId") != null) {
-//    	    int userId = (int) session.getAttribute("userId");
-//    	    UserDAO udao = new UserDAO();
-//    	    tenchouFlag = udao.selectAll().stream()
-//    	                .filter(u -> u.getId() == userId)
-//    	                .findFirst()
-//    	                .map(User::getFlag)
-//    	                .orElse(0);
-//    	    session.setAttribute("tenchouFlag", tenchouFlag);
-//    	} else {
-//    	    // ログインしていない場合の処理（例えば、tenchouFlagを0にするだけなど）
-//    	    if (session == null) {
-//    	        session = request.getSession(true);
-//    	    }
-//    	    session.setAttribute("tenchouFlag", 0);
-//    	}
-           
-//           String forward;
-//           if (tenchouFlag == 1) {
-//        	   forward = "/WEB-INF/jsp/tencho_calendar.jsp";
-//        	} else {
-//        	   forward = "/WEB-INF/jsp/baito_calendar.jsp";
-//        	}
-//    	
     	
 //        Map<String, Integer> shiftData = new HashMap<>();
 //        Map<String, Integer> eventData = new HashMap<>();
