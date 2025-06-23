@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.UserDAO;
+import dao.UserDao;
 import dto.User;
 
 
@@ -59,7 +59,7 @@ public class UserRegistServlet extends HttpServlet {
 		
 
 		// 登録処理を行う
-				UserDAO dao = new UserDAO(); 
+				UserDao dao = new UserDao(); 
 				User newUser =new User();
 				newUser.setName(user_name);
 				newUser.setPw(password);

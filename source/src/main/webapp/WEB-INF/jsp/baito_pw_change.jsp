@@ -50,15 +50,18 @@
 	       <div class="user_pw">
 	                	<br><br>
 	
-	                  <input id="curPw"type="text" placeholder="現在のパスワード" value="${pw}">
+	                  <input id="curPw" type="password" name="curPw" placeholder="現在のパスワード"
+			           value="${pw}">
 	               		
 	                	<br><br>
 	              
-	                  <input id ="newPw" type="text" placeholder="変更後のパスワード" value="${pw}">
+	                  <input id="newPw" type="password" name="newPw" placeholder="変更後のパスワード"
+			           value="${pw}">
 	              		
 	                	<br><br>
 	
-	                  <input id="newPw" type="text" placeholder="変更後のパスワード（2回目）" value="${pw}">
+	                  <input id="newPw" type="password" name="newPw" placeholder="変更後のパスワード（2回目）"
+			           value="${pw}">
 	               		
 	              		<br><br>
 	
@@ -110,6 +113,8 @@
 		        
 		
 		    </footer>
+		    
+		    <script src="/A5/js/ChangePW.js"></script>
 	
 </body>
 </html>

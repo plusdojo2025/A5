@@ -1,11 +1,11 @@
 @charset "UTF-8";
 /* 枠可視化用 */
-
+/*
 * {
 	outline: 1px solid #FF0000;
 	box-sizing: border-box;
 }
-
+*/
 
 /* 内容表示用テーブルの設定 */
 .table table{

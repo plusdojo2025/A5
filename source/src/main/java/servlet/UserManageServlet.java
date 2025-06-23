@@ -9,9 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/*import org.apache.tomcat.jni.User;*/
-
-import dao.UserDAO;
+import dao.UserDao;
 import dto.User;
 
 /**
@@ -51,7 +49,7 @@ public class UserManageServlet extends HttpServlet {
 				String action = request.getParameter("action"); // "更新" or "削除"
 
 				System.out.println(id+","+name+","+pw+","+flag+","+action);
-				UserDAO dao = new UserDAO();
+				UserDao dao = new UserDao();
 				boolean result = false;
 
 				if ("更新".equals(action)) {
@@ -72,8 +70,8 @@ public class UserManageServlet extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_edit.jsp").forward(request, response);
 				}
 	
-	
 				
-	
-			
 		}
+
+
+

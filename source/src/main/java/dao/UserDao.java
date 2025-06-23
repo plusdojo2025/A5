@@ -8,140 +8,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.CalShift;
-import dto.UserShift;
+import dto.User;
 
-public class ShiftDAO {
-	// ユーザーのシフトをすべて持ってくる
-	public List<UserShift> selectAll() {
+public class UserDao {
+	// 引数card指定された項目で検索して、取得されたデータのリストを返す
+	public List<User> selectAll() {
 		Connection conn = null;
-		List<UserShift> shiftList = new ArrayList<UserShift>();
-		
-		try {
-			// JDBCドライバを読み込む
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
-					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
-			
-			// SQL文(SELECT文で日付・開始時間・終了時間・ユーザーネームを持ってくる)
-			String sql = "SELECT shift_date, shift_start, shift_end, user_name "
-						+ "FROM shift "
-						+ "JOIN user ON shift.user_id = user.id";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-			
-			// SQL文を実行し、結果表を取得する
-			ResultSet rs = pStmt.executeQuery();
-			
-			// 結果表をコレクションにコピーする
-			while (rs.next()) {
-				UserShift userShift = new UserShift(
-					rs.getString("shift_date"), 
-					rs.getString("shift_start"),
-					rs.getString("shift_end"),
-					rs.getString("user_name")
-				);
-				shiftList.add(userShift);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			shiftList = null;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			shiftList = null;
-		} finally {
-			// データベースを切断
-			if (conn != null) {
-				try {
-					conn.close();
-				}
-				catch (SQLException e) {
-					e.printStackTrace();
-					shiftList = null;
-				}
-			}
-		}
-		
-		// 結果を返す
-		return shiftList;
-	}
-	
-	// 指定した任意のシフトをもってくる
-	public List<UserShift> select(UserShift userShift) {
-		Connection conn = null;
-		List<UserShift> shiftList = new ArrayList<UserShift>();
-		
-		try {
-			// JDBCドライバを読み込む
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
-					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
-			
-			// SQL文(SELECT文で日付・開始時間・終了時間・ユーザーネームを持ってくる)
-			String sql = "SELECT shift_date, shift_start, shift_end, user_name "
-						+ "FROM shift "
-						+ "JOIN user ON shift.user_id = user.id "
-						+ "WHERE shift_date LIKE ? " // 一旦保留
-						+ "AND shift_start LIKE ? "
-						+ "AND shift_end LIKE ? "
-						+ "AND user.user_name LIKE ? "
-						+ "ORDER BY shift_id";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-			
-			// SQL文を完成させる
-			pStmt.setDate(1, userShift.getShiftDate());
-			pStmt.setString(2, userShift.getShiftStart());
-			pStmt.setString(3, userShift.getShiftEnd());
-			pStmt.setString(4, userShift.getUserName());
-			
-			// SQL文を実行し、結果表を取得する
-			ResultSet rs = pStmt.executeQuery();
-			
-			// 結果表をコレクションにコピーする
-			while (rs.next()) {
-				UserShift shift = new UserShift(
-					rs.getDate("shift_date"), 
-					rs.getString("shift_start"),
-					rs.getString("shift_end"),
-					rs.getString("user_name")
-				);
-				shiftList.add(shift);
-			}
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-			shiftList = null;
-		}
-		catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			shiftList = null;
-		}
-		finally {
-			// データベースを切断
-			if (conn != null) {
-				try {
-					conn.close();
-				}
-				catch (SQLException e) {
-					e.printStackTrace();
-					shiftList = null;
-				}
-			}
-		}
-		
-		// 結果を返す
-		return shiftList;
-	}
-	
-	// シフトを登録し、成功したらtrueを返す
-	public boolean insert(UserShift userShift) {
-		Connection conn = null;
-		boolean result = false;
+		List<User> userList = new ArrayList<User>();
 		
 		try {
 			// JDBCドライバを読み込む
@@ -153,78 +26,32 @@ public class ShiftDAO {
 					"root", "password");
 			
 			// SQL文を準備する
-			String sql = "INSERT INTO shift VALUES (0, ?, ?, ?, (SELECT id FROM user WHERE user_name LIKE ?)";
+			String sql = "SELECT *  FROM user  ORDER BY id" ;
+			
+			//String sql = "SELECT *  FROM User WHERE  ORDER BY id" ;
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
-			// SQL文を完成させる
-				pStmt.setDate(1, userShift.getShiftDate());
-				pStmt.setString(2, userShift.getShiftStart());
-				pStmt.setString(3, userShift.getShiftEnd());
-				pStmt.setString(4, userShift.getUserName());
 			
-			// SQL文を実行する
-			if (pStmt.executeUpdate() == 1) {
-				result = true;
-			}
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		finally {
-			// データベースを切断
-			if (conn != null) {
-				try {
-					conn.close();
-				}
-				catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		
-		// 結果を返す
-		return result;
-	}
-	
-	// シフトを更新し、成功したらtrueを返す
-	public boolean update(UserShift userShift) {
-		Connection conn = null;
-		boolean result = false;
-		
-		try {
-			// JDBCドライバを読み込む
-			Class.forName("com.mysql.cj.jdbc.Driver");
 			
-			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
-					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
 			
-			// SQL文を準備する
-			String sql = "UPDATE shift SET "
-					+ "shift_date LIKE ?, "
-					+ "shift_start LIKE ?, "
-					+ "shift_end LIKE ?, "
-					+ "user_id = (SELECT id FROM user WHERE user_name LIKE ?)";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
-			
-			// SQL文を完成させる
-				pStmt.setDate(1, userShift.getShiftDate());
-				pStmt.setString(2, userShift.getShiftStart());
-				pStmt.setString(3, userShift.getShiftEnd());
-				pStmt.setString(4, userShift.getUserName());
+			// 結果表をコレクションにコピーする
+			while (rs.next()) {				
+				User user = new User();
+				user.setId(rs.getInt("id"));
+				user.setPw(rs.getString("password"));
+				user.setName(rs.getString("user_name"));
+				user.setFlag(rs.getInt("tenchou_flag"));
 				
-			// SQL文を実行する
-			if (pStmt.executeUpdate() == 1) {
-				result = true;
+				 userList.add(user); //一覧表示
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			userList = null;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			userList = null;
 		} finally {
 			// データベースを切断
 			if (conn != null) {
@@ -232,18 +59,19 @@ public class ShiftDAO {
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
+					userList = null;
 				}
 			}
 		}
 		
 		// 結果を返す
-		return result;
+		return userList;
 	}
 	
-	// 日付とユーザーネームでシフトを抽出し、削除する
-	public boolean delete(UserShift userShift) {
+	// ログイン用
+	public List<User> login(User user) {
 		Connection conn = null;
-		boolean result = false;
+		List<User> loginUser = new ArrayList<User>();
 		
 		try {
 			// JDBCドライバを読み込む
@@ -254,73 +82,30 @@ public class ShiftDAO {
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			
-			// SQL文を準備する
-			String sql = "DELETE FROM shift WHERE shift_date LIKE ? AND user_id = (SELECT id FROM user WHERE user_name LIKE ?)";
+			// ユーザーネームとパスワードを参照し正しければユーザーネームと店長フラグを持ってくる
+			String sql = "SELECT id, user_name, tenchou_flag FROM user WHERE user_name LIKE ? AND password LIKE ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-			
-			// SQL文を完成させる
-			pStmt.setDate(1, userShift.getShiftDate());
-			pStmt.setString(2, userShift.getUserName());
-			
-			// SQL文を実行する
-			if (pStmt.executeUpdate() == 1) {
-				result = true;
-			}
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
-		catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} finally {
-			// データベースを切断
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		
-		// 結果を返す
-		return result;
-	}
-	
-	//イベントの日付と、その日付に付随するイベントの件数を取得するメソッド
-	public List<CalShift> getShift() {
-		Connection conn = null;
-		List<CalShift> calShiftList = new ArrayList<>();
-		
-		try {
-			// JDBCドライバを読み込む
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
-					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
-			
-			// SQL文を準備する
-			String sql = "SELECT shift_date, COUNT(shift_id) AS shift_count FROM shift GROUP BY shift_date";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, user.getName());
+			pStmt.setString(2, user.getPw());
 			
 			// SQL文を実行し、結果表を取得する
 			ResultSet rs = pStmt.executeQuery();
 			
 			// 結果表をコレクションにコピーする
 			while (rs.next()) {
-				CalShift shift = new CalShift();
-				shift.setShiftData(rs.getDate("shift_date"));
-				shift.setCount(rs.getInt("shift_count"));
-				calShiftList.add(shift);
+				User logUser = new User();
+				logUser.setId(rs.getInt("id"));
+				logUser.setName(rs.getString("user_name"));
+				logUser.setFlag(rs.getInt("tenchou_flag"));
+				loginUser.add(logUser);
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			calShiftList = null;
+			loginUser = null;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			calShiftList = null;
+			loginUser = null;
 		} finally {
 			// データベースを切断
 			if (conn != null) {
@@ -328,13 +113,203 @@ public class ShiftDAO {
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
-					calShiftList = null;
+					loginUser = null;
 				}
 			}
 		}
-		
 		// 結果を返す
-		return calShiftList;
+		return loginUser;
 	}
 
+	// 引数userで指定されたレコードを登録し、成功したらtrueを返す
+	public boolean insert(User reg) {
+		Connection conn = null;
+		boolean result = false;
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+
+			// SQL文を準備する
+			String sql = "INSERT INTO user VALUES (null, ?, ?, ?)";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			// SQL文を完成させる
+			pStmt.setString(1, reg.getName());
+			pStmt.setString(2, reg.getPw());
+			pStmt.setInt(3, reg.getFlag());
+			
+			// SQL文を実行する
+			if (pStmt.executeUpdate() == 1) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		// 結果を返す
+		return result;
+	}
+
+	// 引数userで指定されたレコードを更新し、成功したらtrueを返す
+	public boolean update(User reg) {
+		Connection conn = null;
+		boolean result = false;
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+
+			// SQL文を準備する
+			String sql = "UPDATE user SET user_name=? ,password=?  WHERE id=? ";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			
+
+			// SQL文を完成させる
+			pStmt.setString(1, reg.getName());
+			pStmt.setString(2, reg.getPw());
+			pStmt.setInt(3, reg.getId());
+			
+			
+
+			// SQL文を実行する
+			if (pStmt.executeUpdate() == 1) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		System.out.println(result);
+		// 結果を返す
+		return result;
+	}
+	
+	
+	
+	
+	public boolean pwupdate(User reg) {
+		Connection conn = null;
+		boolean result = false;
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+
+			// SQL文を準備する
+			String sql = "UPDATE user SET password=?  WHERE password=? ";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			
+
+			// SQL文を完成させる
+			pStmt.setString(1, reg.getName());
+			pStmt.setString(2, reg.getPw());
+			
+			
+			
+
+			// SQL文を実行する
+			if (pStmt.executeUpdate() == 1) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		// 結果を返す
+		return result;
+	}
+
+	// 引数userで指定された番号のレコードを削除し、成功したらtrueを返す
+	public boolean delete(User reg) {
+		Connection conn = null;
+		boolean result = false;
+
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+
+			// SQL文を準備する
+			String sql = "DELETE FROM user WHERE id=?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			// SQL文を完成させる
+			pStmt.setInt(1, reg.getId());
+
+			// SQL文を実行する
+			if (pStmt.executeUpdate() == 1) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		// 結果を返す
+		return result;
+	}
 }
