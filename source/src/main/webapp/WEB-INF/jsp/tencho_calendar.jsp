@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,7 @@
   <title>エンプロ良イ👍｜カレンダー</title>
   <link rel="stylesheet" href="css/tencho_calendar.css">
   <link rel="stylesheet" href="css/header_footer.css">
+  <link rel="stylesheet" href="<c:url value='/css/tencho_shift.css'/>">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
   <style>
     .shift-count, .event-count {
@@ -36,7 +38,8 @@
     <h1 id="logo">
       <a href="tencho_calendar.jsp"><img src="img/logo.png" width="300" height="auto" alt="エンプロ良イ👍"></a>
     </h1>
-    <ul id="nav">
+    <c:if test="${sessionScope.tenchouFlag == 1}">
+    <ul id="tnav">
       <li><a href="tencho_calendar.jsp">カレンダー</a></li>
       <li><a href="tencho_shift.jsp">シフト</a></li>
       <li><a href="tencho_event.jsp">イベント</a></li>
@@ -44,9 +47,20 @@
       <details>
         <summary class="details-summary">その他</summary>
         <li><a href="tencho_user_edit.jsp">ユーザー管理</a></li>
-        <li><a href="tencho_login.jsp">ログアウト</a></li>
+        <li><a href="login.jsp">ログアウト</a></li>
       </details>
     </ul>
+    </c:if>
+    
+    <c:if test="${sessionScope.tenchouFlag == 0}">
+    <ul id="bnav">
+      <li><a href="baito_calendar.jsp">カレンダー</a></li>
+      <li><a href="baito_shift.jsp">シフト</a></li>
+      <li><a href="baito_event.jsp">パスワード</a></li>
+      <li><a href="baito_manual.jsp">マニュアル</a></li>
+      <li><a href="login.jsp">ログアウト</a></li>
+    </ul>
+    </c:if>
   </header>
 
   <div class="wrapper">
