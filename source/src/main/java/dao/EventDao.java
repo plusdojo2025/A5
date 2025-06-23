@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -90,6 +91,63 @@ public class EventDao {
 			return cardList;
 		}
 
+	// 引数の日付よりも後のイベントを7件取り出す。
+	public List<EventType> select7(Date date) {
+		Connection conn = null;
+		List<EventType> eList = new ArrayList<EventType>();
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			// SQL文を準備する
+			String sql = "SELECT event_date, event_start, event_end, type_name FROM event JOIN event_type ON event.type_id = event_type.type_id"
+					+ " WHERE event_date >= ? LIMIT 7 ORDER BY event_date";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			// SQL文を完成させる
+				pStmt.setDate(1, date);
+				
+			// SQL文を実行し、結果表を取得する
+			ResultSet rs = pStmt.executeQuery();
+			
+			// 結果表をコレクションにコピーする
+			while (rs.next()) {
+				EventType event = new EventType();
+				event.setEventDate(rs.getDate("event_date"));
+				event.setEventStart(rs.getString("event_start"));
+				event.setEventEnd(rs.getString("event_end"));
+				event.setEventType(rs.getString("type_name"));
+				eList.add(event);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			eList = null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			eList = null;
+		} finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+					eList = null;
+				}
+			}
+		}
+		
+		// 結果を返す
+		return eList;
+	}
+
+		
 	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
 	public boolean insert(Event card) {
 		Connection conn = null;
