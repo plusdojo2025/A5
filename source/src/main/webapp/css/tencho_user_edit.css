@@ -111,7 +111,8 @@ body {
 /* 表とボタン */
 .table_up_del {
   width: 100%;
-  margin-left: 90px; /* ← 余白を削除 */
+  margin-right:60px;
+  
 }
 
 

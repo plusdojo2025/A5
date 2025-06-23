@@ -18,16 +18,16 @@
 			    </a>
 			  </h1>
 			  <ul id="nav">
-			    <li><a href="/A5/CalenderServlet">カレンダー</a></li>
-			    <li><a href="/A5/ShiftServlet">シフト</a></li>
-			    <li><a href="/A5/EventServlet">イベント</a></li>
-			    <li><a href="/A5/ManualServlet">マニュアル</a></li>
+			    <li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
+			    <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
+			    <li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
+			    <li><a href="<c:url value='/ManualServlett'/>">マニュアル</a></li>
 			    <li>
 			      <details>
 			        <summary class="details-summary">その他</summary>
 			        <ul>
-			          <li><a href="/A5/UserRegistServlet">ユーザー管理</a></li>
-			          <li><a href="/A5/LogoutServlet">ログアウト</a></li>
+			          <li><a href="<c:url value='/UserRegistServlet'/>">ユーザー管理</a></li>
+			          <li><a href="<c:url value='/LogoutServlet'/>">ログアウト</a></li>
 			        </ul>
 			      </details>
 			    </li>
