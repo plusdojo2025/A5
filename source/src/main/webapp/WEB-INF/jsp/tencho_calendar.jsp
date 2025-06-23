@@ -40,9 +40,9 @@
     </h1>
     <c:if test="${sessionScope.flag == 1}">
     <ul id="tnav">
-      <li><a href="tencho_calendar.jsp">カレンダー</a></li>
-      <li><a href="tencho_shift.jsp">シフト</a></li>
-      <li><a href="tencho_event.jsp">イベント</a></li>
+     <li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
+     <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
+	 <li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
       <li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
       <details>
         <summary class="details-summary">その他</summary>
@@ -54,9 +54,9 @@
     
     <c:if test="${sessionScope.flag == 0}">
     <ul id="bnav">
-      <li><a href="baito_calendar.jsp">カレンダー</a></li>
-      <li><a href="baito_shift.jsp">シフト</a></li>
-      <li><a href="baito_event.jsp">パスワード</a></li>
+      <li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
+     <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
+     <li><a href="<c:url value='/ChangePWServlet'/>">パスワード</a></li>
       <li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
       <li><a href="login.jsp">ログアウト</a></li>
     </ul>

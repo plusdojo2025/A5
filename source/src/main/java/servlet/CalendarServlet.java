@@ -39,7 +39,7 @@ public class CalendarServlet extends HttpServlet {
 
     	//userテーブルのtenchou_flagが1の場合tencho_calendar.jspへ。0の場合baito_calnedar.jspへ。
     	HttpSession session = request.getSession(false);
-    	if (session == null || session.getAttribute("userId") == null) {
+    	if (session == null || session.getAttribute("name") == null) {
     	    response.sendRedirect("LoginServlet");
     	    return;
     	}
