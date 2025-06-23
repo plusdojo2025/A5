@@ -3,9 +3,10 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>エンプロ良イ:+1:｜マニュアル管理</title>
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  <title>エンプロ良イ&#128077｜マニュアル管理</title>
   <link rel="stylesheet" href="<c:url value='/css/style.css' />">
-  <link rel="stylesheet" href="<c:url value='/css/tencho_manual.css'/>">
+
   <%--<style>
     tencho_manual.cssに移動済み
   </style>--%>
