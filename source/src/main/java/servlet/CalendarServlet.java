@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.EventDao;
-import dao.ShiftDAO;
+import dao.ShiftDao;
 import dto.CalEvent;
 import dto.CalShift;
 
@@ -67,7 +67,7 @@ public class CalendarServlet extends HttpServlet {
 //                    shiftData.put(rs.getString("shift_date"), rs.getInt("shift_count"));
 //                }
 //            }
-            ShiftDAO sdao = new ShiftDAO();
+            ShiftDao sdao = new ShiftDao();
             List<CalShift> slist = sdao.getShift();
             
             //consoleにslistの中身を表示
