@@ -43,7 +43,7 @@
       <li><a href="tencho_calendar.jsp">カレンダー</a></li>
       <li><a href="tencho_shift.jsp">シフト</a></li>
       <li><a href="tencho_event.jsp">イベント</a></li>
-      <li><a href="tencho_manual.jsp">マニュアル</a></li>
+      <li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
       <details>
         <summary class="details-summary">その他</summary>
         <li><a href="tencho_user_edit.jsp">ユーザー管理</a></li>
@@ -57,7 +57,7 @@
       <li><a href="baito_calendar.jsp">カレンダー</a></li>
       <li><a href="baito_shift.jsp">シフト</a></li>
       <li><a href="baito_event.jsp">パスワード</a></li>
-      <li><a href="baito_manual.jsp">マニュアル</a></li>
+      <li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
       <li><a href="login.jsp">ログアウト</a></li>
     </ul>
     </c:if>
