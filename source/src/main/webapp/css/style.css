@@ -1,25 +1,24 @@
 @charset "UTF-8";
 
-body {
+/*全体　背景色*/
+body{
   margin: 0 0 0 0;	/* マージンなし（後で個別に設定） */
   padding: 0 0 0 0;	/* パディングなし（後で個別に設定） */
   width: 100%;
   justify-content:center;
-  color: #000000;
+  color: #000000;  /* 文字の色を設定 */
   font-size: 16px;
   background-color: #e2e2e2;
-  overflow-x:hidden;
 }
 
 
-
-/*　ヘッダー　*/
+ /*　ヘッダー　*/
  header {
       padding: 20px;
       text-align: center;
     }
     
-
+/* ヘッダー内の文字 */
 #nav  {
       margin: 80px auto 0 auto;
       padding-top: 30px ;
@@ -93,71 +92,14 @@ body {
 
 /*　ヘッダーここまで*/
 
-/* タイトル　*/
+
+
+/*タイトル*/
 .top{
     text-align:center;
 }
 
 
-/* 店長は赤文字です */
-
-.note{
-    padding-left:180px;
-    margin-left:200px;
-    color:#ff0000;
-}
-
-
-/* 表とボタン */
-.table_up_del {
-  width: 100%;
-  margin-right:60px;
-  
-}
-
-.up_del_mes{
-	text-align:center;
-	font-weight:bold;
-	font-size:20px;
-}
-
-
-th,td{
-    border: 1px solid #333;
-}
-
-table {
-            border-collapse: collapse;
-            width: 50%;
-            margin: 20px auto;
-}
-        
-td {
-            border: 1px solid #000;
-            width: 50px;
-            height: 50px;
-            text-align:center;
-}
-/*テーブルの枠線を消す*/
-
-.no-bottom-border {
-  border-top: none;
-  border-right: none;
-  border-bottom: none;
-}
-
-/*変更ボタン　色変更　*/
-.update_button{
-    background-color:#ffde59;
-}
-
-
-
-
-/*削除ボタン　色変更　*/
-.delete_button{
-    background-color:#5271ff;
-}
 
 /* 上に戻るボタン */
 .gotop{

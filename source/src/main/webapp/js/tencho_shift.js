@@ -62,9 +62,9 @@ function renderTimeline(weekIndex) {
 		
 			const bar = document.createElement("div");
 			bar.className = "shift-bar";
-			bar.style.left = `${'$'}{left}px`;
-			bar.style.width = `${'$'}{width}px`;
-			bar.style.top = `${'$'}{5 + index * 35}px`; // ← シフトごとに縦にずらす
+			bar.style.left = `${left}px`;
+			bar.style.width = `${width}px`;
+			bar.style.top = `${5 + index * 35}px`; // ← シフトごとに縦にずらす
 			bar.textContent = s.name;
 		
 			line.appendChild(bar);
@@ -72,8 +72,8 @@ function renderTimeline(weekIndex) {
 		
 		//⭐ 高さを調整（これが今回の修正点）
 		const rowHeight = Math.max(40, dailyShifts.length * 40);
-		line.style.height = `${'$'}{rowHeight}px`;
-		row.style.height = `${'$'}{rowHeight}px`;
+		line.style.height = `${rowHeight}px`;
+		row.style.height = `${rowHeight}px`;
 		
 		row.appendChild(line);
 		grid.appendChild(row);
@@ -88,4 +88,25 @@ renderTimeline(0); // 初期表示：第1週
 
 function formatDate(date) {
 	return date.toLocaleDateString("sv-SE");
+}
+
+function printSection(sectionId) {
+    var content = document.getElementById(sectionId).innerHTML;
+
+    var printWindow = window.open('', '', 'width=800,height=600');
+    printWindow.document.write(`
+        <html>
+        <head>
+            <title>印刷</title> 
+            <link rel="stylesheet" type="text/css" href="${cssUrl}">
+        </head>
+        <body>
+            ${content}
+        </body>
+        </html>
+    `);
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
 }
