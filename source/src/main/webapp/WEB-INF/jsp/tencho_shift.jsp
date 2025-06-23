@@ -9,12 +9,9 @@
 <link rel="stylesheet" href="<c:url value='/css/tencho_shift.css'/>" >
 </head>
 <body>
-<<<<<<< HEAD
-	<br><br><br>
 	<div class="container">
-    	<br><br><br>
 		<!-- タイトル -->
-		<header>
+	<header>
 		<h1 id="logo">
 			<a href="tencho_calendar.jsp">
 			<img src="img/logo.png" width="300" height="auto" alt="エンプロ良イ👍">
@@ -33,40 +30,18 @@
 		          <li><a href="<c:url value='/LogoutServlet'/>">ログアウト</a></li>
 		        </ul>
 		      </details>
-=======
-	<header>
-	<h1 id="logo">
-	<a href="<c:url value='/CalendarServlet'/>">
-		<img src="<c:url value='/img/logo.png'/>" width=300 height=auto alt="エンプロ良イ👍">
-	</a>
-		</h1>
-	    <ul id="nav">
-			<li><a href="<c:url value='/CalendarServlet'/>">カレンダー</a></li>
-			<li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
-			<li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
-			<li><a href="<c:url value='/ManualServlet'/>">マニュアル</a></li>
-			<li>
-			<details>
-				<summary class="details-summary">その他</summary>
-				<ul>
-				<li><a href="<c:url value='/UserRegistServlet'/>">ユーザー管理</a></li>
-				<li><a href="<c:url value='/LogoutServlet'/>">ログアウト</a></li>
-				</ul>
-			</details>
->>>>>>> c6e61e4022acb9c692b7d08be71228cbd760ed5e
-			</li>
+		      </li>
 		</ul>
 
 	</header>
-	
 	<main>
 	
 	<!-- カレンダー表示切替ナビ -->
 	<div class="calendar-nav">
 		<button class="arrow left">◁</button>
 		<div class="mode-buttons">
-			<button>週 表示</button>
-			<button>月 表示</button>
+			<button type="button" class="bW">週 表示</button>
+			<button type="button" class="bM">月 表示</button>
 		</div>
 		<button class="arrow right">▷</button>
 	</div>
@@ -101,12 +76,10 @@
 	<br>
 	<p>&copy; エンプロ良イ👍</p>
 	</footer>
-
+	</div>
 <script>
 const cssUrl = "<c:url value='/css/tencho_shift.css'/>";
 </script>
 <script src="<c:url value='/js/tencho_shift.js' />"></script>
-
-
 </body>
 </html>
