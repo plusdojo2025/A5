@@ -10,7 +10,7 @@ import java.util.List;
 
 import dto.User;
 
-public class UserDAO {
+public class UserDao {
 	// 引数card指定された項目で検索して、取得されたデータのリストを返す
 	public List<User> selectAll() {
 		Connection conn = null;
