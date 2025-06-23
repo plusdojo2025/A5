@@ -70,5 +70,10 @@ public class UserManageServlet extends HttpServlet {
 
 				// JSPにフォワード
 				request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_edit.jsp").forward(request, response);
-			}
+				}
+	
+	
+				
+	
+			
 		}

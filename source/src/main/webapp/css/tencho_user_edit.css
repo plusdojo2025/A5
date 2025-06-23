@@ -136,6 +136,7 @@ td {
             border: 1px solid #000;
             width: 50px;
             height: 50px;
+            text-align:center;
 }
 /*テーブルの枠線を消す*/
 
@@ -149,6 +150,9 @@ td {
 .update_button{
     background-color:#ffde59;
 }
+
+
+
 
 /*削除ボタン　色変更　*/
 .delete_button{
