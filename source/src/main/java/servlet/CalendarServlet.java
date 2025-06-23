@@ -16,10 +16,8 @@ import javax.servlet.http.HttpSession;
 
 import dao.EventDao;
 import dao.ShiftDAO;
-import dao.UserDAO;
 import dto.CalEvent;
 import dto.CalShift;
-import dto.User;
 
 /**
  * Servlet implementation class CalendarServlet
@@ -45,14 +43,14 @@ public class CalendarServlet extends HttpServlet {
     	}
     	String userId = (String) session.getAttribute("name");
 
-    	UserDAO udao = new UserDAO();
-    	int tenchouFlag = udao.selectAll().stream()
-    	        .filter(u -> u.getId() == Integer.parseInt(userId))
-    	        .findFirst()
-    	        .map(User::getFlag)
-    	        .orElse(0);
-
-    	session.setAttribute("tenchouFlag", tenchouFlag);
+//    	UserDAO udao = new UserDAO();
+//    	int tenchouFlag = udao.selectAll().stream()
+//    	        .filter(u -> u.getId() == Integer.parseInt(userId))
+//    	        .findFirst()
+//    	        .map(User::getFlag)
+//    	        .orElse(0);
+//
+//    	session.setAttribute("tenchouFlag", tenchouFlag);
     	
     	
 //        Map<String, Integer> shiftData = new HashMap<>();
