@@ -4,97 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <title>エンプロ良イ:+1:｜マニュアル管理</title>
-  <style>
-    header {
-      margin: 100px;
-    }
-    #nav {
-      margin: 30px 0 0 0;
-      padding: 0;
-      list-style: none;
-      display: flex;
-      gap: 40px;
-      justify-content: center;
-      border: 2px solid #000;
-      border-radius: 4px;
-    }
-    #nav li a {
-      text-decoration: none;
-      color: #000;
-      padding: 8px 12px;
-    }
-    #nav li a:hover {
-      background-color: #ddd;
-      border-radius: 4px;
-    }
-    #ddAreaFileRef {
-      border: 2px solid #000;
-      border-radius: 10px;
-      width: 80%;
-      text-align: center;
-      line-height: 100px;
-      color: #000;
-      margin: 20px auto;
-      font-family: sans-serif;
-      transition: border-color 0.3s;
-    }
-    #ddAreaFileRef.hover {
-      border-color: blue;
-      color: blue;
-    }
-    h2 {
-      margin: 2% auto;
-      text-align: center;
-      border: 2px solid #000;
-      border-radius: 1px;
-      width: 80%;
-      cursor: pointer;
-    }
-    h3 {
-      margin: auto;
-      text-align: center;
-      border: 2px solid #000;
-      border-radius: 1px;
-      width: 80%;
-    }
-    #fileList {
-      margin-top: 20px;
-      text-align: center;
-    }
-    input[type="file"] {
-      display: none;
-    }
-      .color-option {
-    display: flex;
-    gap: 20px;
-    margin: 20px 0;
-  }
-
-  .color-option input[type="radio"] {
-    display: none;
-  }
-
-  .color-label {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: inline-block;
-    cursor: pointer;
-    border: 3px solid transparent;
-  }
-
-  /* 色ごとの背景 */
-  .color-red { background-color: red; }
-  .color-blue { background-color: blue; }
-  .color-green { background-color: green; }
-  .color-orange { background-color: orange; }
-  .color-purple { background-color: purple; }
-
-  /* 選択されたときの枠線 */
-  input[type="radio"]:checked + .color-label {
-    border-color: white;
-  }
-  </style>
+  <link rel="stylesheet" href="<c:url value='/css/style.css' />">
+  <link rel="stylesheet" href="<c:url value='/css/tencho_manual.css'/>">
+  <%--<style>
+    tencho_manual.cssに移動済み
+  </style>--%>
 </head>
 <body>
   <header>

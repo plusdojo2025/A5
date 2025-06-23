@@ -1,7 +1,10 @@
 package servlet;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -55,8 +58,21 @@ public class CalendarServlet extends HttpServlet {
             for (CalShift cs : slist) {
                 System.out.println("日付" + cs.getShiftData() + ", 件数" + cs.getCount());
             }
+            Map<String, Integer> shiftMap = new TreeMap<>(); // TreeMapで日付順にもできて便利
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+            int sum = 0;
+            for (CalShift cs : slist) {
+                sum += cs.getCount();
+                String dateStr = sdf.format(cs.getShiftData());
+                shiftMap.put(dateStr, sum);
+            }
+            
+            //確認
+            
             
             //jspが見えるところにセット
+            request.setAttribute("shiftMap", shiftMap);
             request.setAttribute("calShift", slist);
 
 //            //イベント件数を日付ごとに取得
@@ -75,8 +91,21 @@ public class CalendarServlet extends HttpServlet {
                 System.out.println("日付" + ce.getEventData() + ", 件数" + ce.getCount());
             }
             
+            Map<String, Integer> eventMap = new TreeMap<>();
+           
+
+            int eSum = 0;
+            for (CalEvent ce : elist) {
+                eSum += ce.getCount();
+                String dateStr = sdf.format(ce.getEventData());
+                eventMap.put(dateStr, eSum);
+            }
+            
             //jspが見えるところにセット
+            request.setAttribute("eventMap", eventMap);
             request.setAttribute("calEvent", elist);
+            
+            
 
         
         //取得したデータをjspに渡す
