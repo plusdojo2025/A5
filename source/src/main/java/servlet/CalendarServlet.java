@@ -47,7 +47,7 @@ public class CalendarServlet extends HttpServlet {
 
     	UserDAO udao = new UserDAO();
     	int tenchouFlag = udao.selectAll().stream()
-    	        .filter(u -> u.getId() == userId)
+    	        .filter(u -> u.getId() == Integer.parseInt(userId))
     	        .findFirst()
     	        .map(User::getFlag)
     	        .orElse(0);
