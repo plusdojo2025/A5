@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,6 +29,22 @@ public class EventServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// もしもログインしていなかったらログインページにリダイレクトする
+		/*
+		HttpSession session = request.getSession();
+		if (session.getAttribute("user") == null) {
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
+			return;
+		}
+		*/
+		
+		// 現在日時を取得し、データベースから当日以降のイベントの情報を持ってくる
+		Date date = new Date(new java.util.Date().getTime());
+		EventDao eDAO = new EventDao();
+		List<EventType> eList = eDAO.select7(date);
+		
+		// 持ってきた情報をリクエストスコープに入れる
+		request.setAttribute("eventList", eList);
 		
 		// イベントページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_event.jsp");
