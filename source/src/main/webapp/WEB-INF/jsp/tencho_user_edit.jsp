@@ -46,7 +46,11 @@
        
             <!-- 表 -->
         <div class="table_up_del">
-			<div class="up_del_mes" style="color:red">${message}</div>
+			
+     <c:if test="${not empty message}">
+  		<div class="up_del_mes" style="color:red">${message}</div>
+	</c:if>
+			
                <table border="1">
 			      <thead>
 			        <tr>
@@ -123,7 +127,7 @@
 		</div>
 		
 		<br>
-        <p>&copy; エンプロ良イ👍</p>
+        <p>&copy; エンプロ良イ&#128077</p>
         
 
     </footer>

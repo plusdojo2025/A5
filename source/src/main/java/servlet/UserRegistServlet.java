@@ -35,6 +35,10 @@ public class UserRegistServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 	}
 
+	
+	
+	
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -42,12 +46,15 @@ public class UserRegistServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		
 
 		// リクエストパラメータを取得する
 		request.setCharacterEncoding("UTF-8");
 		String user_name = request.getParameter("user_name");
 		String password = request.getParameter("password");
 		Integer tencho_flag =Integer.parseInt(request.getParameter("tencho_flag"));
+		
+		
 		
 		
 
