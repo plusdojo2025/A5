@@ -12,10 +12,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import dao.ManualDao;
 import dto.Manual;
+import dto.User;
 
 @WebServlet("/ManualServlet")
 @MultipartConfig(
@@ -25,16 +27,38 @@ import dto.Manual;
 )
 public class ManualServlet extends HttpServlet {
 
-    // ファイル保存ディレクトリ（サーバーのフォルダをパスで指定する
+// ファイル保存ディレクトリ（サーバーのフォルダをパスで指定する
 //    private static final String UPLOAD_DIR = "A5/src/main/TestYouAgeAge";
-
+	
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
-        dispatcher.forward(request, response);
+    	
+    	HttpSession session = request.getSession();
+	    User loginUser = (User) session.getAttribute("name");//ログイン時にセッションスコープに預けた名前を持ってくる
 
-    }//店長用画面に遷移する↑。IfでFlagが0なら店員用に飛ばす必要がある、どうやってやるんだ
+	    if (loginUser == null) {//もしログインしていなければログイン画面へ飛ばす
+	        response.sendRedirect("/WEB-INF/jsp/login.jsp");
+	        return;
+	    }
+	    
+	    int flag = (Integer)session.getAttribute("flag"); //セッションスコープから取り出すとObject型なのでIntegerにキャストする
+//	    loginUser.getFlag();
+	    
+	    if (flag == 0) {//もしflagが0つまり店員であれば店員用のマニュアル閲覧画面へ飛ばす
+	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_manual.jsp");
+	        dispatcher.forward(request, response);
+	        return;
+	    }
+	    else if (flag == 1){//もしflagが1つまり店長であれば店長用のマニュアル管理画面へ飛ばす
+	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
+	        dispatcher.forward(request, response);
+//    	フラグ別にページを分ける試み、いったん保留。↑
+    	
+//    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
+//        dispatcher.forward(request, response);
+        }}
+    	//店長用画面に遷移する↑。IfでFlagが0なら店員用に飛ばす必要がある、どうやってやるんだ
     
     
     @Override
@@ -70,9 +94,11 @@ public class ManualServlet extends HttpServlet {
                 if (MDao.insert(new Manual(manual_file, importance, date_up, 0))) {    
                     response.getWriter().write("ファイルアップロード成功");
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                response.getWriter().write("ファイルアップロード失敗: " + e.getMessage());}
+        		} catch (Exception e) {
+        			e.printStackTrace(); // サーバーログには詳細を出すが、クライアント側には出さないようにしたい
+        			response.getWriter().write("アップロードに失敗しました。管理者にお問い合わせください。");
+        		}
+
 }
 
         
@@ -91,3 +117,5 @@ public class ManualServlet extends HttpServlet {
         return "unknown";
     }
 }
+
+ 
