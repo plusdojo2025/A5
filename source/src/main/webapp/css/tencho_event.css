@@ -1,2 +1,31 @@
 @charset "UTF-8";
+/* 内容表示用テーブルの設定 */
+.table table{
+	border-collapse: collapse;
+	margin-top: 20px;
+	width: 100%;
+}
+.table th {
+	border: 1px solid #333;
+	padding: 8px;
+	text-align: center;
+}
+.table td {
+	border: 1px solid #333;
+	padding: 8px;
+	text-align: center;
+}
+main {
+	max-width: 700px;
+	margin: 0 auto 0 auto;
+}
+table {
+	margin: 0 auto 0 auto;
+	max-width: 600px;
+	width: 100%;
+	height: auto;
+	overflow: auto;
+	border-spacing: 10px 0px;
+}
+
 /* 一旦ファイルだけ作成(店長イベント) */
