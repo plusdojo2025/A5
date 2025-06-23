@@ -6,7 +6,7 @@ const shifts = [
 	{ date: '2025-06-03', name: '佐藤', startTime: '12:00', endTime: '15:00' }, // ★被り
 	{ date: '2025-06-10', name: '佐藤', startTime: '10:00', endTime: '16:00' },
 	{ date: '2025-06-17', name: '山田', startTime: '10:00', endTime: '18:00' },
-	{ date: '2025-06-25', name: '田中', startTime: '08:30', endTime: '12:00' }
+	{ date: '2025-06-25', name: '田中', startTime: '09:30', endTime: '12:00' }
 ];
 
 
@@ -29,8 +29,9 @@ HOURS.forEach(h => {
 function renderTimeline(weekIndex) {
 	grid.innerHTML = '';
 	
-	const weekStart = new Date(2025, 6, 1); // 2025-06-01
-	weekStart.setDate(1 + weekIndex * 7);
+	//const weekStart = new Date(2025, 5, 1); // 2025-06-01
+	const weekStart = new Date();
+	//weekStart.setDate(1 + weekIndex * 7);
 	
 	
 	for (let i = 0; i < 7; i++) {
