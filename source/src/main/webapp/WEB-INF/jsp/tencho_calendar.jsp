@@ -7,9 +7,8 @@
 <head>
   <meta charset="UTF-8">
   <title>エンプロ良イ👍｜カレンダー</title>
-  <link rel="stylesheet" href="css/tencho_calendar.css">
-  <link rel="stylesheet" href="css/header_footer.css">
-  <link rel="stylesheet" href="<c:url value='/css/tencho_shift.css'/>">
+  <link rel="stylesheet" href="<c:url value='/css/header_footer.css'/>">
+  <link rel="stylesheet" href="<c:url value='/css/tencho_calendar.css'/>">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
   <style>
     .shift-count, .event-count {
@@ -36,17 +35,17 @@
 
   <header>
     <h1 id="logo">
-      <a href="tencho_calendar.jsp"><img src="img/logo.png" width="300" height="auto" alt="エンプロ良イ👍"></a>
+      <a href="<c:url value='/CalendarServlet'/>"><img src="img/logo.png" width="300" height="auto" alt="エンプロ良イ👍"></a>
     </h1>
     <c:if test="${sessionScope.flag == 1}">
     <ul id="tnav">
-     <li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
+     <li><a href="<c:url value='/CalendarServlet'/>">カレンダー</a></li>
      <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
 	 <li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
       <li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
       <details>
         <summary class="details-summary">その他</summary>
-        <li><<a href="<c:url value='UserManageServlet' />">ユーザー管理</a></li>
+        <li><a href="<c:url value='UserManageServlet' />">ユーザー管理</a></li>
         <li><a href="<c:url value='LoginServlet' />">ログアウト</a></li>
       </details>
     </ul>
