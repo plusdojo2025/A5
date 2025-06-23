@@ -17,7 +17,6 @@ import javax.servlet.http.Part;
 
 import dao.ManualDao;
 import dto.Manual;
-import dto.User;
 
 @WebServlet("/ManualServlet")
 @MultipartConfig(
@@ -33,10 +32,10 @@ public class ManualServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	
+//    	ここから↓
     	HttpSession session = request.getSession();
-	    User loginUser = (User) session.getAttribute("name");//ログイン時にセッションスコープに預けた名前を持ってくる
-
+	    String loginUser = (String) session.getAttribute("name");//ログイン時にセッションスコープに預けた名前を持ってくる
+	    System.out.println("ログインユーザー名："+loginUser);
 	    if (loginUser == null) {//もしログインしていなければログイン画面へ飛ばす
 	        response.sendRedirect("/WEB-INF/jsp/login.jsp");
 	        return;
@@ -44,6 +43,7 @@ public class ManualServlet extends HttpServlet {
 	    
 	    int flag = (Integer)session.getAttribute("flag"); //セッションスコープから取り出すとObject型なのでIntegerにキャストする
 //	    loginUser.getFlag();
+	    System.out.println("ログインフラグ："+flag);
 	    
 	    if (flag == 0) {//もしflagが0つまり店員であれば店員用のマニュアル閲覧画面へ飛ばす
 	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_manual.jsp");
@@ -52,12 +52,12 @@ public class ManualServlet extends HttpServlet {
 	    }
 	    else if (flag == 1){//もしflagが1つまり店長であれば店長用のマニュアル管理画面へ飛ばす
 	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
-	        dispatcher.forward(request, response);
-//    	フラグ別にページを分ける試み、いったん保留。↑
+	        dispatcher.forward(request, response);}
+//    	ここまで↑フラグ別にページを分ける試み、いったん保留。↑
     	
 //    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
 //        dispatcher.forward(request, response);
-        }}
+        }
     	//店長用画面に遷移する↑。IfでFlagが0なら店員用に飛ばす必要がある、どうやってやるんだ
     
     

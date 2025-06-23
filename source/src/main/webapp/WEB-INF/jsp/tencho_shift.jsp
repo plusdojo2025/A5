@@ -5,16 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>エンプロ良イ👍｜シフト確認</title>
+<title>エンプロ良イ&#128077｜シフト確認</title>
 <link rel="stylesheet" href="<c:url value='/css/tencho_shift.css'/>" >
 </head>
 <body>
-<<<<<<< HEAD
-	<br><br><br>
 	<div class="container">
-    	<br><br><br>
 		<!-- タイトル -->
-		<header>
+	<header>
 		<h1 id="logo">
 			<a href="tencho_calendar.jsp">
 			<img src="img/logo.png" width="300" height="auto" alt="エンプロ良イ👍">
@@ -33,49 +30,28 @@
 		          <li><a href="<c:url value='/LogoutServlet'/>">ログアウト</a></li>
 		        </ul>
 		      </details>
-=======
-	<header>
-	<h1 id="logo">
-	<a href="<c:url value='/CalendarServlet'/>">
-		<img src="<c:url value='/img/logo.png'/>" width=300 height=auto alt="エンプロ良イ👍">
-	</a>
-		</h1>
-	    <ul id="nav">
-			<li><a href="<c:url value='/CalendarServlet'/>">カレンダー</a></li>
-			<li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
-			<li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
-			<li><a href="<c:url value='/ManualServlet'/>">マニュアル</a></li>
-			<li>
-			<details>
-				<summary class="details-summary">その他</summary>
-				<ul>
-				<li><a href="<c:url value='/UserRegistServlet'/>">ユーザー管理</a></li>
-				<li><a href="<c:url value='/LogoutServlet'/>">ログアウト</a></li>
-				</ul>
-			</details>
->>>>>>> c6e61e4022acb9c692b7d08be71228cbd760ed5e
-			</li>
+		      </li>
 		</ul>
 
 	</header>
-	
 	<main>
 	
 	<!-- カレンダー表示切替ナビ -->
 	<div class="calendar-nav">
 		<button class="arrow left">◁</button>
 		<div class="mode-buttons">
-			<button>週 表示</button>
-			<button>月 表示</button>
+			<button type="button" id="bW" onclick="text2Hidden()">週 表示</button>
+			<button type="button" id="bM" onclick="text1Hidden()">月 表示</button>
 		</div>
 		<button class="arrow right">▷</button>
 	</div>
 	
 	
 	<div id="printArea">
+		<div id="text1">
 		<div class="time-axis" id="timeAxis"></div>
 		<div class="timeline-grid" id="timelineGrid"></div>
-	</div>
+		</div>
 	
 	<select id="weekSelector">
 	<option value="0">月 第1週</option>
@@ -84,7 +60,27 @@
 	<option value="3">第4週</option>
 	<option value="4">第5週</option>
 	</select>
-
+	
+	
+	<!-- 表（月表示） -->
+	<div id="text2" hidden="">
+	<table id="shiftTable">
+    <thead>
+      <tr>
+        <th>日付</th>
+        <th>名前</th>
+        <th>開始時間</th>
+        <th>終了時間</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- JavaScriptでここに行を追加します -->
+    </tbody>
+  </table>
+  </div>
+  </div>
+	
+	
 	<div class="print_center">
 		<button type="button" class="print" onclick="printSection('printArea')">印刷</button>
 	</div>
@@ -99,14 +95,12 @@
 		 <a href="#top"><img src="<c:url value='/img/gotop.png'/>" alt="ページトップへ戻る" width=70px height=auto></a>
 	</div>
 	<br>
-	<p>&copy; エンプロ良イ👍</p>
+	<p>&copy; エンプロ良イ&#128077</p>
 	</footer>
-
+	</div>
 <script>
 const cssUrl = "<c:url value='/css/tencho_shift.css'/>";
 </script>
 <script src="<c:url value='/js/tencho_shift.js' />"></script>
-
-
 </body>
 </html>

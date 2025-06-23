@@ -27,7 +27,8 @@ public class EventServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// 店長ページにフォワードする
+		
+		// イベントページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_event.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -41,7 +42,7 @@ public class EventServlet extends HttpServlet {
 		// もしもログインしていなかったらログインページにリダイレクトする
 		HttpSession session = request.getSession();
 		if (session.getAttribute("user") == null) {
-			response.sendRedirect("/webapp/LoginServlet");
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
 		// リクエストパラメータを取得する

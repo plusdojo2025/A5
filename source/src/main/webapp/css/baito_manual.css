@@ -1,2 +1,10 @@
 @charset "UTF-8";
 /* 一旦ファイルだけ作成(バイトマニュアル) */
+    h3 {
+      margin: auto;
+      text-align: center;
+      border: 2px solid #ff0000;
+      border-radius: 1px;
+      width: 80%;
+      color:#ff0000
+    }

@@ -11,7 +11,7 @@ import java.util.List;
 import dto.CalShift;
 import dto.UserShift;
 
-public class ShiftDAO {
+public class ShiftDao {
 	// ユーザーのシフトをすべて持ってくる
 	public List<UserShift> selectAll() {
 		Connection conn = null;

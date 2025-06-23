@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.EventDao;
 import dao.ShiftDAO;
@@ -35,6 +36,21 @@ public class CalendarServlet extends HttpServlet {
             throws ServletException, IOException {
 
     	//userテーブルのtenchou_flagが1の場合tencho_calendar.jspへ。0の場合baito_calnedar.jspへ。
+    	HttpSession session = request.getSession(false);
+    	if (session == null || session.getAttribute("name") == null) {
+    	    response.sendRedirect("LoginServlet");
+    	    return;
+    	}
+    	String userId = (String) session.getAttribute("name");
+
+//    	UserDAO udao = new UserDAO();
+//    	int tenchouFlag = udao.selectAll().stream()
+//    	        .filter(u -> u.getId() == Integer.parseInt(userId))
+//    	        .findFirst()
+//    	        .map(User::getFlag)
+//    	        .orElse(0);
+//
+//    	session.setAttribute("tenchouFlag", tenchouFlag);
     	
     	
 //        Map<String, Integer> shiftData = new HashMap<>();

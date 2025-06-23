@@ -53,6 +53,25 @@
   padding-bottom: 4px;
 }
 
+#shiftBtn, #eventBtn {
+  font-size: 20px;       /* フォント大きく */
+  padding: 15px 30px;    /* ボタンサイズ調整 */
+  border: none;          /* 枠線なし */
+  border-radius: 5px;    /* 角丸にする */
+  cursor: pointer;       /* カーソルをポインタに */
+  margin: 10px;
+}
+
+#shiftBtn {
+  background-color: red;
+  color: white;
+}
+
+#eventBtn {
+  background-color: blue;
+  color: white;
+}
+
 /* 件数全体を包むラッパーが絶対位置になる場合に備えて */
 .fc-daygrid-day {
   overflow: visible;
