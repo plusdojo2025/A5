@@ -30,16 +30,18 @@ public class UserManageServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException {
 		
-		
+				//入力値の文字コードをutf-8にする
+				request.setCharacterEncoding("UTF-8");
+				
 				
 				response.setCharacterEncoding("UTF-8");
 				HttpSession session =request.getSession();
 
-				if (session.getAttribute("id") == null) {
-					request.setAttribute("message", "ログインしてください。");
-					request.getRequestDispatcher("login.jsp").forward(request, response);
-					return;
-				}
+//				if (session.getAttribute("id") == null) {
+//					request.setAttribute("message", "ログインしてください。");
+//					request.getRequestDispatcher("login.jsp").forward(request, response);
+//					return;
+//				}
 				
 
 				String id = request.getParameter("id");
@@ -48,6 +50,7 @@ public class UserManageServlet extends HttpServlet {
 				String flag = request.getParameter("flag");
 				String action = request.getParameter("action"); // "更新" or "削除"
 
+				System.out.println(id+","+name+","+pw+","+flag+","+action);
 				UserDAO dao = new UserDAO();
 				boolean result = false;
 
@@ -58,6 +61,7 @@ public class UserManageServlet extends HttpServlet {
 				}
 				if (result) {
 					request.setAttribute("message", action + "しました。");
+				
 				} else {
 					request.setAttribute("message", action + "に失敗しました。");
 				}
@@ -65,6 +69,6 @@ public class UserManageServlet extends HttpServlet {
 				request.setAttribute("userList", dao.selectAll());
 
 				// JSPにフォワード
-				request.getRequestDispatcher("tencho_user_edit.jsp").forward(request, response);
+				request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_edit.jsp").forward(request, response);
 			}
 		}

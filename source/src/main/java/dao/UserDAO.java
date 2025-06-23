@@ -42,7 +42,7 @@ public class UserDAO {
 				user.setId(rs.getInt("id"));
 				user.setPw(rs.getString("password"));
 				user.setName(rs.getString("user_name"));
-				user.setFlag(rs.getInt("tencho_flag"));
+				user.setFlag(rs.getInt("tenchou_flag"));
 				
 				 userList.add(user); //一覧表示
 			}
@@ -212,7 +212,7 @@ public class UserDAO {
 				}
 			}
 		}
-
+		System.out.println(result);
 		// 結果を返す
 		return result;
 	}

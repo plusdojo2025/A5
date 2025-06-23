@@ -25,7 +25,7 @@ public class LogoutServlet extends HttpServlet {
 		session.invalidate();
 		
 		// ログインページにリダイレクトする
-		response.sendRedirect("/A5/LoginServlet");
+		response.sendRedirect("<c:url value='/LogoutServlet'/>");
 	}
 	
 }

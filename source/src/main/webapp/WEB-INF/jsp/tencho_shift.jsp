@@ -128,6 +128,31 @@ font-weight: bold;
 
 </head>
 <body>
+<<<<<<< HEAD
+	<br><br><br>
+	<div class="container">
+    	<br><br><br>
+		<!-- タイトル -->
+		<header>
+		<h1 id="logo">
+			<a href="tencho_calendar.jsp">
+			<img src="img/logo.png" width="300" height="auto" alt="エンプロ良イ👍">
+			</a>
+		</h1>
+		<ul id="nav">
+			<li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
+		    <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
+		    <li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
+		    <li><a href="<c:url value='/ManualServlett'/>">マニュアル</a></li>
+		    <li>
+		      <details>
+		        <summary class="details-summary">その他</summary>
+		        <ul>
+		          <li><a href="<c:url value='/UserRegistServlet'/>">ユーザー管理</a></li>
+		          <li><a href="<c:url value='/LogoutServlet'/>">ログアウト</a></li>
+		        </ul>
+		      </details>
+=======
 	<header>
 	<h1 id="logo">
 	      <a href="tencho_calendar.jsp"><img src="img/logo.png" width=300 height=auto alt="エンプロ良イ👍"></a>
@@ -145,6 +170,7 @@ font-weight: bold;
 				<li><a href="/A5/LogoutServlet">ログアウト</a></li>
 				</ul>
 			</details>
+>>>>>>> c6e61e4022acb9c692b7d08be71228cbd760ed5e
 			</li>
 		</ul>
 
