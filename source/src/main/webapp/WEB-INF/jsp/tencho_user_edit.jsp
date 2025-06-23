@@ -46,7 +46,7 @@
        
             <!-- 表 -->
         <div class="table_up_del">
-			<div class="" style="color:red">${message}</div>
+			<div class="up_del_mes" style="color:red">${message}</div>
                <table border="1">
 			      <thead>
 			        <tr>
@@ -76,13 +76,6 @@
 		      <input type="hidden" name="pw" value="${user.pw}" />
 		      <input type="hidden" name="flag" value="${user.flag}" />
     	  </td>
-          
-           <!--
-          <td>
-             <input type="password" name="pw" value="${user.pw}" style="width:150px;" />
-            
-          </td>
-          -->
           
           <td>
             <input type="submit" name="action" value="更新" class="update_button" 
