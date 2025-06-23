@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.UserDAO;
+import dao.UserDao;
 import dto.User;
 
 /**
@@ -45,31 +45,20 @@ public class LoginServlet extends HttpServlet {
 		String pw = request.getParameter("pw");
 		
 		// ログイン処理を行う
-		UserDAO uDao = new UserDAO();
+		UserDao uDao = new UserDao();
 		User user = new User();
 		user.setName(userName);
 		user.setPw(pw);
 		
 		List<User> loginUser = uDao.login(user);
 		if (loginUser != null) { // ログイン成功
-			// セッションスコープにユーザーネーム・店長フラグを格納する
+			// セッションスコープにユーザーネーム・店長フラグを格納し、カレンダーサーブレットに飛ぶ
 			HttpSession session = request.getSession();
 			String loginUserName = (loginUser.get(0)).getName();
 			int loginUserFlag = (loginUser.get(0)).getFlag();
 			session.setAttribute("name", loginUserName);
 			session.setAttribute("flag", loginUserFlag);
-<<<<<<< HEAD
-			if(loginUser.get(0).getFlag()==1) {
-				//店長の飛び先
-				response.sendRedirect(request.getContextPath() + "/CalendarServlet");
-			}else if(loginUser.get(0).getFlag()==0) {
-				//店員の飛び先
-				response.sendRedirect(request.getContextPath() + "/CalendarServlet");
-			}
-=======
-			
 			response.sendRedirect(request.getContextPath() + "/CalendarServlet");
->>>>>>> 61a4b63e61808075c86ff65185e1824451b82522
 		} else { // ログイン失敗
 			// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
 			// request.setAttribute("result", new Result("ログイン失敗！", "IDまたはPWに間違いがあります。", "/webapp/LoginServlet"));
