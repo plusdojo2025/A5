@@ -58,6 +58,7 @@ public class LoginServlet extends HttpServlet {
 			int loginUserFlag = (loginUser.get(0)).getFlag();
 			session.setAttribute("name", loginUserName);
 			session.setAttribute("flag", loginUserFlag);
+<<<<<<< HEAD
 			if(loginUser.get(0).getFlag()==1) {
 				//店長の飛び先
 				response.sendRedirect(request.getContextPath() + "/CalendarServlet");
@@ -65,6 +66,10 @@ public class LoginServlet extends HttpServlet {
 				//店員の飛び先
 				response.sendRedirect(request.getContextPath() + "/CalendarServlet");
 			}
+=======
+			
+			response.sendRedirect(request.getContextPath() + "/CalendarServlet");
+>>>>>>> 61a4b63e61808075c86ff65185e1824451b82522
 		} else { // ログイン失敗
 			// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
 			// request.setAttribute("result", new Result("ログイン失敗！", "IDまたはPWに間違いがあります。", "/webapp/LoginServlet"));

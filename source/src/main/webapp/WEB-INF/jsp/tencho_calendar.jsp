@@ -46,8 +46,8 @@
       <li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
       <details>
         <summary class="details-summary">その他</summary>
-        <li><a href="tencho_user_edit.jsp">ユーザー管理</a></li>
-        <li><a href="login.jsp">ログアウト</a></li>
+        <li><<a href="<c:url value='UserManageServlet' />">ユーザー管理</a></li>
+        <li><a href="<c:url value='LoginServlet' />">ログアウト</a></li>
       </details>
     </ul>
     </c:if>
@@ -58,7 +58,7 @@
      <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
      <li><a href="<c:url value='/ChangePWServlet'/>">パスワード</a></li>
       <li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
-      <li><a href="login.jsp">ログアウト</a></li>
+      <li><a href="<c:url value='LoginServlet' />">ログアウト</a></li>
     </ul>
     </c:if>
   </header>

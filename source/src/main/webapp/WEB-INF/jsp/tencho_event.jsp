@@ -30,10 +30,11 @@
 		<!-- イベント表示 -->
 		<div id="table" class="table"></div>
 		<!-- 日付と時間選択 -->
-		<form id="form">
+		<form id="form" method="POST" action="<c:url value='/EventServlet' />">
 			<div id="addButton">
 				<input type="button" value="追加" onclick="addTable()">
 				<input type="button" value="表示" onclick="generateTable()">
+				<input type="submit" value="登録">
 			</div>
 		</form>
 		<!-- 上に戻るボタン -->
@@ -187,7 +188,7 @@
 			html += "<option value='17:50'></option>";
 			html += "<option value='18:00'></option>";
 			html += "</datalist></td>";
-			html += "<td><button type='button' onclick=\"removeTable('" + tableId + "')\">削除</button></td></tr>";
+			html += "<td><button type='button' onclick=\"removeTable('" + tableId + "');generateTable()\">削除</button></td></tr>";
 			html += "</table>";
 			html += "</div>"
 			

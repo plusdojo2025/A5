@@ -1,4 +1,12 @@
 @charset "UTF-8";
+/* 枠可視化用 */
+/*
+* {
+	outline: 1px solid #FF0000;
+	box-sizing: border-box;
+}
+*/
+
 /* 内容表示用テーブルの設定 */
 .table table{
 	border-collapse: collapse;
@@ -15,17 +23,18 @@
 	padding: 8px;
 	text-align: center;
 }
+/* 全体の位置調整など */
 main {
 	max-width: 700px;
 	margin: 0 auto 0 auto;
 }
 table {
+	text-align: center;
 	margin: 0 auto 0 auto;
 	max-width: 600px;
 	width: 100%;
 	height: auto;
 	overflow: auto;
-	border-spacing: 10px 0px;
 }
 
 /* 一旦ファイルだけ作成(店長イベント) */

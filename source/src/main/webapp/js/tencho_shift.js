@@ -29,7 +29,7 @@ HOURS.forEach(h => {
 function renderTimeline(weekIndex) {
 	grid.innerHTML = '';
 	
-	const weekStart = new Date(2025, 5, 1); // 2025-06-01
+	const weekStart = new Date(2025, 6, 1); // 2025-06-01
 	weekStart.setDate(1 + weekIndex * 7);
 	
 	
@@ -109,4 +109,32 @@ function printSection(sectionId) {
     printWindow.focus();
     printWindow.print();
     printWindow.close();
+}
+
+const tableBody = document.querySelector('#shiftTable tbody');
+
+shifts.forEach(shift => {
+  	const row = document.createElement('tr');
+
+  	row.innerHTML = `
+    	<td>${shift.date}</td>
+    	<td>${shift.name}</td>
+    	<td>${shift.startTime}</td>
+    	<td>${shift.endTime}</td>
+  	`;
+
+ 	 tableBody.appendChild(row);
+});
+
+function text2Hidden() {
+	const text1 = document.getElementById('text1');
+	const text2 = document.getElementById('text2');
+	text1.hidden = false;
+	text2.hidden = true; // trueならfalseに、falseならtrueに
+}
+function text1Hidden() {
+	const text1 = document.getElementById('text1');
+	const text2 = document.getElementById('text2');
+	text1.hidden = true; // trueならfalseに、falseならtrueに
+	text2.hidden = false;
 }
