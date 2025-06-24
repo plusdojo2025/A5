@@ -52,9 +52,7 @@ public class ChangePWServlet extends HttpServlet {
 		User user = (User)session.getAttribute("user");
 		int id = sessionUser.getId();
 		String curPw = request.getParameter("curPw");
-		String newPw = request.getParameter("newPw");
-		
-		String newPw1 = request.getParameter("newPw");
+		String newPw1 = request.getParameter("newPw1");
 		String newPw2 = request.getParameter("newPw2");
 
 		if (newPw1 == null || !newPw1.equals(newPw2)) {
@@ -68,14 +66,15 @@ public class ChangePWServlet extends HttpServlet {
 		UserDao dao = new UserDao();
 		//User user =new User();
 		user.setPw(curPw);
-		user.setPw(newPw);
+		user.setPw(newPw1);
+		user.setPw(newPw2);
 		user.setId(id);
 		
 		boolean ans = dao.pwupdate(user);
 		
 		if(ans != true) {
 			//変更できたときの処理
-			response.sendRedirect("<c:url value='/LoginServlet' />");
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 		}else {
 			//変更できなかったときの処理
 			request.setAttribute("error", "パスワード変更に失敗しました。");
