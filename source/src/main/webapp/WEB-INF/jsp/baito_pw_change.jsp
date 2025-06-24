@@ -67,14 +67,16 @@
 	              		<br><br>
 	
 	                <div class="update_button">
-	                        <input type="submit" value="変更">
+	                        <input type="submit" value="変更" onclick="return kaku()">
 	                </div>
 	                
-	                <p id="pwMessage"></p>
+	                <p id="output"></p>
+	                
 		      </div>
 		        
 		
 	</form>
+	${errMsg }
 				<!-- エラーメッセージ表示--> 
 				<c:if test="${not empty error}">
 	    		<p style="color:red; font-weight:bold;">${error}</p></c:if>
@@ -117,7 +119,30 @@
 		
 		    </footer>
 		    
-		    <script src="/A5/js/ChangePW.js"></script>
+		    <script>
+		    function kaku(){
+		    	cur = document.getElementById("curPw").value;
+		    	new1 = document.getElementById("newPw1").value;
+		    	new2 = document.getElementById("newPw2").value;
+		    	
+		    	if(cur=="" || new1=="" || new2==""){
+		    		alert("全部入力してください");
+		    		return false;
+		    	}
+		    	if(new1!=new2){
+		    		alert("変更後のパスワードが一致しません");
+		    		return false;
+		    	}
+		    	
+		    	 
+		    	
+
+
+		    }
+		    
+		    </script>
+		    
+		    
 	
 </body>
 </html>

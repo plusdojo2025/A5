@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -55,43 +56,40 @@ public class ChangePWServlet extends HttpServlet {
 		String newPw1 = request.getParameter("newPw1");
 		String newPw2 = request.getParameter("newPw2");
 
-		if (newPw1 == null || !newPw1.equals(newPw2)) {
-		    request.setAttribute("error", "新しいパスワードが一致しません。");
-		    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_pw_change.jsp");
-		    dispatcher.forward(request, response);
-		    return;
-		}
-		
-		
+//		if (newPw1 == null || !newPw1.equals(newPw2)) {
+//		    request.setAttribute("error", "新しいパスワードが一致しません。");
+//		    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_pw_change.jsp");
+//		    dispatcher.forward(request, response);
+//		    return;
+//		}
+		User u = new User();
+		u.setId(id);
+		u.setPw(curPw);
 		UserDao dao = new UserDao();
-		//User user =new User();
-		user.setPw(curPw);
-		user.setPw(newPw1);
-		user.setPw(newPw2);
-		user.setId(id);
+		List<User> list = dao.login(u);
 		
-		boolean ans = dao.pwupdate(user);
-		
-		if(ans != true) {
-			//変更できたときの処理
-			response.sendRedirect(request.getContextPath() + "/LoginServlet");
-		}else {
-			//変更できなかったときの処理
-			request.setAttribute("error", "パスワード変更に失敗しました。");
+		if(list.size()==0) {
+			request.setAttribute("errMsg", "※入力した既存パスワードが異なります");
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_pw_change.jsp");
 			dispatcher.forward(request, response);
+		}else{
+			user.setPw(curPw);
+			user.setPw(newPw1);
+			user.setPw(newPw2);
+			user.setId(id);
+			
+			boolean ans = dao.pwupdate(user);
+			if(ans != true) {
+				//変更できたときの処理
+				response.sendRedirect(request.getContextPath() + "/LoginServlet");
+			}else {
+				//変更できなかったときの処理
+				request.setAttribute("error", "パスワード変更に失敗しました。");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_pw_change.jsp");
+				dispatcher.forward(request, response);
+			}
+		//User user =new User()
 		}
-		
-		
-
-		
-		
-		
-		
-		
-	
-	
-}
-	
+	}
 }
 
