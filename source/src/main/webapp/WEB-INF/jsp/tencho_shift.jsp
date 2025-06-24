@@ -38,12 +38,12 @@
 	
 	<!-- カレンダー表示切替ナビ -->
 	<div class="calendar-nav">
-		<button class="arrow left">◁</button>
+		<button id="prevWeek" class="arrow left">◁</button>
 		<div class="mode-buttons">
 			<button type="button" id="bW" onclick="text2Hidden()">週 表示</button>
 			<button type="button" id="bM" onclick="text1Hidden()">月 表示</button>
 		</div>
-		<button class="arrow right">▷</button>
+		<button id="nextWeek" class="arrow right">▷</button>
 	</div>
 	
 	

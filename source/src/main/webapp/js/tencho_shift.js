@@ -26,13 +26,13 @@ HOURS.forEach(h => {
 	}
 });
 
-function renderTimeline(weekIndex) {
+function renderTimeline(startDate) {
 	grid.innerHTML = '';
 	
 	//const weekStart = new Date(2025, 5, 1); // 2025-06-01
-	const weekStart = new Date();
+	//const weekStart = new Date();
 	//weekStart.setDate(1 + weekIndex * 7);
-	
+	const weekStart = new Date(startDate);
 	
 	for (let i = 0; i < 7; i++) {
 		const currentDate = new Date(weekStart);
@@ -139,3 +139,27 @@ function text1Hidden() {
 	text1.hidden = true; // trueならfalseに、falseならtrueに
 	text2.hidden = false;
 }
+
+
+let cDate = new Date(); 
+// 日付を週の月曜日に合わせる
+function getStartOfWeek(date) {
+	const d = new Date(date);
+	d.setDate(d.getDate() - d.getDay());
+	return d;
+}
+
+let currentWeekStart = getStartOfWeek(cDate);
+renderTimeline(currentWeekStart);
+
+// ボタンイベント
+document.getElementById("prevWeek").addEventListener("click", () => {
+currentWeekStart.setDate(currentWeekStart.getDate() - 7);
+renderTimeline(currentWeekStart);
+});
+
+document.getElementById("nextWeek").addEventListener("click", () => {
+currentWeekStart.setDate(currentWeekStart.getDate() + 7);
+renderTimeline(currentWeekStart);
+});
+
