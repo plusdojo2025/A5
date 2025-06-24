@@ -25,7 +25,7 @@
 			   <li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
 			    <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
 			    <li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
-			    <li><a href="<c:url value='/ManualServlett'/>">マニュアル</a></li>
+			    <li><a href="<c:url value='/ManualServlet'/>">マニュアル</a></li>
 			    <li>
 			      <details>
 			        <summary class="details-summary">その他</summary>
@@ -44,10 +44,11 @@
 	         <br><br><br>
 	      
 	
-	<form id="user_pw_form" method="post" action=""<c:url value='/ChangePWServlet'/>">
+	<form id="user_pw_form" method="post" action="<c:url value='/ChangePWServlet'/>">
 	       <!-- 選択画面部分 -->
 	
 	       <div class="user_pw">
+	       
 	                	<br><br>
 	
 	                  <input id="curPw" type="password" name="curPw" placeholder="現在のパスワード"
@@ -55,12 +56,12 @@
 	               		
 	                	<br><br>
 	              
-	                  <input id="newPw" type="password" name="newPw" placeholder="変更後のパスワード"
+	                  <input id="newPw1" type="password" name="newPw1" placeholder="変更後のパスワード"
 			           value="${pw}">
 	              		
 	                	<br><br>
 	
-	                  <input id="newPw" type="password" name="newPw" placeholder="変更後のパスワード（2回目）"
+	                  <input id="newPw2" type="password" name="newPw2" placeholder="変更後のパスワード（2回目）"
 			           value="${pw}">
 	               		
 	              		<br><br>
@@ -68,6 +69,8 @@
 	                <div class="update_button">
 	                        <input type="submit" value="変更">
 	                </div>
+	                
+	                <p id="pwMessage"></p>
 		      </div>
 		        
 		
@@ -109,7 +112,7 @@
 				</div>
 				
 				<br>
-		        <p>&copy; エンプロ良イ👍</p>
+		        <p>&copy; エンプロ良イ&#128077</p>
 		        
 		
 		    </footer>

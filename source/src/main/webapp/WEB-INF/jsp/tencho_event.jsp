@@ -47,7 +47,31 @@
 		<!-- 登録するイベント表示 -->
 		<div id="table" class="table"></div>
 		<!-- 選択肢を編集ボタン -->
-		<>
+		<button onclick="openModal()">選択肢を編集</button>
+		<!-- モーダル本体 -->
+		<div id="modal" class="modal">
+			<div class="modal-content">
+				<span class="close" onclick="closeModal()">&times;</span>
+				<c:forEach var="f" items="${eventTypeList}">
+					<form method="POST" action="">
+						<table>
+								<tr>
+									<td><input type="text" value="${f}" readonly="readonly"></td>
+									<td><input type="submit" value="削除">
+								</tr>
+						</table>
+					</form>
+				</c:forEach>
+				<form>
+					<table>
+						<tr>
+							<td><input type="text"></td>
+							<td><input type="submit" value="追加"></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
 		<!-- 日付と時間選択 -->
 		<form id="form" method="POST" action="<c:url value='/EventServlet' />">
 			<div id="addButton">
@@ -251,6 +275,23 @@
 			html += "</table>";
 			document.getElementById("table").innerHTML = html;
 		}
+		
+		function openModal() {
+			document.getElementById("modal").style.display = "block";
+		}
+		
+		function closeModal() {
+			document.getElementById("modal").style.display = "none";
+		}
+		
+		// 背景クリックで閉じる機能（任意）
+		window.onclick = function(event) {
+			const modal = document.getElementById("modal");
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		}
+
 	</script>
 </body>
 </html>

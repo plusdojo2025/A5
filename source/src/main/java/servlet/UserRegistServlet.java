@@ -55,6 +55,14 @@ public class UserRegistServlet extends HttpServlet {
 		Integer tencho_flag =Integer.parseInt(request.getParameter("tencho_flag"));
 		
 		
+	    // パスワードの長さチェック
+	    if (password.length() < 8 || password.length() > 50) {
+	        request.setAttribute("errMsg", "パスワードは8文字以上50文字以内で入力してください。");
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_reg.jsp");
+	        dispatcher.forward(request, response);
+	        return;
+	    }
+	    
 		
 		
 
