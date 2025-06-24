@@ -107,7 +107,7 @@ public class EventDao {
 			
 			// SQL文を準備する
 			String sql = "SELECT event_date, event_start, event_end, type_name FROM event JOIN event_type ON event.type_id = event_type.type_id"
-					+ " WHERE event_date >= ? LIMIT 7 ORDER BY event_date";
+					+ " WHERE event_date >= ? ORDER BY event_date LIMIT 7";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
@@ -310,26 +310,30 @@ public class EventDao {
 	}
 
 	// 引数cardで指定された番号のレコードを削除し、成功したらtrueを返す
-	public boolean delete(Event card) {
+	public boolean delete(EventType eventType) {
 		Connection conn = null;
 		boolean result = false;
-
+		
 		try {
 			// JDBCドライバを読み込む
 			Class.forName("com.mysql.cj.jdbc.Driver");
-
+			
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
-
+			
 			// SQL文を準備する
-			String sql = "DELETE FROM event WHERE event_id=?";
+			String sql = "DELETE FROM event WHERE event_date = ? AND event_start = ? AND event_end = ? AND type_id = (SELECT type_id FROM event_type WHERE type_name = ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
-
+			
 			// SQL文を完成させる
-			pStmt.setInt(1, card.getEventId());
-
+			pStmt.setDate(1, eventType.getEventDate());
+			pStmt.setString(2, eventType.getEventStart());
+			pStmt.setString(3, eventType.getEventEnd());
+			pStmt.setString(4, eventType.getEventType());
+			
+			System.out.println(pStmt);
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
 				result = true;
@@ -348,7 +352,7 @@ public class EventDao {
 				}
 			}
 		}
-
+		
 		// 結果を返す
 		return result;
 	}

@@ -10,7 +10,8 @@
 </head>
 <body>
 	<div class="container">
-		<!-- タイトル -->
+	
+	<!-- タイトル -->
 	<header>
 		<h1 id="logo">
 			<a href="tencho_calendar.jsp">
@@ -50,7 +51,7 @@
 		<div id="text1">
 		<div class="time-axis" id="timeAxis"></div>
 		<div class="timeline-grid" id="timelineGrid"></div>
-		</div>
+	</div>
 	
 	<select id="weekSelector">
 	<option value="0">月 第1週</option>

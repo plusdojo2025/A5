@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -53,13 +54,31 @@ public class ManualServlet extends HttpServlet {
 	    else if (flag == 1){//もしflagが1つまり店長であれば店長用のマニュアル管理画面へ飛ばす
 	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
 	        dispatcher.forward(request, response);}
-//    	ここまで↑フラグ別にページを分ける試み、いったん保留。↑
-    	
+//    	ここまで↑フラグ別にページを分ける試み、完了↑
+	    
+//	    ここから↓
+	    
+	    ManualDao dao = new ManualDao();
+	    try {
+	        List<Manual> manualList = dao.findAll();
+	        request.setAttribute("manualList", manualList);
+	        if (flag == 0) {
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_manual.jsp");
+	        dispatcher.forward(request, response);}
+	        else if(flag == 1) { 
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
+	        dispatcher.forward(request, response);}
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	    }
+	    
+//	    ここまで↑ｇｐｔ曰くテーブル全取得からの一覧表示に必要。 //からの分岐も上記同様にこれで行けるか??
+	    
 //    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
 //        dispatcher.forward(request, response);
         }
-    	//店長用画面に遷移する↑。IfでFlagが0なら店員用に飛ばす必要がある、どうやってやるんだ
-    
+    	//店長用画面に遷移する↑。IfでFlagが0なら店員用に飛ばす必要がある、どうやってやるんだ←完了
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -81,7 +100,7 @@ public class ManualServlet extends HttpServlet {
                 }
             }
         
-//            リクエストパラメータの取得？必要かな？
+//            リクエストパラメータの取得？必要かな？わっかんね、保留！
             request.setCharacterEncoding("UTF-8");
             String manual_file = request.getParameter("manual_file");
             int importance = Integer.parseInt(request.getParameter("importance"));
@@ -101,10 +120,6 @@ public class ManualServlet extends HttpServlet {
 
 }
 
-        
-            
-    
-  
     private String getFileName(Part part) {
         String cd = part.getHeader("content-disposition");
         if (cd == null) return "unknown";
