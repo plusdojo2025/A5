@@ -7,7 +7,7 @@
 <head>
   <meta charset="UTF-8">
   <title>エンプロ良イ👍｜カレンダー</title>
-  <link rel="stylesheet" href="<c:url value='/css/header_footer.css'/>">
+  <link rel="stylesheet" href="<c:url value='/css/style.css'/>">
   <link rel="stylesheet" href="<c:url value='/css/tencho_calendar.css'/>">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
   <style>
@@ -39,26 +39,30 @@
     <h1 id="logo">
       <a href="<c:url value='/CalendarServlet'/>"><img src="img/logo.png" width="300" height="auto" alt="エンプロ良イ👍"></a>
     </h1>
-    
+
+<!-- 店長フラグ1の場合店長用のメニューを表示 -->    
     <c:if test="${sessionScope.flag == 1}">
     <ul id="tnav">
      <li><a href="<c:url value='/CalendarServlet'/>">カレンダー</a></li>
      <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
 	 <li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
       <li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
+      <!-- アコーディオンメニュー -->
       <li>
       <details>
         <summary class="details-summary">その他</summary>
               <ul>
-        <li><a href="<c:url value='UserManageServlet' />">ユーザー管理</a></li>
-        <li><a href="<c:url value='LoginServlet' />">ログアウト</a></li>
+        <li><a href="<c:url value='/UserManageServlet' />">ユーザー管理</a></li>
+        <li><a href="<c:url value='/LoginServlet' />">ログアウト</a></li>
         </ul>
       </details>
       </li>
     </ul>
     </c:if>
-    
+
+<!-- 店長フラグ0の場合店員用のメニューとハンバーガーメニューを表示 -->    
     <c:if test="${sessionScope.flag == 0}">
+    <!-- ハンバーガーメニュー -->
                 <!-- チェックボックスで切り替える -->
   <input type="checkbox" id="menu-toggle" class="menu-toggle" />
   <label for="menu-toggle" class="menu-icon">
@@ -76,12 +80,14 @@
       <li><a href="#">マニュアル</a></li>
     </ul>
   </nav>
+  
+  <!-- 店員用メニュー -->
     <ul id="bnav">
       <li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
      <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
      <li><a href="<c:url value='/ChangePWServlet'/>">パスワード</a></li>
       <li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
-      <li><a href="<c:url value='LoginServlet' />">ログアウト</a></li>
+      <li><a href="<c:url value='/LoginServlet' />">ログアウト</a></li>
 
     </ul>
     </c:if>
@@ -96,8 +102,33 @@
 
   <div id="calendar"></div>
 
-  <div id="shift">シフト</div><br>
-  <div id="event">イベント</div>
+
+<!-- シフト表示 -->
+  <div id="shift">シフト
+  
+  </div><br>
+  
+  
+<!-- イベント表示 -->
+  <div id="event">
+    <table border="1">
+		<tr>
+			<th>日付</th>
+			<th>開始時刻</th>
+			<th>終了時刻</th>
+			<th>イベント種別</th>
+		</tr>
+		<c:forEach var="event" items="${weeklyEvents}">
+			<tr>
+				<td>${event.eventDate}</td>
+				<td>${event.eventStart}</td>
+				<td>${event.eventEnd}</td>
+				<td>${event.eventType}</td>
+			</tr>
+		</c:forEach>
+	</table>
+  </div>
+
 
   <footer>
     <p class="gotop">

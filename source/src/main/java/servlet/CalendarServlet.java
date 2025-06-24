@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import dao.EventDao;
 import dao.ShiftDao;
 import dto.CalEvent;
 import dto.CalShift;
+import dto.EventType;
 
 /**
  * Servlet implementation class CalendarServlet
@@ -122,8 +124,6 @@ public class CalendarServlet extends HttpServlet {
             request.setAttribute("calEvent", elist);
             
             
-
-        
         //取得したデータをjspに渡す
             
           //consoleにshiftDataの中身を表示
@@ -131,10 +131,32 @@ public class CalendarServlet extends HttpServlet {
 //            	System.out.println("shiftDataの中身"+list);
 //            }
            
+         // 今日の日付を取得
+//            System.out.println("CalendarServlet#doGet 開始");
+            
+    		Date today = new Date(System.currentTimeMillis());
+
+    		// DAO呼び出し
+    		EventDao eventDao = new EventDao();
+    		List<EventType> weeklyEvents = eventDao.select7(today);
+    		
+//    		 for (EventType et : weeklyEvents) {
+//    			 System.out.println("日付: " + et.getEventDate());
+//    			    System.out.println("開始時刻: " + et.getEventStart());
+//    			    System.out.println("終了時刻: " + et.getEventEnd());
+//    			    System.out.println("イベントID: " + et.getEventId());
+//    			    System.out.println("イベント種別: " + et.getEventType());
+//             }
+    		
+    		// リクエストスコープに保存
+    		request.setAttribute("weeklyEvents", weeklyEvents);
+
             
 //        request.setAttribute("shiftData", shiftData);
 //        request.setAttribute("eventData", eventData);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_calendar.jsp");
         dispatcher.forward(request, response);
     }
+
 }
+

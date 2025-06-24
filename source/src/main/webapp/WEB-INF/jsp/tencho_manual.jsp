@@ -69,6 +69,23 @@
     </form>
 
     <h3>登録済みマニュアル一覧</h3>
+        <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>ファイル名</th>
+            <th>重要度</th>
+            <th>更新日</th>
+        </tr>
+        <c:forEach var="manual" items="${manualList}">
+            <tr>
+                <td>${manual.id}</td>
+                <td>${manual.manual_file}</td>
+                <td>${manual.importance}</td>
+                <td>${manual.date_up}</td>
+            </tr>
+        </c:forEach>
+    </table>
+    
   </main>
 
   <script>

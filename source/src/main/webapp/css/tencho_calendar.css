@@ -7,7 +7,7 @@
 
 /* ハンバーガーメニュー */
 .menu-toggle {
-      /* display: none; */
+	display: none;
     }
 
     .menu-icon {
@@ -91,7 +91,7 @@
 }
 
 
-#tnav,#bnav li a {
+#tnav li a,#bnav li a {
       text-decoration: none;
       color: #000;
       padding: 8px 12px;
@@ -101,10 +101,16 @@
       
     
     
-#tnav,#bnav li a:hover {
+#tnav li a:hover{
       background-color: #ddd;
       border-radius: 4px;
     }
+    
+#bnav li a:hover {
+      background-color: #ddd;
+      border-radius: 4px;
+    }
+    
     
 .details-summary{
 	  font-weight:bold;
