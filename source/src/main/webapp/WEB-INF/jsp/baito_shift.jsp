@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>エンプロ良イ👍｜シフト申請</title>
-
+<link rel="stylesheet" href="<c:url value='/css/tencho_shift.css'/>" >
 <style>
 
 head,main {
@@ -141,82 +142,54 @@ font-weight: bold;
 
 </head>
 <body>
-<<<<<<< HEAD
-	<br><br><br>
 <!-- タイトル -->
 <header>
-  <h1 id="logo">
-    <a href="tencho_calendar.jsp">
-      <img src="img/logo.png" width="300" height="auto" alt="エンプロ良イ👍">
-    </a>
-  </h1>
-  <ul id="nav">
-    <li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
-    <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
-    <li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
-    <li><a href="<c:url value='/ManualServlett'/>">マニュアル</a></li>
-    <li>
-      <details>
-        <summary class="details-summary">その他</summary>
-        <ul>
-          <li><a href="<c:url value='/UserRegistServlet'/>">ユーザー管理</a></li>
-          <li><a href="<c:url value='/LogoutServlet'/>">ログアウト</a></li>
-        </ul>
-      </details>
-    </li>
-  </ul>
+    <h1 id="logo">
+    	<a href="tencho_calendar.jsp"><img src="img/logo.png" width=300 height=auto alt="エンプロ良イ👍"></a>
+    </h1>
+    <ul id="nav">
+    	<li><a href="tencho_calelndar.jsp">カレンダー</a></li>
+    	<li><a href="tencho_shift.jsp">シフト</a></li>
+      	<li><a href="tencho_event.jsp">パスワード</a></li>
+      	<li><a href="tencho_manual.jsp">マニュアル</a></li>
+      	<li><a href="tencho_manual.jsp">ログアウト</a></li>
+    </ul>
 </header>
- 
- 	<br><br><br><br><br>
   
 <main>
 	<ul class="add_button">
-	<li><button type="button">追加</button></li>
-	<li><button type="button">追加</button></li>
-	<li><button type="button">追加</button></li>
-	<li><button type="button">追加</button></li>
-	<li><button type="button">追加</button></li>
-	<li><button type="button">追加</button></li>
-	<li><button type="button">追加</button></li>
-	<li><button type="button">追加</button></li>
-	<li><button type="button">追加</button></li>
+		<li><button type="button">追加</button></li>
+		<li><button type="button">追加</button></li>
+		<li><button type="button">追加</button></li>
+		<li><button type="button">追加</button></li>
+		<li><button type="button">追加</button></li>
+		<li><button type="button">追加</button></li>
+		<li><button type="button">追加</button></li>
+		<li><button type="button">追加</button></li>
+		<li><button type="button">追加</button></li>
 	</ul>
-=======
-	<header>
-	<h1 id="logo">
-	      <a href="tencho_calendar.jsp"><img src="img/logo.png" width=300 height=auto alt="エンプロ良イ👍"></a>
-	    </h1>
-	    <ul id="nav">
-	      <li><a href="tencho_calelndar.jsp">カレンダー</a></li>
-	      <li><a href="tencho_shift.jsp">シフト</a></li>
-	      <li><a href="tencho_event.jsp">パスワード</a></li>
-	      <li><a href="tencho_manual.jsp">マニュアル</a></li>
-	      <li><a href="tencho_manual.jsp">ログアウト</a></li>
-	    </ul>
-	</header>
-	<main>
+	
 	<div class="time-axis" id="timeAxis"></div>
-<div class="timeline-grid" id="timelineGrid"></div>
->>>>>>> c6e61e4022acb9c692b7d08be71228cbd760ed5e
-
-<select id="weekSelector">
-<option value="0">月 第1週</option>
-<option value="1">第2週</option>
-<option value="2">第3週</option>
-<option value="3">第4週</option>
-<option value="4">第5週</option>
-</select>
+	<div class="timeline-grid" id="timelineGrid"></div>
 
 
+	<select id="weekSelector">
+		<option value="0">月 第1週</option>
+		<option value="1">第2週</option>
+		<option value="2">第3週</option>
+		<option value="3">第4週</option>
+		<option value="4">第5週</option>
+	</select>
 
-<div id="inputRowsContainer"></div>
+	<div id="inputRowsContainer"></div>
 
-<!-- 一括追加ボタン -->
-<button id="bulkAddBtn">保存</button>
-	</main>
-	<footer>
+	<!-- 一括追加ボタン -->
+	<button id="bulkAddBtn">保存</button>
+</main>
+
+<footer>
 	<a href="#top"><button type="button" class="momo">上に戻る</button></a>
-	</footer>
+</footer>
 
 <script>
 let d = new Date();

@@ -23,19 +23,18 @@
 		    <li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
 		    <li><a href="<c:url value='/ManualServlett'/>">マニュアル</a></li>
 		    <li>
-		      <details>
+		    	<details>
 		        <summary class="details-summary">その他</summary>
 		        <ul>
-		          <li><a href="<c:url value='/UserRegistServlet'/>">ユーザー管理</a></li>
-		          <li><a href="<c:url value='/LogoutServlet'/>">ログアウト</a></li>
+		        	<li><a href="<c:url value='/UserRegistServlet'/>">ユーザー管理</a></li>
+		        	<li><a href="<c:url value='/LogoutServlet'/>">ログアウト</a></li>
 		        </ul>
-		      </details>
-		      </li>
+		        </details>
+	      	</li>
 		</ul>
-
 	</header>
-	<main>
 	
+	<main>
 	<!-- カレンダー表示切替ナビ -->
 	<div class="calendar-nav">
 		<button id="prevWeek" class="arrow left">◁</button>
