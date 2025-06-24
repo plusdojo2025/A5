@@ -7,9 +7,8 @@
 <head>
   <meta charset="UTF-8">
   <title>エンプロ良イ👍｜カレンダー</title>
-  <link rel="stylesheet" href="css/tencho_calendar.css">
-  <link rel="stylesheet" href="css/header_footer.css">
-  <link rel="stylesheet" href="<c:url value='/css/tencho_shift.css'/>">
+  <link rel="stylesheet" href="<c:url value='/css/header_footer.css'/>">
+  <link rel="stylesheet" href="<c:url value='/css/tencho_calendar.css'/>">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
   <style>
     .shift-count, .event-count {
@@ -32,33 +31,58 @@
     }
   </style>
 </head>
+
 <body id="top">
 
   <header>
+  
     <h1 id="logo">
-      <a href="tencho_calendar.jsp"><img src="img/logo.png" width="300" height="auto" alt="エンプロ良イ👍"></a>
+      <a href="<c:url value='/CalendarServlet'/>"><img src="img/logo.png" width="300" height="auto" alt="エンプロ良イ👍"></a>
     </h1>
+    
     <c:if test="${sessionScope.flag == 1}">
     <ul id="tnav">
-     <li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
+     <li><a href="<c:url value='/CalendarServlet'/>">カレンダー</a></li>
      <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
 	 <li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
       <li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
+      <li>
       <details>
         <summary class="details-summary">その他</summary>
-        <li><<a href="<c:url value='UserManageServlet' />">ユーザー管理</a></li>
+              <ul>
+        <li><a href="<c:url value='UserManageServlet' />">ユーザー管理</a></li>
         <li><a href="<c:url value='LoginServlet' />">ログアウト</a></li>
+        </ul>
       </details>
+      </li>
     </ul>
     </c:if>
     
     <c:if test="${sessionScope.flag == 0}">
+                <!-- チェックボックスで切り替える -->
+  <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+  <label for="menu-toggle" class="menu-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+
+  <!-- ナビゲーションメニュー -->
+  <nav>
+    <ul>
+      <li><a href="#">ホーム</a></li>
+      <li><a href="#">シフト</a></li>
+      <li><a href="#">イベント</a></li>
+      <li><a href="#">マニュアル</a></li>
+    </ul>
+  </nav>
     <ul id="bnav">
       <li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
      <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
      <li><a href="<c:url value='/ChangePWServlet'/>">パスワード</a></li>
       <li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
       <li><a href="<c:url value='LoginServlet' />">ログアウト</a></li>
+
     </ul>
     </c:if>
   </header>

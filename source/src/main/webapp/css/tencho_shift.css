@@ -99,8 +99,6 @@ body{
 
 /*　ヘッダーここまで*/
 
-
-
 /*タイトル*/
 .top{
     text-align:center;
@@ -116,6 +114,7 @@ body{
   padding: 10px;
   border-radius: 5px;
   gap: 10px;
+  justify-content: center;
 }
 
 .arrow {

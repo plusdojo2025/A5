@@ -44,3 +44,12 @@ importance int DEFAULT 2,
 date_up date,
 file_id int PRIMARY KEY AUTO_INCREMENT
 );
+
+/* userに追加 */
+/* dojouser1~5(1のみ店長) */
+
+INSERT INTO user VALUES (0, 'dojouser1', '#SEplus2025SEplus', 1);
+INSERT INTO user VALUES (0, 'dojouser2', '#SEplus2025SEplus', 0);
+INSERT INTO user VALUES (0, 'dojouser3', '#SEplus2025SEplus', 0);
+INSERT INTO user VALUES (0, 'dojouser4', '#SEplus2025SEplus', 0);
+INSERT INTO user VALUES (0, 'dojouser5', '#SEplus2025SEplus', 0);
