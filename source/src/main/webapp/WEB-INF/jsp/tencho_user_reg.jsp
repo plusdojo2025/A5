@@ -25,7 +25,7 @@
     <li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
     <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
     <li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
-    <li><a href="<c:url value='/ManualServlett'/>">マニュアル</a></li>
+    <li><a href="<c:url value='/ManualServlet'/>">マニュアル</a></li>
     <li>
       <details>
         <summary class="details-summary">その他</summary>
@@ -56,12 +56,12 @@
 			
 			    <label>
 			      <input  type="radio" name="tencho_flag" value="1" 
-			        <c:if test="${tencho_flag == '1'}">checked</c:if> />店長
+			         ${tencho_flag == '1' ? 'checked' : ''}/>店長
 			    </label>
 			    
 			    <label>
 			      <input  type="radio" name="tencho_flag" value="0"
-			        <c:if test="${tencho_flag == '0'}">checked</c:if> />店員
+			        ${tencho_flag == '0' ? 'checked' : ''}/>店員
 			    </label>
 			
 			    <br><br>

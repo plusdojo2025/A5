@@ -23,7 +23,7 @@
     <li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
     <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
     <li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
-    <li><a href="<c:url value='/ManualServlett'/>">マニュアル</a></li>
+    <li><a href="<c:url value='/ManualServlet'/>">マニュアル</a></li>
     <li>
       <details>
         <summary class="details-summary">その他</summary>
@@ -71,13 +71,13 @@
           
           <td>
             <input type="text" name="name" value="${user.name}"
-              style="width:150px;<c:if test='${user.flag == 1}'>color:red;</c:if>" />
+              style="width:200px; height:50px; font-weight:bold; text-align:center; line-height:50px; font-size:18px;<c:if test='${user.flag == 1}'>color:red;</c:if>" />
           </td>
           
           <td>
 		      <!-- パスワードを伏せ字表示 -->
-		      <c:forEach begin="1" end="${fn:length(user.pw)}">＊</c:forEach>
-		      <input type="hidden" name="pw" value="${user.pw}" />
+		       <input type="text" value="<c:forEach begin='1' end='${fn:length(user.pw)}'>＊</c:forEach>" 
+         		disabled style="width:200px;" />
 		      <input type="hidden" name="flag" value="${user.flag}" />
     	  </td>
           
