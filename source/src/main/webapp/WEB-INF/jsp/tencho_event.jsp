@@ -28,20 +28,22 @@
 	</header>
 	<main>
 		<!-- 登録済みのイベント表示 -->
-		<table>
-			<tr>
-				<th>日付</th>
-				<th>時間</th>
-				<th>イベント</th>
-			</tr>
-			<c:forEach var="e" items="${eventList}">
-			<tr>
-				<td>${e.eventDate}</td>
-				<td>${e.eventStart}～${eventEnd}</td>
-				<td>${e.eventType}</td>
-			</tr>
-			</c:forEach>
-		</table>
+		<div  class="table">
+			<table>
+				<tr>
+					<th>日付</th>
+					<th>時間</th>
+					<th>イベント</th>
+				</tr>
+				<c:forEach var="e" items="${eventList}">
+				<tr>
+					<td>${e.eventDate}</td>
+					<td>${e.eventStart}～${eventEnd}</td>
+					<td>${e.eventType}</td>
+				</tr>
+				</c:forEach>
+			</table>
+		</div>
 		<!-- 登録するイベント表示 -->
 		<div id="table" class="table"></div>
 		<!-- 日付と時間選択 -->
