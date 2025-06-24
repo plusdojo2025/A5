@@ -114,7 +114,7 @@ public class EventTypeDao {
 					"root", "password");
 			
 			// SQL文を準備する
-			String sql = "DELETE FROM event_type WHERE event_name = ?";
+			String sql = "DELETE FROM event_type WHERE type_name = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる

@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.EventDao;
 import dao.EventTypeDao;
@@ -63,33 +62,101 @@ public class EventServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		/*
 		// もしもログインしていなかったらログインページにリダイレクトする
 		HttpSession session = request.getSession();
 		if (session.getAttribute("user") == null) {
 			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
-		// リクエストパラメータを取得する
-		request.setCharacterEncoding("UTF-8");
-		String[] eventDates = request.getParameterValues("date");
-		String[] eventStarts = request.getParameterValues("start");
-		String[] eventEnds = request.getParameterValues("end");
-		String[] events = request.getParameterValues("event");
-
+		*/
 		
-		// 登録するデータを受け取り、データベースに登録する
-		EventDao eDao = new EventDao();
-		for (int i = 0; i < eventDates.length; i++) {
-			if (eDao.insert(new EventType(eventDates[i], eventStarts[i], eventEnds[i], 0, events[i]))) {
-				String result = "登録に成功しました。";
+		if (request.getParameter("submit").equals("登録")) {
+			// リクエストパラメータを取得する
+			request.setCharacterEncoding("UTF-8");
+			String[] eventDates = request.getParameterValues("date");
+			String[] eventStarts = request.getParameterValues("start");
+			String[] eventEnds = request.getParameterValues("end");
+			String[] events = request.getParameterValues("event");
+			
+			// 登録するデータを受け取り、データベースに登録する
+			EventDao eDao = new EventDao();
+			for (int i = 0; i < eventDates.length; i++) {
+				if (eDao.insert(new EventType(eventDates[i], eventStarts[i], eventEnds[i], 0, events[i]))) {
+					String result = "登録に成功しました。";
+					request.setAttribute("result", result);
+				} else {
+					String result = "登録に失敗しました。";
+					request.setAttribute("result", result);
+					break;
+				}
+			}
+		} else if (request.getParameter("submit").equals("追加")) {
+			// リクエストパラメータを取得する
+			request.setCharacterEncoding("UTF-8");
+			String newEvent = request.getParameter("newEvent");
+			System.out.println(newEvent);// デバッグ用
+			
+			// 登録するデータを受け取り、データベースに登録する
+			EventTypeDao etDao = new EventTypeDao();
+			if (etDao.insert(newEvent)) {
+				String result = "追加に成功しました。";
 				request.setAttribute("result", result);
+				System.out.println(result);// デバッグ用
 			} else {
-				String result = "登録に失敗しました。";
+				String result = "追加に失敗しました。";
 				request.setAttribute("result", result);
-				break;
+				System.out.println(result);// デバッグ用
+			}
+		} else if (request.getParameter("submit").equals("削除")) {
+			// リクエストパラメータを取得する
+			request.setCharacterEncoding("UTF-8");
+			String delEvent = request.getParameter("delEvent");
+			System.out.println(delEvent);// デバッグ用
+			
+			// 登録するデータを受け取り、データベースに登録する
+			EventTypeDao etDao = new EventTypeDao();
+			if (etDao.delete(delEvent)) {
+				String result = "削除に成功しました。";
+				request.setAttribute("result", result);
+				System.out.println(result);// デバッグ用
+			} else {
+				String result = "削除に失敗しました。";
+				request.setAttribute("result", result);
+				System.out.println(result);// デバッグ用
+			}
+		} else if (request.getParameter("submit").equals("イベント削除")) {
+			// リクエストパラメータを取得する
+			request.setCharacterEncoding("UTF-8");
+			String delEventDate = request.getParameter("delEventDate");
+			String delEventStart = request.getParameter("delEventStart");
+			String delEventEnd = request.getParameter("delEventEnd");
+			String delEventType = request.getParameter("delEventType");
+			
+			System.out.println(delEventDate);// デバッグ用
+			System.out.println(delEventStart);// デバッグ用
+			System.out.println(delEventEnd);// デバッグ用
+			System.out.println(delEventType);// デバッグ用
+			
+			EventType eType = new EventType();
+			eType.setEventDate(delEventDate);
+			eType.setEventStart(delEventStart);
+			eType.setEventEnd(delEventEnd);
+			eType.setEventType(delEventType);
+			
+			// 登録するデータを受け取り、データベースに登録する
+			EventDao eDao = new EventDao();
+			if (eDao.delete(eType)) {
+				String result = "削除に成功しました。";
+				request.setAttribute("result", result);
+				System.out.println(result);// デバッグ用
+			} else {
+				String result = "削除に失敗しました。";
+				request.setAttribute("result", result);
+				System.out.println(result);// デバッグ用
 			}
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_event.jsp");
-		dispatcher.forward(request, response);
+		response.sendRedirect(request.getContextPath() + "/EventServlet");
 	}
 }

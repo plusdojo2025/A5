@@ -36,11 +36,14 @@
 					<th>イベント</th>
 				</tr>
 				<c:forEach var="e" items="${eventList}">
-				<tr>
-					<td>${e.eventDate}</td>
-					<td>${e.eventStart}～${eventEnd}</td>
-					<td>${e.eventType}</td>
-				</tr>
+					<form method="POST" action="<c:url value='/EventServlet'/>">
+						<tr> 
+							<td><input type="text" value="${e.eventDate}" name="delEventDate" readonly="readonly"></td>
+							<td><input type="text" value="${e.eventStart}" name="delEventStart" readonly="readonly">～<input type="text" value="${e.eventEnd}" name="delEventEnd" readonly="readonly"></td>
+							<td><input type="text" value="${e.eventType}" name="delEventType" readonly="readonly"></td>
+							<td><input type="submit" name="submit" value="イベント削除">
+						</tr>
+					</form>
 				</c:forEach>
 			</table>
 		</div>
@@ -53,20 +56,20 @@
 			<div class="modal-content">
 				<span class="close" onclick="closeModal()">&times;</span>
 				<c:forEach var="f" items="${eventTypeList}">
-					<form method="POST" action="">
+					<form method="POST" action="<c:url value='/EventServlet'/>">
 						<table>
 								<tr>
-									<td><input type="text" value="${f}" readonly="readonly"></td>
-									<td><input type="submit" value="削除">
+									<td><input type="text" value="${f}" readonly="readonly" name="delEvent"></td>
+									<td><input type="submit" name="submit" value="削除">
 								</tr>
 						</table>
 					</form>
 				</c:forEach>
-				<form>
+				<form method="POST" action="<c:url value='/EventServlet'/>">
 					<table>
 						<tr>
-							<td><input type="text"></td>
-							<td><input type="submit" value="追加"></td>
+							<td><input type="text" name="newEvent"></td>
+							<td><input type="submit" name="submit" value="追加"></td>
 						</tr>
 					</table>
 				</form>
@@ -77,7 +80,7 @@
 			<div id="addButton">
 				<input type="button" value="追加" onclick="addTable()">
 				<input type="button" value="表示" onclick="generateTable()">
-				<input type="submit" value="登録">
+				<input type="submit" name="submit" value="登録">
 			</div>
 		</form>
 		<!-- 上に戻るボタン -->
@@ -89,9 +92,8 @@
 		let tableCount = 0;
 		
 		function addTable() {
-			tableCount++;
-			
-			if (tableCount <= 5) {
+			if (tableCount < 5) {
+				tableCount++;
 				var tableId = "dynamicTable_" + tableCount;
 				
 				// テーブル全体を囲むdiv
@@ -167,12 +169,9 @@
 				html += "</datalist></td>";
 				html += "<td><select name='event' class='event'>";
 				html += "<option value=''>選択してください</option>";
-				html += "<option value='貸切'>貸切</option>";
-				html += "<option value='催事'>催事</option>";
-				html += "<option value='期間限定'>期間限定</option>";
-				html += "<option value='定期開催'>定期開催</option>";
-				html += "<option value='シフト締切'>シフト締切</option>";
-				html += "<option value='臨時休業'>臨時休業</option>";
+				html += "<c:forEach var='g' items='${eventTypeList}'>";
+				html += "<option value='${g}'>${g}</option>";
+				html += "</c:forEach>";
 				html += "</select></td></tr>";
 				html += "<tr><td>end<input type='time' list='datalistEnd' name='end' class='end' step='600' min='09:00' max='18:00'>";
 				html += "<datalist id='datalistEnd'>";
@@ -251,6 +250,7 @@
 			} else {
 				alert("テーブルが見つかりません: " + id);
 			}
+			tableCount--;
 		}
 		
 		function generateTable() {
