@@ -52,8 +52,8 @@
       <details>
         <summary class="details-summary">その他</summary>
               <ul>
-        <li><a href="<c:url value='UserManageServlet' />">ユーザー管理</a></li>
-        <li><a href="<c:url value='LoginServlet' />">ログアウト</a></li>
+        <li><a href="<c:url value='/UserManageServlet' />">ユーザー管理</a></li>
+        <li><a href="<c:url value='/LoginServlet' />">ログアウト</a></li>
         </ul>
       </details>
       </li>
@@ -87,7 +87,7 @@
      <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
      <li><a href="<c:url value='/ChangePWServlet'/>">パスワード</a></li>
       <li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
-      <li><a href="<c:url value='LoginServlet' />">ログアウト</a></li>
+      <li><a href="<c:url value='/LoginServlet' />">ログアウト</a></li>
 
     </ul>
     </c:if>
@@ -104,11 +104,30 @@
 
 
 <!-- シフト表示 -->
-  <div id="shift">シフト</div><br>
+  <div id="shift">シフト
+  
+  </div><br>
   
   
 <!-- イベント表示 -->
-  <div id="event">イベント</div>
+  <div id="event">
+    <table border="1">
+		<tr>
+			<th>日付</th>
+			<th>開始時刻</th>
+			<th>終了時刻</th>
+			<th>イベント種別</th>
+		</tr>
+		<c:forEach var="event" items="${weeklyEvents}">
+			<tr>
+				<td>${event.eventDate}</td>
+				<td>${event.eventStart}</td>
+				<td>${event.eventEnd}</td>
+				<td>${event.eventType}</td>
+			</tr>
+		</c:forEach>
+	</table>
+  </div>
 
 
   <footer>
