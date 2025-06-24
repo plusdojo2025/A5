@@ -75,7 +75,6 @@
             <th>ファイル名</th>
             <th>重要度</th>
             <th>更新日</th>
-            <th>フラグ</th>
         </tr>
         <c:forEach var="manual" items="${manualList}">
             <tr>
@@ -83,7 +82,6 @@
                 <td>${manual.manual_file}</td>
                 <td>${manual.importance}</td>
                 <td>${manual.date_up}</td>
-                <td>${manual.flag}</td>
             </tr>
         </c:forEach>
     </table>

@@ -55,18 +55,26 @@ public class ManualServlet extends HttpServlet {
 	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
 	        dispatcher.forward(request, response);}
 //    	ここまで↑フラグ別にページを分ける試み、完了↑
+	    
 //	    ここから↓
+	    
 	    ManualDao dao = new ManualDao();
 	    try {
 	        List<Manual> manualList = dao.findAll();
 	        request.setAttribute("manualList", manualList);
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/manual_list.jsp");
-	        dispatcher.forward(request, response);
+	        if (flag == 0) {
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_manual.jsp");
+	        dispatcher.forward(request, response);}
+	        else if(flag == 1) { 
+	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
+	        dispatcher.forward(request, response);}
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	    }
-//	    ここまで↑ｇｐｔ曰くテーブル全取得からの一覧表示に必要。
+	    
+//	    ここまで↑ｇｐｔ曰くテーブル全取得からの一覧表示に必要。 //からの分岐も上記同様にこれで行けるか??
+	    
 //    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
 //        dispatcher.forward(request, response);
         }
