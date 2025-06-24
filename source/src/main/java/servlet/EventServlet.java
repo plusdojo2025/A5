@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.EventDao;
+import dao.EventTypeDao;
 import dto.EventType;
 
 /**
@@ -44,10 +45,12 @@ public class EventServlet extends HttpServlet {
 		List<EventType> eList = eDao.select7(date);
 		
 		// イベントの内容を持ってくる
-		
-		
+		EventTypeDao eTypeDao = new EventTypeDao();
+		List<String> tList = eTypeDao.selectAll();
+		 
 		// 持ってきた情報をリクエストスコープに入れる
 		request.setAttribute("eventList", eList);
+		request.setAttribute("eventTypeList", tList);
 		
 		// イベントページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_event.jsp");
