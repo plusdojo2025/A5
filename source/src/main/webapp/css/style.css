@@ -103,7 +103,10 @@ body{
 
 /* 上に戻るボタン */
 .gotop{
-	padding-left:550px;
+	position : fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 1000;
 
 }
 
