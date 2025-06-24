@@ -39,13 +39,15 @@
     <h1 id="logo">
       <a href="<c:url value='/CalendarServlet'/>"><img src="img/logo.png" width="300" height="auto" alt="エンプロ良イ👍"></a>
     </h1>
-    
+
+<!-- 店長フラグ1の場合店長用のメニューを表示 -->    
     <c:if test="${sessionScope.flag == 1}">
     <ul id="tnav">
      <li><a href="<c:url value='/CalendarServlet'/>">カレンダー</a></li>
      <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
 	 <li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
       <li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
+      <!-- アコーディオンメニュー -->
       <li>
       <details>
         <summary class="details-summary">その他</summary>
@@ -57,8 +59,10 @@
       </li>
     </ul>
     </c:if>
-    
+
+<!-- 店長フラグ0の場合店員用のメニューとハンバーガーメニューを表示 -->    
     <c:if test="${sessionScope.flag == 0}">
+    <!-- ハンバーガーメニュー -->
                 <!-- チェックボックスで切り替える -->
   <input type="checkbox" id="menu-toggle" class="menu-toggle" />
   <label for="menu-toggle" class="menu-icon">
@@ -76,6 +80,8 @@
       <li><a href="#">マニュアル</a></li>
     </ul>
   </nav>
+  
+  <!-- 店員用メニュー -->
     <ul id="bnav">
       <li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
      <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
@@ -96,8 +102,14 @@
 
   <div id="calendar"></div>
 
+
+<!-- シフト表示 -->
   <div id="shift">シフト</div><br>
+  
+  
+<!-- イベント表示 -->
   <div id="event">イベント</div>
+
 
   <footer>
     <p class="gotop">
