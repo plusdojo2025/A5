@@ -82,7 +82,32 @@ public class ManualDao {
 		// 結果を返す
 		return cardList;
 	}
+	
+//ここから↓
+	public List<Manual> findAll() throws SQLException {
+	    List<Manual> manualList = new ArrayList<>();
+	    String sql = "SELECT * FROM manual ORDER BY id";
 
+	    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
+				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+				"root", "password");
+	         PreparedStatement stmt = conn.prepareStatement(sql);
+	         ResultSet rs = stmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            Manual manual = new Manual(
+	                rs.getString("manual_file"),
+	                rs.getInt("importance"),
+	                rs.getDate("date_up"), 
+	                0
+	            );
+	            manualList.add(manual);
+	        }
+	    }
+	    return manualList;
+	}
+//ここまで↑ｇｐｔ曰くテーブル全取得からの一覧表示に必要。
+	
 	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
 	public boolean insert(Manual card) {
 		Connection conn = null;
