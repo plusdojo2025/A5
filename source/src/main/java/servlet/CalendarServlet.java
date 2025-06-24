@@ -41,7 +41,7 @@ public class CalendarServlet extends HttpServlet {
     	    response.sendRedirect("LoginServlet");
     	    return;
     	}
-    	String userId = (String) session.getAttribute("name");
+//    	String userId = (String) session.getAttribute("name");
 
 //    	UserDAO udao = new UserDAO();
 //    	int tenchouFlag = udao.selectAll().stream()
