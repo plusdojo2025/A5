@@ -51,45 +51,11 @@ header {
 	background-color: #ddd;
 	border-radius: 4px;
 }
-    
-.details-summary{
-	font-weight:bold;
-}
-    
-#details li{
-	list-style-type:none;
-}
+/*　ヘッダーここまで*/
 
-/* まとめて囲む親のulに枠 */
-.details-summary + ul {
-	border: 2px solid #333;      /* 太めの枠線 */
-	border-radius: 6px;          /* 角丸 */
-	overflow: hidden;            /* 角丸が崩れないように */
-	width: 200px;                /* お好みで幅調整 */
-	margin: 10px 0;
-	padding: 0;                  /* ulのデフォ余白削除 */
-	background-color: #f9f9f9;
-}
-
-/* liは枠の中のセクション */
-.details-summary + ul li {
-	list-style: none;            /* マーカー消し */
-	padding: 10px 15px;
-	text-align: center;          /* 真ん中寄せ */
-	cursor: pointer;
-	background-color:#cbb1ff;
-}
-
-/* liの間に境界線を1本だけ入れる（2つ目以降のliの上に線） */
-.details-summary + ul li + li {
-	border-top: 1px solid #666;
-}
-
-/* aタグはブロック化して全体をクリック可能に */
-.details-summary + ul li a {
-	display: block;
-	color: #333;
-	text-decoration: none;
+/*タイトル*/
+.top{
+    text-align:center;
 }
 
 form {
@@ -101,6 +67,24 @@ margin-right: 10px;
 }
 
 h1 {
+margin-bottom: 10px;
+}
+
+/* 上に戻るボタン */
+.gotop{
+	padding-left:50px;
+}
+
+/* フッター */
+
+footer p{
+    text-align:center;
+    font-size:0.7em;
+    margin-top:40px;
+}
+/* フッターここまで */
+
+select {
 margin-bottom: 10px;
 }
 
@@ -144,6 +128,7 @@ line-height: 40px;
 border-radius: 4px;
 font-size: 14px;
 }
+
 /* タイムライン風シフト用の追記 */
 
 .timeline-wrapper {
@@ -153,16 +138,6 @@ min-width: 800px; /* 横スクロール用 */
 padding-top: 30px;
 padding-bottom: 20px;
 overflow-x: auto;
-}
-
-.time-scale {
-display: flex;
-justify-content: space-between;
-position: absolute;
-top: 0;
-width: 100%;
-font-size: 12px;
-border-bottom: 1px solid #ddd;
 }
 
 .shift-row {
@@ -182,4 +157,127 @@ border-radius: 4px;
 font-size: 14px;
 white-space: nowrap;
 padding: 0 5px;
+}
+
+
+head,main {
+	margin: 0 auto 0 auto;
+}
+
+.momo {
+	font-size: 16px;
+	padding: 5px 20px;
+	width: 120px;
+	height: 44px;
+}
+select {
+margin-bottom: 10px;
+}
+
+.time-axis {
+display: flex;
+margin-left: 100px;
+font-size: 12px;
+}
+
+.time-axis span {
+width: 60px;
+text-align: center;
+border-left: 1px solid #ddd;
+}
+
+.timeline-grid {
+display: flex;
+flex-direction: column;
+gap: 10px;
+overflow-x: auto;
+}
+
+.day-row {
+position: relative;
+border-bottom: 1px solid #ccc;
+height: auto;
+min-height: 40px;
+}
+
+.date-label {
+position: absolute;
+left: 0;
+top: 0;
+width: 100px;
+height: 100%;
+background: #f0f0f0;
+padding: 4px;
+border-right: 1px solid #ccc;
+box-sizing: border-box;
+}
+
+.time-line {
+position: relative;
+margin-left: 100px;
+height: auto; /* 高さを自動に */
+min-height: 40px;
+background: #fafafa;
+width: 600px;
+}
+
+.shift-bar {
+position: absolute;
+top: 5px;
+height: 30px;
+background: #e7191f;
+color: white;
+padding: 2px 5px;
+font-size: 12px;
+white-space: nowrap;
+text-align: center;
+}
+
+#shiftForm {
+margin: 20px 0;
+padding: 10px;
+background: #eef;
+display: flex;
+gap: 10px;
+align-items: center;
+}
+#shiftForm input {
+padding: 4px;
+}
+
+
+.shift-input-row {
+display: flex;
+align-items: center;
+gap: 10px;
+margin: 5px 0;
+}
+.input-date-label {
+width: 100px;
+font-weight: bold;
+}
+
+.shift-input-row {
+	display: flex;
+	gap: 10px;
+	margin: 4px, 0;
+	align-items: center;
+}
+
+.input-date-label {
+	width: 100px;
+	font-weight: bold;
+}
+
+/* 入力欄を縦に並べる */
+.shift-input-fields {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+li button {
+    display: block;      /* 横幅が広がる */
+    width: 100%;         /* 必要に応じて幅を指定 */
+    padding: 8px 12px;   /* 余白調整（任意） */
+    font-size: 1em;      /* テキストサイズ補正（任意） */
 }

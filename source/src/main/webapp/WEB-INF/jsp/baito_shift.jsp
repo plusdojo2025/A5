@@ -5,196 +5,58 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>エンプロ良イ👍｜シフト申請</title>
-<link rel="stylesheet" href="<c:url value='/css/tencho_shift.css'/>" >
-<style>
-
-head,main {
-	margin: 0 auto 0 auto;
-}
-button {
-	font-size: 16px;
-	padding: 5px 20px;
-	width: 120px;
-	height: 120px;
-}
-
-.momo {
-	font-size: 16px;
-	padding: 5px 20px;
-	width: 120px;
-	height: 44px;
-}
-
-body {
-font-family: sans-serif;
-margin: 20px;
-}
-
-select {
-margin-bottom: 10px;
-}
-
-.time-axis {
-display: flex;
-margin-left: 100px;
-font-size: 12px;
-}
-
-.time-axis span {
-width: 60px;
-text-align: center;
-border-left: 1px solid #ddd;
-}
-
-.timeline-grid {
-display: flex;
-flex-direction: column;
-gap: 10px;
-overflow-x: auto;
-}
-
-.day-row {
-position: relative;
-border-bottom: 1px solid #ccc;
-height: auto;
-min-height: 40px;
-}
-
-.date-label {
-position: absolute;
-left: 0;
-top: 0;
-width: 100px;
-height: 100%;
-background: #f0f0f0;
-padding: 4px;
-border-right: 1px solid #ccc;
-box-sizing: border-box;
-}
-
-.time-line {
-position: relative;
-margin-left: 100px;
-height: auto; /* 高さを自動に */
-min-height: 40px;
-background: #fafafa;
-width: 600px;
-}
-
-
-.shift-bar {
-position: absolute;
-top: 5px;
-height: 30px;
-background: #e7191f;
-color: white;
-padding: 2px 5px;
-font-size: 12px;
-white-space: nowrap;
-text-align: center;
-}
-
-#shiftForm {
-margin: 20px 0;
-padding: 10px;
-background: #eef;
-display: flex;
-gap: 10px;
-align-items: center;
-}
-#shiftForm input {
-padding: 4px;
-}
-
-
-.shift-input-row {
-display: flex;
-align-items: center;
-gap: 10px;
-margin: 5px 0;
-}
-.input-date-label {
-width: 100px;
-font-weight: bold;
-}
-
-.shift-input-row {
-	display: flex;
-	gap: 10px;
-	margin: 4px, 0;
-	align-items: center;
-}
-
-.input-date-label {
-	width: 100px;
-	font-weight: bold;
-}
-
-/* 入力欄を縦に並べる */
-.shift-input-fields {
-	display: flex;
-	flex-direction: column;
-	gap: 5px;
-}
-
-</style>
-
+<title>エンプロ良イ&#128077｜シフト申請</title>
+<link rel="stylesheet" href="<c:url value='/css/baito_shift.css'/>" >
 </head>
 <body>
-<!-- タイトル -->
-<header>
-    <h1 id="logo">
-    	<a href="tencho_calendar.jsp"><img src="img/logo.png" width=300 height=auto alt="エンプロ良イ👍"></a>
-    </h1>
-    <ul id="nav">
-    	<li><a href="tencho_calelndar.jsp">カレンダー</a></li>
-    	<li><a href="tencho_shift.jsp">シフト</a></li>
-      	<li><a href="tencho_event.jsp">パスワード</a></li>
-      	<li><a href="tencho_manual.jsp">マニュアル</a></li>
-      	<li><a href="tencho_manual.jsp">ログアウト</a></li>
-    </ul>
-</header>
+	<div class="container">
+	<!-- タイトル -->
+	<header>
+	    <h1 id="logo">
+	    	<a href="tencho_calendar.jsp">
+	    		<img src="img/logo.png" width=300 height=auto alt="エンプロ良イ👍">
+	    	</a>
+	    </h1>
+	    <ul id="nav">
+	    	<li><a href="tencho_calelndar.jsp">カレンダー</a></li>
+	    	<li><a href="tencho_shift.jsp">シフト</a></li>
+	      	<li><a href="tencho_event.jsp">パスワード</a></li>
+	      	<li><a href="tencho_manual.jsp">マニュアル</a></li>
+	      	<li><a href="tencho_manual.jsp">ログアウト</a></li>
+	    </ul>
+	</header>
   
-<main>
-	<ul class="add_button">
-		<li><button type="button">追加</button></li>
-		<li><button type="button">追加</button></li>
-		<li><button type="button">追加</button></li>
-		<li><button type="button">追加</button></li>
-		<li><button type="button">追加</button></li>
-		<li><button type="button">追加</button></li>
-		<li><button type="button">追加</button></li>
-		<li><button type="button">追加</button></li>
-		<li><button type="button">追加</button></li>
-	</ul>
+	<main>
+		<ul id="add_button">
+		<!-- ボタン追加 -->
+		</ul>
+		
+		<div class="time-axis" id="timeAxis"></div>
+		<div class="timeline-grid" id="timelineGrid"></div>
 	
-	<div class="time-axis" id="timeAxis"></div>
-	<div class="timeline-grid" id="timelineGrid"></div>
-
-
-	<select id="weekSelector">
-		<option value="0">月 第1週</option>
-		<option value="1">第2週</option>
-		<option value="2">第3週</option>
-		<option value="3">第4週</option>
-		<option value="4">第5週</option>
-	</select>
-
-	<div id="inputRowsContainer"></div>
-
-	<!-- 一括追加ボタン -->
-	<button id="bulkAddBtn">保存</button>
-</main>
+	
+		<select id="weekSelector">
+			<option value="0">月 第1週</option>
+			<option value="1">第2週</option>
+			<option value="2">第3週</option>
+			<option value="3">第4週</option>
+			<option value="4">第5週</option>
+		</select>
+	
+		<div id="inputRowsContainer"></div>
+	
+		<!-- 一括追加ボタン -->
+		<button id="bulkAddBtn">保存</button>
+	</main>
 
 <footer>
-	<a href="#top"><button type="button" class="momo">上に戻る</button></a>
+	<div class="gotop">
+		 <a href="#top"><img src="<c:url value='/img/gotop.png'/>" alt="ページトップへ戻る" width=70px height=auto></a>
+	</div>
 </footer>
+</div>
 
 <script>
-let d = new Date();
-let nxtMth = d.getMonth() + 1;
-
 const HOURS = Array.from({ length: 10 }, (_, i) => 9 + i); // 9:00〜18:00
 
 const shifts = [
@@ -341,7 +203,22 @@ document.getElementById("bulkAddBtn").addEventListener("click", () => {
 	alert(`${added}件のシフトを追加しました。`);
 });
 
+var lastDay = new Date();
+lastDay.setMonth(lastDay.getMonth() + 2);
+lastDay.setDate(0); // 来月/最終日
 
+function addListItem() {
+	const ul = document.getElementById("add_button");
+	
+	for (let i = 0; i < lastDay.getDate(); i++) {
+		const li = document.createElement("li");
+		const addBt = document.createElement("button");
+		li.appendChild(addBt);
+		
+		ul.appendChild(li);
+	}
+}
+addListItem();
 </script>
 
 </body>
