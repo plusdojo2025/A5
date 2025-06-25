@@ -17,12 +17,13 @@ import javax.servlet.http.Part;
 import dao.ManualDao;
 import dto.Manual;
 
-@WebServlet("/ManualServlet")
-@MultipartConfig(location = "C:\\pleiades\\workspace\\A5\\src\\main\\webapp\\img", // アップロードファイルの一時的な保存先
-    fileSizeThreshold = 1024 * 1024, // 1MBまではメモリに保持
-    maxFileSize = 1024 * 1024 * 50,  // 50MBまでのファイルを許可
-    maxRequestSize = 1024 * 1024 * 100 // 100MBまでのリクエストを許可
+
+@MultipartConfig(location = "C:\\plusdojo2025\\workspace\\A5\\src\\main\\webapp\\img" // アップロードファイルの一時的な保存先
+//    fileSizeThreshold = 1024 * 1024, // 1MBまではメモリに保持
+//    maxFileSize = 1024 * 1024 * 50,  // 50MBまでのファイルを許可
+//    maxRequestSize = 1024 * 1024 * 100 // 100MBまでのリクエストを許可
 )
+@WebServlet("/ManualServlet")
 public class ManualServlet extends HttpServlet {
 //	これ↓は要らないのかも？
 //	private static final long serialVersionUID = 1L;
@@ -86,7 +87,7 @@ public class ManualServlet extends HttpServlet {
 //        response.setContentType("text/plain; charset=UTF-8");
 //      ここから↓
     	Part part = request.getPart("file"); // getPartで取得
-    	System.out.println(part);
+    	System.out.println(part+"aaaaaaaa");//
     	String image = this.getFileName(part);
     	request.setAttribute("image", image);
     	// サーバの指定のファイルパスへファイルを保存
