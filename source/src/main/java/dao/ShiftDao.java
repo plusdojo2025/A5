@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -285,6 +286,52 @@ public class ShiftDao {
 		
 		// 結果を返す
 		return result;
+	}
+	
+	// 指定日から7日間のシフトを取得するメソッド
+	public List<CalShift> select7(Date date) {
+	    Connection conn = null;
+	    List<CalShift> sList = new ArrayList<>();
+
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        conn = DriverManager.getConnection(
+	            "jdbc:mysql://localhost:3306/a5?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+	            "root", "password"
+	        );
+
+	        // 指定日から7日間の範囲で取得（shift_dateが[date, date+6日]の範囲）
+	        String sql = "SELECT shift_date, shift_start, shift_end, user_id " +
+	                     "FROM shift WHERE shift_date >= ? AND shift_date < DATE_ADD(?, INTERVAL 7 DAY) " +
+	                     "ORDER BY shift_date, shift_start";
+	        PreparedStatement pStmt = conn.prepareStatement(sql);
+	        pStmt.setDate(1, date);
+	        pStmt.setDate(2, date);
+
+	        ResultSet rs = pStmt.executeQuery();
+
+	        while (rs.next()) {
+	            CalShift shift = new CalShift();
+	            shift.setShiftData(rs.getDate("shift_date"));
+	            shift.setShiftStart(rs.getString("shift_start"));
+	            shift.setShiftEnd(rs.getString("shift_end"));
+	            shift.setUserId(rs.getInt("user_id"));
+	            sList.add(shift);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        sList = null;
+	    } finally {
+	        if (conn != null) {
+	            try {
+	                conn.close();
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    }
+
+	    return sList;
 	}
 	
 	//イベントの日付と、その日付に付随するイベントの件数を取得するメソッド

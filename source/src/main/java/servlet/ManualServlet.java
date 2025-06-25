@@ -18,14 +18,14 @@ import dao.ManualDao;
 import dto.Manual;
 
 @WebServlet("/ManualServlet")
-@MultipartConfig(location = "C:\\pleiades\\workspace\\a5\\webapp\\img", // アップロードファイルの一時的な保存先
+@MultipartConfig(location = "C:\\pleiades\\workspace\\A5\\src\\main\\webapp\\img", // アップロードファイルの一時的な保存先
     fileSizeThreshold = 1024 * 1024, // 1MBまではメモリに保持
     maxFileSize = 1024 * 1024 * 50,  // 50MBまでのファイルを許可
     maxRequestSize = 1024 * 1024 * 100 // 100MBまでのリクエストを許可
 )
 public class ManualServlet extends HttpServlet {
 //	これ↓は要らないのかも？
-	private static final long serialVersionUID = 1L;
+//	private static final long serialVersionUID = 1L;
 
 	
     @Override
@@ -36,7 +36,7 @@ public class ManualServlet extends HttpServlet {
 	    String loginUser = (String) session.getAttribute("name");//ログイン時にセッションスコープに預けた名前を持ってくる
 	    System.out.println("ログインユーザー名："+loginUser);
 	    if (loginUser == null) {//もしログインしていなければログイン画面へ飛ばす
-	        response.sendRedirect("/WEB-INF/jsp/login.jsp");
+	        response.sendRedirect(request.getContextPath() + "/LoginServlet");
 	        return;
 	    }
 	    
@@ -46,8 +46,8 @@ public class ManualServlet extends HttpServlet {
 	    
 	    if (flag == 0) {//もしflagが0つまり店員であれば店員用のマニュアル閲覧画面へ飛ばす
 	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_manual.jsp");
-	        dispatcher.forward(request, response);
-	        return;
+	    	dispatcher.forward(request, response);
+	    	return;
 	    }
 	    else if (flag == 1){//もしflagが1つまり店長であれば店長用のマニュアル管理画面へ飛ばす
 	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
@@ -86,11 +86,11 @@ public class ManualServlet extends HttpServlet {
 //        response.setContentType("text/plain; charset=UTF-8");
 //      ここから↓
         Part part = request.getPart("file"); // getPartで取得
-
+        System.out.println(part);
 		String image = this.getFileName(part);
 		request.setAttribute("image", image);
 		// サーバの指定のファイルパスへファイルを保存
-        //場所はクラス名↑の上に指定してある（"C:\\pleiades\\workspace\\a5\\webapp\\img"）
+        //場所はクラス名↑の上に指定してある（"C:\\pleiades\\workspace\\a5\\webapp\\img"）を参照している
 		part.write(image);
 		//ここでwebapp内のimgにimageをの中身自体を保存。
 		//名前の文字列をDBに保存するならこの後にDaoに画像を渡す処理が入る↓
