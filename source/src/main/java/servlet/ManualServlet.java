@@ -99,9 +99,10 @@ public class ManualServlet extends HttpServlet {
 
 //      		リクエストパラメータの取得？必要かな？これわっかんね～保留！
            	request.setCharacterEncoding("UTF-8");
-           	String manual_file = request.getParameter("manual_file");
+//           	String manual_file = request.getParameter("manual_file");
+           	String manual_file = image;
            	int importance = Integer.parseInt(request.getParameter("importance"));
-           	String date_up = request.getParameter("date_up");
+           	String date_up = request.getParameter("date_up");// ←jspにdate_upのname属性のものがないからnullになっちゃうかも
 //送る側なのでオートインクリメントのファイルIDはここで書く必要ないかも→int file_id = Integer.parseInt(request.getParameter("file_id"));
 //            
 //            登録の処理を行いたい、名刺管理をベースにやってみるなう
