@@ -12,22 +12,28 @@
 <body>
 	<header>
 		<div class="logo">
-			<a href="<c:url value='/CalendarServlet'/>"><img src="<c:url value='/img/logo.png'/>" width="300" alt="エンプロ良イ&#128077"></a>
+			<a href="<c:url value='/CalendarServlet'/>"><img src="<c:url value='/img/logo.png'/>" width="300" height="auto" alt="エンプロ良イ&#128077"></a>
 		</div>
-		<ul id="nav">
+		<ul id="tnav">
 			<li><a href="<c:url value='/CalendarServlet'/>">カレンダー</a></li>
-			<li><a href="<c:url value='/ShiftCheckServlet'/>">シフト</a></li>
+			<li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
 			<li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
-			<li><a href="<c:url value='/ManualServlet'/>">マニュアル</a></li>
-			<details>
-				<summary class="details-summary">その他</summary>
-				<li><a href="baito_user_edit.jsp">ユーザー管理</a></li>
-				<li><a href="baito_login.jsp">ログアウト</a></li>
-			</details>
+			<li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
+			<!-- アコーディオンメニュー -->
+			<li>
+				<details>
+					<summary class="details-summary">その他</summary>
+					<ul>
+						<li><a href="<c:url value='/UserManageServlet' />">ユーザー管理</a></li>
+						<li><a href="<c:url value='/LoginServlet' />">ログアウト</a></li>
+					</ul>
+				</details>
+			</li>
 		</ul>
 	</header>
 	<main>
 		<!-- 登録済みのイベント表示 -->
+		<h2>登録されているイベント</h2>
 		<div  class="table">
 			<table>
 				<tr>
@@ -41,56 +47,71 @@
 							<td><input type="text" value="${e.eventDate}" name="delEventDate" readonly="readonly" style="display: none;">${e.eventDate}</td>
 							<td><input type="text" value="${e.eventStart}" name="delEventStart" readonly="readonly" style="display: none;">${e.eventStart}～<input type="text" value="${e.eventEnd}" name="delEventEnd" readonly="readonly" style="display: none;">${e.eventEnd}</td>
 							<td><input type="text" value="${e.eventType}" name="delEventType" readonly="readonly" style="display: none;">${e.eventType}</td>
-							<td><input type="submit" name="submit" value="イベント削除">
+							<td><button type="submit" name="submit" value="イベント削除" onclick="return delCheck()">削除</button>
 						</tr>
 					</form>
 				</c:forEach>
 			</table>
 		</div>
-		<!-- 登録するイベント表示 -->
-		<div id="table" class="table"></div>
+		<br>
 		<!-- 選択肢を編集ボタン -->
-		<button onclick="openModal()">選択肢を編集</button>
+		<div class="editChoice">
+			<button onclick="openModal()">選択肢を編集</button>
+		</div>
 		<!-- モーダル本体 -->
 		<div id="modal" class="modal">
 			<div class="modal-content">
 				<span class="close" onclick="closeModal()">&times;</span>
 				<table>
 					<c:forEach var="f" items="${eventTypeList}">
-						<form method="POST" action="<c:url value='/EventServlet'/>">
-							<tr>
-								<td><input type="text" value="${f}" readonly="readonly" name="delEvent" style="display: none;">${f}</td>
-								<td><input type="submit" name="submit" value="削除">
-							</tr>
-						</form>
-					</c:forEach>
-					<form method="POST" action="<c:url value='/EventServlet'/>">
 						<tr>
-							<td><input type="text" name="newEvent"></td>
-							<td><input type="submit" name="submit" value="追加"></td>
+							<td>
+								<form method="POST" action="<c:url value='/EventServlet'/>">
+									<input type="hidden" value="${f}" name="delEvent">${f}
+							</td>
+							<td>
+									<button type="submit" name="submit" value="削除" onclick="return delCheck()">削除</button>
+								</form>
+							</td>
 						</tr>
-					</form>
+					</c:forEach>
+					<tr>
+						<td>
+							<form method="POST" action="<c:url value='/EventServlet'/>" id="newEvent">
+								<input type="text" name="newEvent" placeholder="新しいイベント名を入力">
+						</td>
+						<td>
+								<button type="submit" name="submit" value="追加">追加</button>
+							</form>
+						</td>
+					</tr>
 				</table>
 			</div>
 		</div>
-		<!-- 日付と時間選択 -->
-		<form id="form" method="POST" action="<c:url value='/EventServlet' />">
+		<br>
+		<!-- イベント登録 -->
+		<form id="regEvent" method="POST" action="<c:url value='/EventServlet' />">
 			<div id="addButton">
-				<input type="button" value="追加" onclick="addTable()">
-				<input type="button" value="表示" onclick="generateTable()">
-				<input type="submit" name="submit" value="登録">
+				<div class="addEvent"><button type="button" value="追加" onclick="addTable()">追加</button></div><br>
+				<div class="regEvent"><button type="submit" name="submit" value="登録">登録</button></div>
+				<br><span id="error_message"></span>
 			</div>
 		</form>
-		<!-- 上に戻るボタン -->
-		<button  type="button" onclick="location.href='#top'">上に戻る</button>
 	</main>
 	<footer>
+		<!-- ページトップに戻るボタン -->
+		<p class="gotop">
+			<a href="#top">
+				<img src="img/gotop.png" alt="ページトップへ戻る" width="70" height="auto">
+			</a>
+		</p>
 	</footer>
 	<script>
+		'use strict';
+		// 追加ボタンをおして入力欄を出す機能
 		let tableCount = 0;
-		
 		function addTable() {
-			if (tableCount < 5) {
+			if (tableCount < 7) {
 				tableCount++;
 				var tableId = "dynamicTable_" + tableCount;
 				
@@ -229,18 +250,19 @@
 				html += "<option value='17:50'></option>";
 				html += "<option value='18:00'></option>";
 				html += "</datalist></td>";
-				html += "<td><button type='button' onclick=\"removeTable('" + tableId + "');generateTable()\">削除</button></td></tr>";
+				html += "<td><button type='button' onclick=\"removeTable('" + tableId + "');return delCheck()\">削除</button></td></tr>";
 				html += "</table>";
 				html += "</div>"
 				
 				wrapper.innerHTML = html;
 				
-				var form = document.getElementById("form");
+				var form = document.getElementById("regEvent");
 				var addButtonDiv = document.getElementById("addButton");
 				form.insertBefore(wrapper, addButtonDiv);
 			}
 		}
 		
+		// 削除ボタンをおして入力欄を消す機能
 		function removeTable(id) {
 			var wrapper = document.getElementById(id);
 			if (wrapper) {
@@ -251,45 +273,96 @@
 			tableCount--;
 		}
 		
-		function generateTable() {
-			const sets = document.querySelectorAll(".form");
-			let html = "<table><tr><th>日付</th><th>時間</th><th>イベント</th></tr>";
-			
-			sets.forEach(set => {
-				const date = set.querySelector(".date").value;
-				const start = set.querySelector(".start").value;
-				const end = set.querySelector(".end").value;
-				const event = set.querySelector(".event").value.trim();
-				
-				if (date && start && end && event) {
-					html += "<tr>" +
-					"<td>" + date + "</td>" +
-					"<td>" + start + "～" + end + "</td>" +
-					"<td>" + event + "</td>" +
-					"</tr>";
-				}
-			});
-			
-			html += "</table>";
-			document.getElementById("table").innerHTML = html;
-		}
-		
+		// モーダルを開く機能
 		function openModal() {
 			document.getElementById("modal").style.display = "block";
 		}
 		
+		// モーダルを閉じる機能
 		function closeModal() {
 			document.getElementById("modal").style.display = "none";
 		}
 		
-		// 背景クリックで閉じる機能（任意）
+		// 背景クリックでモーダルを閉じる機能
 		window.onclick = function(event) {
 			const modal = document.getElementById("modal");
 			if (event.target == modal) {
 				modal.style.display = "none";
 			}
 		}
-
+		
+		// formをすべて入力しないとメッセージを表示する機能
+		document.getElementById('regEvent').addEventListener('submit', function(e) {
+			let isValid = true;
+			const form = e.target;
+			
+			// すべての対象要素を取得
+			const elements = form.querySelectorAll('input, select');
+			
+			// フォームの入力欄がない場合のエラーメッセージ表示
+			if (elements.length === 0) {
+				e.preventDefault();
+				let errorMessageObj = document.getElementById('error_message');
+				errorMessageObj.textContent = '※登録するイベントがありません。';
+				return;
+			}
+			
+			elements.forEach(el => {
+				// 空欄かどうかをチェック
+				if (!el.value.trim()) {
+					isValid = false;
+				}
+				
+				// selectタグ特有の「選択されていない」状態のチェック
+				if (el.tagName === 'SELECT' && el.value === '') {
+					isValid = false;
+				}
+				
+				// datalist付きinputのチェック
+				if (el.tagName === 'INPUT' && el.hasAttribute('list')) {
+					const listId = el.getAttribute('list');
+					const datalist = document.getElementById(listId);
+					const options = Array.from(datalist.options).map(opt => opt.value);
+					if (!options.includes(el.value)) {
+						isValid = false;
+					}
+				}
+			});
+			
+			// フォーム入力が正しければ確認ダイアログボックスを表示し、未入力の項目があればエラーメッセージを表示
+			if (!isValid) {
+				e.preventDefault(); // フォーム送信を止める
+				let errorMessageObj = document.getElementById('error_message');
+				errorMessageObj.textContent = '※全ての項目を入力してください';
+			} else if (!window.confirm('登録します。よろしいですか？')) {
+				return false;
+			}
+			
+			errorMessageObj.textContent = null;
+		});
+		
+		// formを入力しないとメッセージを表示する機能
+		document.getElementById('newEvent').addEventListener('submit', function(e) {
+			const input = this.querySelector('input[name="newEvent"]');
+			
+			if (!input.value.trim()) {
+				e.preventDefault();
+				alert("イベント内容を入力してください。");
+			}
+		});
+		
+		// 確認ダイアログボックスの表示
+		function koushin() {
+			if (!window.confirm('追加します。よろしいですか？')) {
+				return false;
+			}
+		}
+		
+		function delCheck() {
+			if (!window.confirm('削除します。よろしいですか？')) {
+				return false;
+			}
+		}
 	</script>
 </body>
 </html>

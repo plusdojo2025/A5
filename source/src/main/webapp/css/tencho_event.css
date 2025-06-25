@@ -7,6 +7,77 @@
 }
 */
 
+#tnav, #bnav  {
+	margin: 80px auto 0 auto;
+	padding-top: 30px ;
+	list-style: none;
+	display: flex;
+	gap: 40px;
+	justify-content: center;
+	border: 2px solid #000;
+	border-radius: 4px;
+	max-width:800px;
+	height:50px;
+	background-color:#cbb1ff;      
+}
+
+#tnav li a, #bnav li a {
+	text-decoration: none;
+	color: #000;
+	padding: 8px 12px;
+	font-weight:bold;      
+}
+
+#tnav li a:hover{
+	background-color: #ddd;
+	border-radius: 4px;
+}
+    
+#bnav li a:hover {
+	background-color: #ddd;
+	border-radius: 4px;
+}
+
+.details-summary{
+	font-weight:bold;
+}
+
+#details li{
+	list-style-type:none;
+}
+
+/* まとめて囲む親のulに枠 */
+.details-summary + ul {
+	border: 2px solid #333;      /* 太めの枠線 */
+	border-radius: 6px;          /* 角丸 */
+	overflow: hidden;            /* 角丸が崩れないように */
+	width: 200px;                /* お好みで幅調整 */
+	margin: 10px 0;
+	padding: 0;                  /* ulのデフォ余白削除 */
+	background-color: #f9f9f9;
+}
+
+/* liは枠の中のセクション */
+.details-summary + ul li {
+	list-style: none;            /* マーカー消し */
+	padding: 10px 15px;
+	text-align: center;          /* 真ん中寄せ */
+	cursor: pointer;
+	background-color:#cbb1ff;
+}
+
+/* liの間に境界線を1本だけ入れる（2つ目以降のliの上に線） */
+.details-summary + ul li + li {
+	border-top: 1px solid #666;
+}
+
+/* aタグはブロック化して全体をクリック可能に */
+.details-summary + ul li a {
+	display: block;
+	color: #333;
+	text-decoration: none;
+}
+
 /* 内容表示用テーブルの設定 */
 .table table{
 	border-collapse: collapse;
@@ -25,7 +96,7 @@
 }
 /* 全体の位置調整など */
 main {
-	max-width: 700px;
+	max-width: 600px;
 	margin: 0 auto 0 auto;
 }
 table {
@@ -66,4 +137,43 @@ table {
 }
 .close:hover {
 	color: black;
+}
+/* イベント入力テーブル */
+.form {
+	font-size: 20px;
+}
+.form select {
+	font-size: 16px;
+}
+
+/* ボタンの設定 */
+button {
+	border-radius: 5px;
+	cursor: pointer;
+}
+/* 選択肢を編集ボタン */
+.editChoice {
+	text-align: right;
+}
+.editChoice button {
+	font-size: 16px;
+	width: 8em;
+	height: 4em;
+	background-color: #5271ff;
+	color: white;
+}
+#addButton {
+	text-align: center;
+}
+/* 追加ボタン */
+.addEvent button {
+	font-size: 16px;
+	width: 6em;
+	height: 3em;
+	background-color: #fdf9b4;
+}
+/* 登録ボタン */
+.regEvent button {
+	font-size: 12px;
+	width: 12em;
 }
