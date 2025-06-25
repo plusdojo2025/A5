@@ -22,7 +22,7 @@
 			    </a>
 			  </h1>
 			  <ul id="nav">
-			   <li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
+			   <li><a href="<c:url value='/CalendarServlet'/>">カレンダー</a></li>
 			    <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
 			    <li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
 			    <li><a href="<c:url value='/ManualServlet'/>">マニュアル</a></li>
@@ -70,7 +70,7 @@
 	                        <input type="submit" value="変更" onclick="return kaku()">
 	                </div>
 	                
-	                <p id="output"></p>
+	                <p id="output" style="color:red"></p>
 	                
 		      </div>
 		        
@@ -124,6 +124,8 @@
 		    	cur = document.getElementById("curPw").value;
 		    	new1 = document.getElementById("newPw1").value;
 		    	new2 = document.getElementById("newPw2").value;
+		        let output = document.getElementById("output");
+		    	output.textContent = ""; // 前回のメッセージをクリア
 		    	
 		    	if(cur=="" || new1=="" || new2==""){
 		    		alert("全部入力してください");
@@ -134,8 +136,13 @@
 		    		return false;
 		    	}
 		    	
+		    	if (new1.length < 8 || new1.length > 50 ) {
+    		        output.textContent = "パスワードは8文字以上50文字以内にしてください";
+    		        output.style.color = "red"; 
+    		        return false;
+		    	}		    		      
+		    	 	
 		    	 
-		    	
 
 
 		    }
