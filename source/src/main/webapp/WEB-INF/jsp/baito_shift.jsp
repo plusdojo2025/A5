@@ -18,10 +18,10 @@
 	    	</a>
 	    </h1>
 	    <ul id="nav">
-	    	<li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
+	    	<li><a href="<c:url value='/CalendarServlet'/>">カレンダー</a></li>
 		    <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
 		    <li><a href="<c:url value='/ChangePWServlet'/>">パスワード</a></li>
-		    <li><a href="<c:url value='/ManualServlett'/>">マニュアル</a></li>
+		    <li><a href="<c:url value='/ManualServlet'/>">マニュアル</a></li>
 	    	<li><a href="<c:url value='/LogoutServlet'/>">ログアウト</a></li>
 	    </ul>
 	</header>
