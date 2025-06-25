@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class LoginServlet
@@ -16,22 +17,29 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/ShiftServlet")
 public class ShiftServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// ログインページにフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_shift.jsp");
-		dispatcher.forward(request, response);
+		// もしもログインしていなかったらログインサーブレットにリダイレクトする
+		HttpSession session = request.getSession();
+		if (session.getAttribute("name") == null) {
+			response.sendRedirect(request.getContextPath() +"/LoginServlet");
+			return;
+		}
+		
+		// 店長フラグによる移動先ページの切り替え
+		int flag = (Integer)session.getAttribute("flag");
+		if (flag == 1) {
+			// シフト確認ページ（店長）にフォワードする
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_shift.jsp");
+			dispatcher.forward(request, response);
+		} else {
+			// シフト確認ページ（店長）にフォワードする
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_shift.jsp");
+			dispatcher.forward(request, response);
+		}	
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	/*
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
