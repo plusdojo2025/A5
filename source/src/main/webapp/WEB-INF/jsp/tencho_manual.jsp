@@ -40,7 +40,7 @@
         ここにドラッグ＆ドロップ<br>
         またはクリックしてファイルを選択
       </div>
-      <input type="file" id="fileInput" name="file">
+      <input type="file" id="fileInput" name="file" accept="image/*">
       <div id="fileList"></div>
 
       <h3>重要度を設定：</h3>
@@ -68,8 +68,8 @@
       <span class="color-label color-purple"></span>
     </label>
   	</div>
-	
-      <h2 id="uploadTrigger">登録</h2>
+	<input type = "submit" name="bu" value="登録">
+     <!-- <h2 id="uploadTrigger">登録</h2> -->
     </form>
 
     <h3>登録済みマニュアル一覧</h3>

@@ -17,27 +17,28 @@ import javax.servlet.http.Part;
 import dao.ManualDao;
 import dto.Manual;
 
-@WebServlet("/ManualServlet")
-@MultipartConfig(location = "C:\\pleiades\\workspace\\A5\\src\\main\\webapp\\img", // アップロードファイルの一時的な保存先
-    fileSizeThreshold = 1024 * 1024, // 1MBまではメモリに保持
-    maxFileSize = 1024 * 1024 * 50,  // 50MBまでのファイルを許可
-    maxRequestSize = 1024 * 1024 * 100 // 100MBまでのリクエストを許可
+
+@MultipartConfig(location = "C:\\plusdojo2025\\A5\\source\\src\\main\\webapp\\img" // アップロードファイルの一時的な保存先
+//    fileSizeThreshold = 1024 * 1024, // 1MBまではメモリに保持
+//    maxFileSize = 1024 * 1024 * 50,  // 50MBまでのファイルを許可
+//    maxRequestSize = 1024 * 1024 * 100 // 100MBまでのリクエストを許可
 )
+@WebServlet("/ManualServlet")
 public class ManualServlet extends HttpServlet {
 //	これ↓は要らないのかも？
 //	private static final long serialVersionUID = 1L;
 
 	
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    		throws ServletException, IOException {
 //    	ここから↓
     	HttpSession session = request.getSession();
-	    String loginUser = (String) session.getAttribute("name");//ログイン時にセッションスコープに預けた名前を持ってくる
-	    System.out.println("ログインユーザー名："+loginUser);
-	    if (loginUser == null) {//もしログインしていなければログイン画面へ飛ばす
-	        response.sendRedirect(request.getContextPath() + "/LoginServlet");
-	        return;
+    	String loginUser = (String) session.getAttribute("name");//ログイン時にセッションスコープに預けた名前を持ってくる
+    	System.out.println("ログインユーザー名："+loginUser);
+    	if (loginUser == null) {//もしログインしていなければログイン画面へ飛ばす
+    		response.sendRedirect(request.getContextPath() + "/LoginServlet");
+    		return;
 	    }
 	    
 	    int flag = (Integer)session.getAttribute("flag"); //セッションスコープから取り出すとObject型なのでIntegerにキャストする
@@ -80,35 +81,35 @@ public class ManualServlet extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+    	throws ServletException, IOException {
     	request.setCharacterEncoding("UTF-8");
-        System.out.println("ManualServlet doPost called");
+    	System.out.println("ManualServlet doPost called");
 //        response.setContentType("text/plain; charset=UTF-8");
 //      ここから↓
-        Part part = request.getPart("file"); // getPartで取得
-        System.out.println(part);
-		String image = this.getFileName(part);
-		request.setAttribute("image", image);
-		// サーバの指定のファイルパスへファイルを保存
+    	Part part = request.getPart("file"); // getPartで取得
+    	System.out.println(part+"aaaaaaaa");//
+    	String image = this.getFileName(part);
+    	request.setAttribute("image", image);
+    	// サーバの指定のファイルパスへファイルを保存
         //場所はクラス名↑の上に指定してある（"C:\\pleiades\\workspace\\a5\\webapp\\img"）を参照している
-		part.write(image);
-		//ここでwebapp内のimgにimageをの中身自体を保存。
-		//名前の文字列をDBに保存するならこの後にDaoに画像を渡す処理が入る↓
+    	part.write(image);
+    	//ここでwebapp内のimgにimageをの中身自体を保存。
+    	//名前の文字列をDBに保存するならこの後にDaoに画像を渡す処理が入る↓
 //		ここまで↑先生からのやつ
-		
-//          リクエストパラメータの取得？必要かな？これわっかんね～保留！
-            request.setCharacterEncoding("UTF-8");
-            String manual_file = request.getParameter("manual_file");
-            int importance = Integer.parseInt(request.getParameter("importance"));
-            String date_up = request.getParameter("date_up");
+
+//      		リクエストパラメータの取得？必要かな？これわっかんね～保留！
+           	request.setCharacterEncoding("UTF-8");
+           	String manual_file = request.getParameter("manual_file");
+           	int importance = Integer.parseInt(request.getParameter("importance"));
+           	String date_up = request.getParameter("date_up");
 //送る側なのでオートインクリメントのファイルIDはここで書く必要ないかも→int file_id = Integer.parseInt(request.getParameter("file_id"));
 //            
 //            登録の処理を行いたい、名刺管理をベースにやってみるなう
-            ManualDao MDao = new ManualDao();
+           	ManualDao MDao = new ManualDao();
 
-                try { if (MDao.insert(new Manual(manual_file, importance, date_up, 0))) {    
-                    response.getWriter().write("ファイルアップロード成功");
-                }
+            try { if (MDao.insert(new Manual(manual_file, importance, date_up, 0))) {    
+                	response.getWriter().write("ファイルアップロード成功");
+                	}
         		} catch (Exception e) {
         			System.out.println("例外発生時に出るメッセージだぞ");
         			e.printStackTrace(); // サーバーログには詳細を出すが、クライアント側には出さないようにしたい
@@ -119,15 +120,15 @@ public class ManualServlet extends HttpServlet {
 
 //ここから↓
     private String getFileName(Part part) {
-        String cd = part.getHeader("content-disposition");
-        if (cd == null) return "unknown(ヘッダーが見つからなかったよ)";
-        for (String content : cd.split(";")) {
-            if (content.trim().startsWith("filename")) {
-                String fileName = content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
-                return fileName.substring(fileName.lastIndexOf(File.separator) + 1);
-            }
-        }
-        return "unknown(ファイルが見つからなかったデフォ値だよ)";
-    }
-}
+    	String cd = part.getHeader("content-disposition");
+    	if (cd == null) return "unknown(ヘッダーが見つからなかったよ)";
+    	for (String content : cd.split(";")) {
+    		if (content.trim().startsWith("filename")) {
+    			String fileName = content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
+    			return fileName.substring(fileName.lastIndexOf(File.separator) + 1);
+    		}
+    	}
+    	return "unknown(ファイルが見つからなかったデフォ値だよ)";
+    	}
+	}
 //ここまで↑もらったやつの一番下の部分のコードとやってることは同じっぽい

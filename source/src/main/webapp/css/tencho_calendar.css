@@ -122,20 +122,20 @@
 
 /* まとめて囲む親のulに枠 */
 .details-summary + ul {
-  border: 2px solid #333;
-  border-radius: 6px;
-  overflow: hidden;
-  width: 200px;
+  border: 2px solid #333;      /* 太めの枠線 */
+  border-radius: 6px;          /* 角丸 */
+  overflow: hidden;            /* 角丸が崩れないように */
+  width: 200px;                /* お好みで幅調整 */
   margin: 10px 0;
-  padding: 0;
+  padding: 0;                  /* ulのデフォ余白削除 */
   background-color: #f9f9f9;
 }
 
 /* liは枠の中のセクション */
 .details-summary + ul li {
-  list-style: none;
+  list-style: none;            /* マーカー消し */
   padding: 10px 15px;
-  text-align: center;
+  text-align: center;          /* 真ん中寄せ */
   cursor: pointer;
   background-color:#cbb1ff;
 }
@@ -201,11 +201,11 @@
 }
 
 #shiftBtn, #eventBtn {
-  font-size: 20px;
-  padding: 15px 30px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  font-size: 20px;       /* フォント大きく */
+  padding: 15px 30px;    /* ボタンサイズ調整 */
+  border: none;          /* 枠線なし */
+  border-radius: 5px;    /* 角丸にする */
+  cursor: pointer;       /* カーソルをポインタに */
   margin: 10px;
 }
 
@@ -237,14 +237,14 @@
 }
 
 #text1 {
-  margin: 0 auto;
-  width: fit-content;
+  margin: 0 auto;      /* 横方向中央 */
+  width: fit-content;  /* コンテンツの幅に合わせる（必要に応じて固定幅でもOK） */
 }
 
 #weekSelector {
   position: relative;
-  left: 30%;
-  margin-top: 20px;
+  left: 30%; /* 中央より少し左寄りに調整 */
+  margin-top: 20px; /* 上下位置は任意で調整 */
 }
 
 /* text2 {
@@ -254,6 +254,14 @@
       margin: 0 auto;
 }
  */
-.calendar-nav{
-	background-color:#e2e2e2;
+#weeklybutton input[type="submit"] {
+  background-color: #1a7b3b;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
