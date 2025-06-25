@@ -106,7 +106,7 @@
 
 
 <!-- シフト表示 -->
-  <div id="shift">シフト
+  <div id="shift">
   <!-- カレンダー表示切替ナビ -->
 	<div class="calendar-nav">
 		<button id="prevWeek" class="arrow left">◁</button>
@@ -160,6 +160,7 @@
 <c:set var="prevWeek" value="${weekOffset - 1}" />
 <c:set var="nextWeek" value="${weekOffset + 1}" />
 
+<div id=weeklybutton>
 <form action="CalendarServlet" method="GET">
 	<a href="#event"><input type="hidden" name="weekOffset" value="${weekOffset - 1}"></a>
 	<a href="#event"><input type="submit" value="前の7件"></a>
@@ -169,7 +170,7 @@
 	<input type="hidden" name="weekOffset" value="${weekOffset + 1}">
 	<input type="submit" value="次の7件">
 </form>
-
+</div>
 	<!-- 今日から1週間分のイベントを表示 -->
     <table border="1">
 		<tr>
@@ -188,7 +189,10 @@
 		</c:forEach>
 	</table>
   </div>
-
+<br>
+<br>
+<br>
+<br>
 
   <footer>
     <p class="gotop">

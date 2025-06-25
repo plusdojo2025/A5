@@ -224,3 +224,19 @@
   overflow: visible;
 }
 
+#weeklybutton {
+  display: flex;
+  justify-content: center; 
+  gap: 20px;               
+  margin: 20px 0;          
+  
+}
+
+#weeklybutton form {
+  display: inline-block;
+}
+
+#printArea {
+  margin: 0 auto;      /* 横方向中央 */
+  width: fit-content;  /* コンテンツの幅に合わせる（必要に応じて固定幅でもOK） */
+}
