@@ -17,29 +17,34 @@
       <a href="tencho_calendar.jsp"><img src="img/logo.png" width="300" alt="エンプロ良イ:+1:"></a>
     </h1>
     <ul id="nav">
-      <li><a href="tencho_calendar.jsp">カレンダー</a></li>
-      <li><a href="tencho_shift.jsp">シフト</a></li>
-      <li><a href="tencho_event.jsp">イベント</a></li>
-      <li><a href="tencho_manual.jsp">マニュアル</a></li>
+      <li><a href="<c:url value='/CalendarServlet'/>">カレンダー</a></li>
+      <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
+      <li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
+      <li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
+      
+      <li>
       <details>
         <summary class="details-summary">その他</summary>
-        <li><a href="tencho_user_edit.jsp">ユーザー管理</a></li>
-        <li><a href="tencho_login.jsp">ログアウト</a></li>
+              <ul>
+        <li><a href="<c:url value='/UserManageServlet' />">ユーザー管理</a></li>
+        <li><a href="<c:url value='/LoginServlet' />">ログアウト</a></li>
+        </ul>
       </details>
+      </li>
     </ul>
   </header>
 
   <main>
-    <form method="post" enctype="multipart/form-data" onsubmit="return false;">
+    <form action="<c:url value='/ManualServlet' />" method="post" enctype="multipart/form-data">
       <div id="ddAreaFileRef">
         ここにドラッグ＆ドロップ<br>
         またはクリックしてファイルを選択
       </div>
-      <input type="file" id="fileInput" name="file" multiple>
+      <input type="file" id="fileInput" name="file">
       <div id="fileList"></div>
 
-      <h3>重要度を設定：
-	<form>
+      <h3>重要度を設定：</h3>
+	
   	<p>重要度を色で選んでください：</p>
   	<div class="color-option">
     <label>
@@ -63,8 +68,7 @@
       <span class="color-label color-purple"></span>
     </label>
   	</div>
-	</form>
-	</h3>
+	
       <h2 id="uploadTrigger">登録</h2>
     </form>
 
@@ -91,6 +95,32 @@
   </main>
 
   <script>
+  //ここから↓
+	function previewImage(obj){
+
+		var fileReader = new FileReader();
+
+		// 読み込み後に実行する処理
+		fileReader.onload = (function() {
+
+			// canvas にプレビュー画像を表示
+			var canvas = document.getElementById('preview');
+			var ctx = canvas.getContext('2d');
+			var image = new Image();
+			image.src = fileReader.result;
+			console.log(fileReader.result) // ← (確認用)
+
+			image.onload = (function () {
+				canvas.width = image.width;
+				canvas.height = image.height;
+				ctx.drawImage(image, 0, 0);
+			});
+		});
+		// 画像読み込み
+		fileReader.readAsDataURL(obj.files[0]);
+		console.log(fileReader.result) // ← (確認用)null
+	}
+//ここまで↑先生のやつ  
     window.onload = function () {
       const ddAreaFileRef = document.getElementById('ddAreaFileRef');
       const fileInput = document.getElementById('fileInput');
