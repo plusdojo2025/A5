@@ -105,9 +105,9 @@ public class CalendarServlet extends HttpServlet {
             List<CalEvent> elist = edao.getEvent();
             
             //consoleにelistの中身を表示
-            for (CalEvent ce : elist) {
-                System.out.println("日付" + ce.getEventData() + ", 件数" + ce.getCount());
-            }
+//            for (CalEvent ce : elist) {
+//                System.out.println("日付" + ce.getEventData() + ", 件数" + ce.getCount());
+//            }
             
             Map<String, Integer> eventMap = new TreeMap<>();
            
@@ -132,17 +132,31 @@ public class CalendarServlet extends HttpServlet {
 //            }
            
          // 今日の日付を取得
-//            System.out.println("CalendarServlet#doGet 開始");
             
     		Date today = new Date(System.currentTimeMillis());
+    		
+    		// クエリパラメータ取得（例：weekOffset=-1, 0, 1, ...）
+    		String offsetParam = request.getParameter("weekOffset");
+    		int weekOffset = 0;
+    		if (offsetParam != null) {
+    		    try {
+    		        weekOffset = Integer.parseInt(offsetParam);
+    		    } catch (NumberFormatException e) {
+    		        weekOffset = 0;
+    		    }
+    		}
+    		
+    		// 週オフセットに応じて日付をずらす（1週間 = 7日）
+    		long offsetMillis = 7L * 24 * 60 * 60 * 1000 * weekOffset;
+    		Date baseDate = new Date(today.getTime() + offsetMillis);
 
     		// DAO呼び出し
     		EventDao eventDao = new EventDao();
-    		List<EventType> weeklyEvents = eventDao.select7(today);
+    		List<EventType> weeklyEvents = eventDao.select7(baseDate);
     		
 //    		 for (EventType et : weeklyEvents) {
 //    			 System.out.println("日付: " + et.getEventDate());
-//    			    System.out.println("開始時刻: " + et.getEventStart());
+//   			    System.out.println("開始時刻: " + et.getEventStart());
 //    			    System.out.println("終了時刻: " + et.getEventEnd());
 //    			    System.out.println("イベントID: " + et.getEventId());
 //    			    System.out.println("イベント種別: " + et.getEventType());
@@ -150,6 +164,7 @@ public class CalendarServlet extends HttpServlet {
     		
     		// リクエストスコープに保存
     		request.setAttribute("weeklyEvents", weeklyEvents);
+    		request.setAttribute("weekOffset", weekOffset);
 
             
 //        request.setAttribute("shiftData", shiftData);
