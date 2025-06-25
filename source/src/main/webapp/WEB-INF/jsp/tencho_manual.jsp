@@ -48,23 +48,23 @@
   	<p>重要度を色で選んでください：</p>
   	<div class="color-option">
     <label>
-      <input type="radio" name="color" value="red">
+      <input type="radio" name="importance" value="1">
       <span class="color-label color-red"></span>
     </label>
     <label>
-      <input type="radio" name="color" value="blue">
+      <input type="radio" name="importance" value="2">
       <span class="color-label color-blue"></span>
     </label>
     <label>
-      <input type="radio" name="color" value="green">
+      <input type="radio" name="importance" value="3">
       <span class="color-label color-green"></span>
     </label>
     <label>
-      <input type="radio" name="color" value="orange">
+      <input type="radio" name="importance" value="4">
       <span class="color-label color-orange"></span>
     </label>
     <label>
-      <input type="radio" name="color" value="purple">
+      <input type="radio" name="importance" value="5">
       <span class="color-label color-purple"></span>
     </label>
   	</div>
