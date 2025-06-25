@@ -137,21 +137,21 @@
 	<!-- 表（月表示） -->
 	<div id="text2" hidden="">
 	<table id="shiftTable">
-	<thead>
-		<tr>
-			<th>日付</th>
-			<th>名前</th>
-			<th>開始時間</th>
- 			<th>終了時間</th>
-		</tr>
-	</thead>
-	<tbody>
-		<!-- JavaScriptでここに行を追加します -->
-	</tbody>
-</table>
-</div>
-</div>
-</div><br>
+    <thead>
+      <tr>
+        <th>日付</th>
+        <th>名前</th>
+        <th>開始時間</th>
+        <th>終了時間</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- JavaScriptでここに行を追加します -->
+    </tbody>
+  </table>
+  </div>
+  </div>
+  </div><br>
   
   
 <!-- イベント表示 -->
@@ -174,13 +174,16 @@
 </div>
 	<!-- 今日から1週間分のイベントを表示 -->
     <table border="1">
+    <thead>
 		<tr>
 			<th>日付</th>
 			<th>開始時刻</th>
 			<th>終了時刻</th>
 			<th>イベント種別</th>
 		</tr>
+		</thead>
 		<c:forEach var="event" items="${weeklyEvents}">
+		<tbody>
 			<tr>
 				<td>${event.eventDate}</td>
 				<td>${event.eventType}</td>
@@ -188,6 +191,7 @@
 				<td>${fn:substring(event.eventEnd, 0, 2)}:${fn:substring(event.eventEnd, 2, 4)}</td>
 				
 			</tr>
+			</tbody>
 		</c:forEach>
 	</table>
   </div>
@@ -197,15 +201,15 @@
 <br>
 
 <footer>
-	<p class="gotop">
-	<a href="#top">
-	<img src="img/gotop.png" alt="ページトップへ戻る" width="70" height="auto">
-	</a>
-	</p>
-	<p>&copy; エンプロ良イ&#128077</p>
-	</footer>
+    <p class="gotop">
+      <a href="#top">
+        <img src="img/gotop.png" alt="ページトップへ戻る" width="70" height="auto">
+      </a>
+    </p>
+    <p>&copy; エンプロ良イ&#128077</p>
+  </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
 
 <script>
   // サーバー側で用意された Map<String,Integer> をJSに埋め込む
