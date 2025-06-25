@@ -25,7 +25,7 @@ import dto.Manual;
 )
 public class ManualServlet extends HttpServlet {
 //	これ↓は要らないのかも？
-	private static final long serialVersionUID = 1L;
+//	private static final long serialVersionUID = 1L;
 
 	
     @Override
@@ -46,8 +46,8 @@ public class ManualServlet extends HttpServlet {
 	    
 	    if (flag == 0) {//もしflagが0つまり店員であれば店員用のマニュアル閲覧画面へ飛ばす
 	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_manual.jsp");
-	        dispatcher.forward(request, response);
-	        return;
+	    	dispatcher.forward(request, response);
+	    	return;
 	    }
 	    else if (flag == 1){//もしflagが1つまり店長であれば店長用のマニュアル管理画面へ飛ばす
 	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
@@ -86,7 +86,7 @@ public class ManualServlet extends HttpServlet {
 //        response.setContentType("text/plain; charset=UTF-8");
 //      ここから↓
         Part part = request.getPart("file"); // getPartで取得
-
+        System.out.println(part);
 		String image = this.getFileName(part);
 		request.setAttribute("image", image);
 		// サーバの指定のファイルパスへファイルを保存
