@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -102,7 +103,8 @@ public class ManualServlet extends HttpServlet {
 //           	String manual_file = request.getParameter("manual_file");
            	String manual_file = image;
            	int importance = Integer.parseInt(request.getParameter("importance"));
-           	String date_up = request.getParameter("date_up");// ←jspにdate_upのname属性のものがないからnullになっちゃうかも
+           	Date date_up = new Date(System.currentTimeMillis());
+//           	Date date_up = new Date () ;request.getParameter("date_up");// ←jspにdate_upのname属性のものがないからnullになっちゃうかも
 //送る側なのでオートインクリメントのファイルIDはここで書く必要ないかも→int file_id = Integer.parseInt(request.getParameter("file_id"));
 //            
 //            登録の処理を行いたい、名刺管理をベースにやってみるなう
