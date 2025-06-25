@@ -96,35 +96,29 @@ public class EventServlet extends HttpServlet {
 			// リクエストパラメータを取得する
 			request.setCharacterEncoding("UTF-8");
 			String newEvent = request.getParameter("newEvent");
-			System.out.println(newEvent);// デバッグ用
 			
 			// 登録するデータを受け取り、データベースに登録する
 			EventTypeDao etDao = new EventTypeDao();
 			if (etDao.insert(newEvent)) {
 				String result = "追加に成功しました。";
 				request.setAttribute("result", result);
-				System.out.println(result);// デバッグ用
 			} else {
 				String result = "追加に失敗しました。";
 				request.setAttribute("result", result);
-				System.out.println(result);// デバッグ用
 			}
 		} else if (request.getParameter("submit").equals("削除")) {
 			// リクエストパラメータを取得する
 			request.setCharacterEncoding("UTF-8");
 			String delEvent = request.getParameter("delEvent");
-			System.out.println(delEvent);// デバッグ用
 			
 			// 登録するデータを受け取り、データベースに登録する
 			EventTypeDao etDao = new EventTypeDao();
 			if (etDao.delete(delEvent)) {
 				String result = "削除に成功しました。";
 				request.setAttribute("result", result);
-				System.out.println(result);// デバッグ用
 			} else {
 				String result = "削除に失敗しました。";
 				request.setAttribute("result", result);
-				System.out.println(result);// デバッグ用
 			}
 		} else if (request.getParameter("submit").equals("イベント削除")) {
 			// リクエストパラメータを取得する
@@ -133,11 +127,6 @@ public class EventServlet extends HttpServlet {
 			String delEventStart = request.getParameter("delEventStart");
 			String delEventEnd = request.getParameter("delEventEnd");
 			String delEventType = request.getParameter("delEventType");
-			
-			System.out.println(delEventDate);// デバッグ用
-			System.out.println(delEventStart);// デバッグ用
-			System.out.println(delEventEnd);// デバッグ用
-			System.out.println(delEventType);// デバッグ用
 			
 			EventType eType = new EventType();
 			eType.setEventDate(delEventDate);
@@ -150,11 +139,9 @@ public class EventServlet extends HttpServlet {
 			if (eDao.delete(eType)) {
 				String result = "削除に成功しました。";
 				request.setAttribute("result", result);
-				System.out.println(result);// デバッグ用
 			} else {
 				String result = "削除に失敗しました。";
 				request.setAttribute("result", result);
-				System.out.println(result);// デバッグ用
 			}
 		}
 		response.sendRedirect(request.getContextPath() + "/EventServlet");
