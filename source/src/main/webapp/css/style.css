@@ -1,15 +1,54 @@
 @charset "UTF-8";
 
-/*全体　背景色*/
+
+/*全体、背景画像*/
 body{
+   
   margin: 0 0 0 0;	/* マージンなし（後で個別に設定） */
   padding: 0 0 0 0;	/* パディングなし（後で個別に設定） */
   width: 100%;
   justify-content:center;
-  color: #000000;  /* 文字の色を設定 */
   font-size: 16px;
-  background-color: #e2e2e2;
+  /*background-color: #e2e2e2;*/
+   background-image: url('../img/cafe.png');
+   background-repeat:  no-repeat;
+   background-size:cover;
+  overflow-x:hidden;
+   background-color: transparent; /* ←ここで背景色の透明化 */
+  
+  
 }
+
+
+/* 背景画像 */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../img/cafe.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: -2;
+}
+
+/* グレーの透過オーバーレイ */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(240, 240, 240, 0.5); /* 薄いグレーの透過色 */
+  z-index: -1;
+
+}
+
+/*全体、背景画像　ここまで*/
 
 
  /*　ヘッダー　*/
@@ -94,9 +133,32 @@ body{
 
 
 
+
 /*タイトル*/
 .top{
     text-align:center;
+}
+
+
+
+/* テーブルの題名部分 */
+thead th {
+  background-color: #f5deb3; 
+  color: #000000; 
+  font-weight: bold;
+  height: 50px;
+}
+
+/* テーブルのデータ行（ユーザーの情報） */
+tbody tr {
+  background-color: #fffaf0; 
+}
+
+
+/*○○ボタン　色変更　*/
+.update_button{  /*←jspで設定したクラス名またはid名（idの場合は#）*/
+	font-weight:bold;
+    background-color:#f0e68c;/*お好みの色に変更してください*/
 }
 
 
@@ -109,6 +171,7 @@ body{
 	z-index: 1000;
 
 }
+
 
 /* フッター */
 
