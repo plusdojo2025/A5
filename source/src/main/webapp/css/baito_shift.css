@@ -276,8 +276,33 @@ font-weight: bold;
 	gap: 5px;
 }
 li button {
-    display: block;      /* 横幅が広がる */
-    width: 100%;         /* 必要に応じて幅を指定 */
-    padding: 8px 12px;   /* 余白調整（任意） */
-    font-size: 1em;      /* テキストサイズ補正（任意） */
+    display: inline-block;
+    font-size: 1em;
+    white-space: nowrap;
+    background-color: #fdf9b4; /* 背景色 */
+	color: black;              /* 文字の色 */
+	border: none;              /* 枠線を消す */
+	padding: 10px 16px;        /* パディング（余白） */
+	font-size: 1em;            /* フォントサイズ */
+	border-radius: 4px;        /* 角を丸くする */
+	cursor: pointer;  
+}
+
+li table{
+	width: 200px;       /* テーブルの横幅を固定 */
+	table-layout: fixed; /* 各セルの幅を固定的に計算 */
+	border-collapse: collapse; /* セルの余白をなくす（任意） */
+}
+
+.tatenisitai {
+  display: flex;
+  flex-direction: column; /* 縦並び */
+  gap: 8px; /* 要素の間隔（お好みで） */
+  margin-bottom: 12px;
+}
+
+#add_button {
+  list-style: none;     /* 「・」を消す */
+  padding-left: 0;      /* 左の余白を消す */
+  width: 200px;
 }

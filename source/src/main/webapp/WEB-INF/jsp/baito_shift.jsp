@@ -18,11 +18,11 @@
 	    	</a>
 	    </h1>
 	    <ul id="nav">
-	    	<li><a href="tencho_calelndar.jsp">カレンダー</a></li>
-	    	<li><a href="tencho_shift.jsp">シフト</a></li>
-	      	<li><a href="tencho_event.jsp">パスワード</a></li>
-	      	<li><a href="tencho_manual.jsp">マニュアル</a></li>
-	      	<li><a href="tencho_manual.jsp">ログアウト</a></li>
+	    	<li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
+		    <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
+		    <li><a href="<c:url value='/ChangePWServlet'/>">パスワード</a></li>
+		    <li><a href="<c:url value='/ManualServlett'/>">マニュアル</a></li>
+	    	<li><a href="<c:url value='/LogoutServlet'/>">ログアウト</a></li>
 	    </ul>
 	</header>
   
@@ -44,7 +44,11 @@
 		</select>
 	
 		<div id="inputRowsContainer"></div>
-	
+		
+		<ul id="add_button">
+		<!-- ボタン追加 -->
+		</ul>
+		
 		<!-- 一括追加ボタン -->
 		<button id="bulkAddBtn">保存</button>
 	</main>
@@ -207,17 +211,52 @@ var lastDay = new Date();
 lastDay.setMonth(lastDay.getMonth() + 2);
 lastDay.setDate(0); // 来月/最終日
 
+
 function addListItem() {
-	const ul = document.getElementById("add_button");
-	
+	/*
+	const container = document.getElementById("inputRowsContainer");
+	container.innerHTML = ""; // 一旦クリア
+	*/
+	const date = new Date();
+	date.setMonth(date.getMonth() + 1);
+	date.setDate(0);
 	for (let i = 0; i < lastDay.getDate(); i++) {
+		date.setDate(date.getDate() + 1);
+		const yyyy = date.getFullYear();
+		const mm = String(date.getMonth() + 1).padStart(2, "0");
+		const dd = String(date.getDate()).padStart(2, "0");
+		const dayName = WEEKDAYS[date.getDay()];
+		const dateStr = yyyy + "-" + mm + "-" + dd;
+		const displayStr = mm + "/" + dd + " (" + dayName + ")";
+		
+		
+		const ul = document.getElementById("add_button");
+		
+		
 		const li = document.createElement("li");
-		const addBt = document.createElement("button");
-		li.appendChild(addBt);
+		const item = document.createElement("div");
+		item.className = "shift-input-row";
+		
+		item.innerHTML = `
+			<div class="tateisitai">
+				<table>
+					<tr>
+						<td>${'$'}{displayStr}</td>
+						<td><button type="button"><b>追加</b></button></td>
+					</tr>
+				</table>
+				<div>
+					<p hidden>ここにフォームを作るよ</p>
+				</div>
+			</div>
+		`;
+		li.appendChild(item);
 		
 		ul.appendChild(li);
+		
 	}
 }
+
 addListItem();
 </script>
 

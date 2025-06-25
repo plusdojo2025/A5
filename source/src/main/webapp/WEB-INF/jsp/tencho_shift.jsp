@@ -52,16 +52,7 @@
 		<div class="time-axis" id="timeAxis"></div>
 		<div class="timeline-grid" id="timelineGrid"></div>
 	</div>
-	
-	<select id="weekSelector">
-	<option value="0">月 第1週</option>
-	<option value="1">第2週</option>
-	<option value="2">第3週</option>
-	<option value="3">第4週</option>
-	<option value="4">第5週</option>
-	</select>
-	
-	
+
 	<!-- 表（月表示） -->
 	<div id="text2" hidden="">
 	<table id="shiftTable">

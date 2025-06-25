@@ -6,7 +6,7 @@
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <title>エンプロ良イ&#128077｜マニュアル管理</title>
   <link rel="stylesheet" href="<c:url value='/css/style.css' />">
-<link rel="stylesheet" href="<c:url value='/css/tencho_manual.css'/>">
+<link rel="stylesheet" href="<c:url value='/css/tencho_manual.css' />">
   <%--<style>
     tencho_manual.cssに移動済み
   </style>--%>
@@ -69,6 +69,8 @@
     </form>
 
     <h3>登録済みマニュアル一覧</h3>
+    <div id="trzmtbl">
+    <img src="<c:url value='/img/${e.img}' />">
         <table border="1">
         <tr>
             <th>ID</th>
@@ -85,7 +87,7 @@
             </tr>
         </c:forEach>
     </table>
-    
+    </div>
   </main>
 
   <script>
