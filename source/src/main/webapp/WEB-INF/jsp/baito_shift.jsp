@@ -243,14 +243,20 @@ function addListItem() {
 					<tr>
 						<td>${'$'}{displayStr}</td>
 						<td>
-							<button type="button" class="add" onclick="">
+							<button type="button" class="add" onclick="prihidd(this)">
 								<b>追加</b>
 							</button>
 						</td>
 					</tr>
 				</table>
-				<div>
-					<p class="kokoform" hidden>ここにフォームを作るよ</p>
+				<div class="kokoform" hidden="">
+					<div class="time-entry">
+				      <div class="time-inputs">
+				        <label>開始時刻：<input type="time" name="startTime"></label>
+				        <label>終了時刻：<input type="time" name="endTime"></label>
+				      </div>
+				      <button type="button" class="delete-btn">削除</button>
+				    </div>
 				</div>
 			</div>
 		`;
@@ -266,15 +272,20 @@ addListItem();
 //追加ボタンのイベント
 const abtns = document.querySelectorAll('button.add');
 abtns.forEach((btn, index) => {
-	btn.idList.add(`abtn${index + 1}`);
+	btn.id = "abtn" + (index + 1);
 });
 
-const kkfs = document.querySelectorAll('p.kokoform');
+const kkfs = document.querySelectorAll('div.kokoform');
 kkfs.forEach((pri, index) => {
-	pri.classList.add(`abtn${index + 1}`);
+	pri.id = "abtn" + (index + 1) + "fm";
 });
 
-function prihidd(elem){}
+function prihidd(elem){
+	let id = elem.id + "fm";
+	console.log(id);
+	const vanish = document.getElementById(id);
+	vanish.hidden = false; 
+}
 
 </script>
 
