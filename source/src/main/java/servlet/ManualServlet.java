@@ -36,7 +36,7 @@ public class ManualServlet extends HttpServlet {
 	    String loginUser = (String) session.getAttribute("name");//ログイン時にセッションスコープに預けた名前を持ってくる
 	    System.out.println("ログインユーザー名："+loginUser);
 	    if (loginUser == null) {//もしログインしていなければログイン画面へ飛ばす
-	        response.sendRedirect("/WEB-INF/jsp/login.jsp");
+	        response.sendRedirect(request.getContextPath() + "/LoginServlet");
 	        return;
 	    }
 	    
