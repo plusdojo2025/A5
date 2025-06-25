@@ -111,6 +111,20 @@
   
 <!-- イベント表示 -->
   <div id="event">
+  <!-- 前月次月切り替えボタン -->
+  <c:set var="prevWeek" value="${weekOffset - 1}" />
+<c:set var="nextWeek" value="${weekOffset + 1}" />
+
+<form action="CalendarServlet" method="GET">
+	<input type="hidden" name="weekOffset" value="${weekOffset - 1}">
+	<input type="submit" value="前の週">
+</form>
+
+<form action="CalendarServlet" method="GET">
+	<input type="hidden" name="weekOffset" value="${weekOffset + 1}">
+	<input type="submit" value="次の週">
+</form>
+	<!-- 今日から1週間分のイベントを表示 -->
     <table border="1">
 		<tr>
 			<th>日付</th>
