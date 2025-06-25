@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <!DOCTYPE html>
@@ -137,21 +137,21 @@
 	<!-- 表（月表示） -->
 	<div id="text2" hidden="">
 	<table id="shiftTable">
-    <thead>
-      <tr>
-        <th>日付</th>
-        <th>名前</th>
-        <th>開始時間</th>
-        <th>終了時間</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- JavaScriptでここに行を追加します -->
-    </tbody>
-  </table>
-  </div>
-  </div>
-  </div><br>
+	<thead>
+		<tr>
+			<th>日付</th>
+			<th>名前</th>
+			<th>開始時間</th>
+ 			<th>終了時間</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- JavaScriptでここに行を追加します -->
+	</tbody>
+</table>
+</div>
+</div>
+</div><br>
   
   
 <!-- イベント表示 -->
@@ -162,12 +162,12 @@
 <c:set var="nextWeek" value="${weekOffset + 1}" />
 
 <div id=weeklybutton>
-<form action="CalendarServlet" method="GET">
-	<a href="#event"><input type="hidden" name="weekOffset" value="${weekOffset - 1}"></a>
-	<a href="#event"><input type="submit" value="前の7件"></a>
+<form action="CalendarServlet#event" method="GET">
+	<input type="hidden" name="weekOffset" value="${weekOffset - 1}">
+	<input type="submit" value="前の7件">
 </form>
 
-<form action="CalendarServlet" method="GET">
+<form action="CalendarServlet#event" method="GET">
 	<input type="hidden" name="weekOffset" value="${weekOffset + 1}">
 	<input type="submit" value="次の7件">
 </form>
@@ -183,9 +183,10 @@
 		<c:forEach var="event" items="${weeklyEvents}">
 			<tr>
 				<td>${event.eventDate}</td>
-				<td>${event.eventStart}</td>
-				<td>${event.eventEnd}</td>
 				<td>${event.eventType}</td>
+				<td>${fn:substring(event.eventStart, 0, 2)}:${fn:substring(event.eventStart, 2, 4)}</td>
+				<td>${fn:substring(event.eventEnd, 0, 2)}:${fn:substring(event.eventEnd, 2, 4)}</td>
+				
 			</tr>
 		</c:forEach>
 	</table>
@@ -195,16 +196,16 @@
 <br>
 <br>
 
-  <footer>
-    <p class="gotop">
-      <a href="#top">
-        <img src="img/gotop.png" alt="ページトップへ戻る" width="70" height="auto">
-      </a>
-    </p>
-    <p>&copy; エンプロ良イ&#128077</p>
-  </footer>
+<footer>
+	<p class="gotop">
+	<a href="#top">
+	<img src="img/gotop.png" alt="ページトップへ戻る" width="70" height="auto">
+	</a>
+	</p>
+	<p>&copy; エンプロ良イ&#128077</p>
+	</footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
 
 <script>
   // サーバー側で用意された Map<String,Integer> をJSに埋め込む
