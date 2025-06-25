@@ -52,6 +52,13 @@ header {
       border-radius: 1px;
       width: 80%;
     }
+    #trzmtbl {
+      width: 100%;
+      margin: 50;
+      text-align: center;
+      border-collapse: collapse;
+      color: #ff0000
+    }
     #fileList {
       margin-top: 20px;
       text-align: center;
