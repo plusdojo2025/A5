@@ -2,8 +2,6 @@ package servlet;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -20,15 +18,15 @@ import dao.ManualDao;
 import dto.Manual;
 
 @WebServlet("/ManualServlet")
-@MultipartConfig(
+@MultipartConfig(location = "C:\\pleiades\\workspace\\a5\\webapp\\img", // アップロードファイルの一時的な保存先
     fileSizeThreshold = 1024 * 1024, // 1MBまではメモリに保持
     maxFileSize = 1024 * 1024 * 50,  // 50MBまでのファイルを許可
     maxRequestSize = 1024 * 1024 * 100 // 100MBまでのリクエストを許可
 )
 public class ManualServlet extends HttpServlet {
+//	これ↓は要らないのかも？
+	private static final long serialVersionUID = 1L;
 
-// ファイル保存ディレクトリ（サーバーのフォルダをパスで指定する
-//    private static final String UPLOAD_DIR = "A5/src/main/TestYouAgeAge";
 	
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -83,54 +81,53 @@ public class ManualServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
+    	request.setCharacterEncoding("UTF-8");
         System.out.println("ManualServlet doPost called");
-        response.setContentType("text/plain; charset=UTF-8");
-        // 保存先は Tomcat内の /uploads にするやで
-        String uploadPath = getServletContext().getRealPath("/uploads");
-        File uploads = new File(uploadPath);
-        if (!uploads.exists()) uploads.mkdirs();
-        try {
-            for (Part part : request.getParts()) {
-                if ("file".equals(part.getName()) && part.getSize() > 0) {
-                    String fileName = getFileName(part);
-                    File file = new File(uploads, fileName);
-                    try (InputStream input = part.getInputStream()) {
-                        Files.copy(input, file.toPath());
-                    }
-                }
-            }
-        
-//            リクエストパラメータの取得？必要かな？わっかんね、保留！
+//        response.setContentType("text/plain; charset=UTF-8");
+//      ここから↓
+        Part part = request.getPart("file"); // getPartで取得
+
+		String image = this.getFileName(part);
+		request.setAttribute("image", image);
+		// サーバの指定のファイルパスへファイルを保存
+        //場所はクラス名↑の上に指定してある（"C:\\pleiades\\workspace\\a5\\webapp\\img"）
+		part.write(image);
+		//ここでwebapp内のimgにimageをの中身自体を保存。
+		//名前の文字列をDBに保存するならこの後にDaoに画像を渡す処理が入る↓
+//		ここまで↑先生からのやつ
+		
+//          リクエストパラメータの取得？必要かな？これわっかんね～保留！
             request.setCharacterEncoding("UTF-8");
             String manual_file = request.getParameter("manual_file");
             int importance = Integer.parseInt(request.getParameter("importance"));
             String date_up = request.getParameter("date_up");
-//            送る側なので要らないかも→int file_id = Integer.parseInt(request.getParameter("file_id"));
+//送る側なのでオートインクリメントのファイルIDはここで書く必要ないかも→int file_id = Integer.parseInt(request.getParameter("file_id"));
 //            
 //            登録の処理を行いたい、名刺管理をベースにやってみるなう
             ManualDao MDao = new ManualDao();
 
-                if (MDao.insert(new Manual(manual_file, importance, date_up, 0))) {    
+                try { if (MDao.insert(new Manual(manual_file, importance, date_up, 0))) {    
                     response.getWriter().write("ファイルアップロード成功");
                 }
         		} catch (Exception e) {
+        			System.out.println("例外発生時に出るメッセージだぞ");
         			e.printStackTrace(); // サーバーログには詳細を出すが、クライアント側には出さないようにしたい
         			response.getWriter().write("アップロードに失敗しました。管理者にお問い合わせください。");
+        			
         		}
+    		}
 
-}
-
+//ここから↓
     private String getFileName(Part part) {
         String cd = part.getHeader("content-disposition");
-        if (cd == null) return "unknown";
+        if (cd == null) return "unknown(ヘッダーが見つからなかったよ)";
         for (String content : cd.split(";")) {
             if (content.trim().startsWith("filename")) {
                 String fileName = content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
                 return fileName.substring(fileName.lastIndexOf(File.separator) + 1);
             }
         }
-        return "unknown";
+        return "unknown(ファイルが見つからなかったデフォ値だよ)";
     }
 }
-
- 
+//ここまで↑もらったやつの一番下の部分のコードとやってることは同じっぽい

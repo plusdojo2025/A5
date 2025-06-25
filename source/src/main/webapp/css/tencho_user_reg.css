@@ -5,9 +5,10 @@ body {
   padding: 0 0 0 0;	/* パディングなし（後で個別に設定） */
   width: 100%;
   justify-content:center;
-  color: #000000;
   font-size: 16px;
-  background-color: #e2e2e2;
+  background-image: url('../img/back.png');
+  background-repeat:  no-repeat;
+  background-size:100% 100%;
 }
 
 /*　ヘッダー　*/
@@ -28,7 +29,7 @@ body {
       border-radius: 4px;
       max-width:800px;
       height:50px;
-      background-color:#cbb1ff;
+      background-color:#f5deb3;
       
 }
 
@@ -44,7 +45,7 @@ body {
     
     
 #nav li a:hover {
-      background-color: #ddd;
+      background-color:#f5deb3;
       border-radius: 4px;
     }
     
@@ -73,7 +74,7 @@ body {
   padding: 10px 15px;
   text-align: center;          /* 真ん中寄せ */
   cursor: pointer;
-  background-color:#cbb1ff;
+  background-color:#f5deb3;
 }
 
 /* liの間に境界線を1本だけ入れる（2つ目以降のliの上に線） */
@@ -161,9 +162,13 @@ input[type="radio"]{
     font-size:16px;
 }
 
-/*上へ戻るボタン*/
+/* 上に戻るボタン */
 .gotop{
-	padding-left:50px;
+	position : fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 1000;
+
 }
 
 /* フッター */

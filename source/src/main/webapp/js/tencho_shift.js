@@ -28,10 +28,7 @@ HOURS.forEach(h => {
 
 function renderTimeline(startDate) {
 	grid.innerHTML = '';
-	
-	//const weekStart = new Date(2025, 5, 1); // 2025-06-01
-	//const weekStart = new Date();
-	//weekStart.setDate(1 + weekIndex * 7);
+
 	const weekStart = new Date(startDate);
 	
 	for (let i = 0; i < 7; i++) {
@@ -39,6 +36,7 @@ function renderTimeline(startDate) {
 		currentDate.setDate(weekStart.getDate() + i);
 		const dateStr = formatDate(currentDate);
 		const day = currentDate.getDate();
+		const month = currentDate.getMonth() + 1;
 		const dayName = WEEKDAYS[currentDate.getDay()];
 		const dailyShifts = shifts.filter(s => s.date === dateStr);
 		
@@ -47,7 +45,7 @@ function renderTimeline(startDate) {
 		
 		const label = document.createElement("div");
 		label.className = "date-label";
-		label.textContent = day + "(" + dayName + ")";
+		label.textContent = month + "/" + day + "(" + dayName + ")";
 		row.appendChild(label);
 		
 		const line = document.createElement("div");
@@ -80,10 +78,11 @@ function renderTimeline(startDate) {
 		grid.appendChild(row);
 	}
 }
-
+/*
 document.getElementById("weekSelector").addEventListener("change", e => {
 	renderTimeline(parseInt(e.target.value));
 });
+*/
 
 renderTimeline(0); // 初期表示：第1週
 

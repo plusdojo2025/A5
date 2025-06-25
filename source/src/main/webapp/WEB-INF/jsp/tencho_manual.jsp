@@ -70,6 +70,7 @@
 
     <h3>登録済みマニュアル一覧</h3>
     <div id="trzmtbl">
+    <img src="<c:url value='/img/${e.img}' />">
         <table border="1">
         <tr>
             <th>ID</th>
