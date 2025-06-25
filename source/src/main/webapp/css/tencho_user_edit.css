@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 
+/*全体、背景画像*/
 body{
    
   margin: 0 0 0 0;	/* マージンなし（後で個別に設定） */
@@ -8,45 +9,11 @@ body{
   width: 100%;
   justify-content:center;
   font-size: 16px;
-  /*background-color: #e2e2e2;*/
-   background-image: url('../img/cafe.png');
-   background-repeat:  no-repeat;
-   background-size:cover;
+  background-color: #f5deb3;
   overflow-x:hidden;
-   background-color: transparent; /* ←ここで背景色の透明化 */
   
   
-}
-
-
-
-
-/* 背景画像 */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('../img/cafe.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  z-index: -2;
-}
-
-/* グレーの透過オーバーレイ */
-body::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(240, 240, 240, 0.5); /* 薄いグレーの透過色 */
-  z-index: -1;
-
+  
 }
 
 
@@ -64,11 +31,11 @@ body::after {
       display: flex;
       gap: 40px;
       justify-content: center;
-      border: 2px solid #000;
+      border: 2px solid #ffebcd;
       border-radius: 4px;
       max-width:800px;
       height:50px;
-      background-color:#f5deb3;
+      background-color:#ffebcd;
       
 }
 
@@ -84,7 +51,7 @@ body::after {
     
     
 #nav li a:hover {
-      background-color:#f5deb3;
+      background-color:#ffebcd;
       border-radius: 4px;
     }
     
@@ -113,7 +80,7 @@ body::after {
   padding: 10px 15px;
   text-align: center;          /* 真ん中寄せ */
   cursor: pointer;
-  background-color:#f5deb3;
+  background-color:#ffebcd;
 }
 
 /* liの間に境界線を1本だけ入れる（2つ目以降のliの上に線） */
@@ -129,6 +96,7 @@ body::after {
 }
 
 /*　ヘッダーここまで*/
+
 
 /* タイトル　*/
 .top{
@@ -255,6 +223,20 @@ td {
 	z-index: 1000;
 
 }
+
+/*フッターへの画像挿入*/
+.cafe_img {
+    text-align: left;       /* 左寄せ */
+    margin: 0;
+    padding: 0;
+}
+
+.cafe_img img {
+    display: block;         /* インライン→ブロック要素にすることで余白を排除 */
+    margin-left: 0;         /* 念のため左マージンを明示的に0に */
+}
+
+/*フッターへの画像挿入 ここまで*/
 
 /* フッター */
 
