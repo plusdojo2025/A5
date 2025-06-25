@@ -18,7 +18,7 @@
 	border-radius: 4px;
 	max-width:800px;
 	height:50px;
-	background-color:#cbb1ff;      
+	background-color:#CBB1FF;      
 }
 
 #tnav li a, #bnav li a {
@@ -29,12 +29,12 @@
 }
 
 #tnav li a:hover{
-	background-color: #ddd;
+	background-color: #DDD;
 	border-radius: 4px;
 }
     
 #bnav li a:hover {
-	background-color: #ddd;
+	background-color: #DDD;
 	border-radius: 4px;
 }
 
@@ -54,7 +54,7 @@
 	width: 200px;                /* お好みで幅調整 */
 	margin: 10px 0;
 	padding: 0;                  /* ulのデフォ余白削除 */
-	background-color: #f9f9f9;
+	background-color: #F9F9F9;
 }
 
 /* liは枠の中のセクション */
@@ -63,7 +63,7 @@
 	padding: 10px 15px;
 	text-align: center;          /* 真ん中寄せ */
 	cursor: pointer;
-	background-color:#cbb1ff;
+	background-color:#CBB1FF;
 }
 
 /* liの間に境界線を1本だけ入れる（2つ目以降のliの上に線） */
@@ -80,6 +80,7 @@
 
 /* 内容表示用テーブルの設定 */
 .table table{
+	background-color: #BAFFB1;
 	border-collapse: collapse;
 	margin-top: 20px;
 	width: 100%;
@@ -93,6 +94,9 @@
 	border: 1px solid #333;
 	padding: 8px;
 	text-align: center;
+}
+.table button {
+	background: radial-gradient(circle, #FFFFFF, #FF0000);
 }
 /* 全体の位置調整など */
 main {
@@ -121,7 +125,7 @@ table {
 }
 /* モーダルの中身 */
 .modal-content {
-	background-color: #fff;
+	background-color: #FFF;
 	margin: 10% auto;
 	padding: 20px;
 	border: 1px solid #888;
@@ -129,7 +133,7 @@ table {
 	border-radius: 5px;
 }
 .close {
-	color: #aaa;
+	color: #AAA;
 	float: right;
 	font-size: 20px;
 	font-weight: bold;
@@ -138,12 +142,30 @@ table {
 .close:hover {
 	color: black;
 }
+.modal table {
+	border-collapse: collapse;
+	border: 1px solid #333;
+}
+.modal tr {
+	border: 1px solid #333;
+	padding: 8px;
+	text-align: center;
+}
+.modal td {
+	border: 1px solid #333;
+	padding: 8px;
+	text-align: center;
+}
+
 /* イベント入力テーブル */
 .form {
 	font-size: 20px;
 }
 .form select {
 	font-size: 16px;
+}
+.form input {
+	font-size: 18px;
 }
 
 /* ボタンの設定 */
@@ -159,7 +181,7 @@ button {
 	font-size: 16px;
 	width: 8em;
 	height: 4em;
-	background-color: #5271ff;
+	background: radial-gradient(circle, #5271FF, #D88FFF);
 	color: white;
 }
 #addButton {
@@ -170,7 +192,7 @@ button {
 	font-size: 16px;
 	width: 6em;
 	height: 3em;
-	background-color: #fdf9b4;
+	background-color: #FDF9B4;
 }
 /* 登録ボタン */
 .regEvent button {
