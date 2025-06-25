@@ -91,20 +91,20 @@ public class ManualDao {
 	    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 				"root", "password");
-	         PreparedStatement stmt = conn.prepareStatement(sql);
-	         ResultSet rs = stmt.executeQuery()) {
+	    		PreparedStatement stmt = conn.prepareStatement(sql);
+	    		ResultSet rs = stmt.executeQuery()) {
 
 	        while (rs.next()) {
 	            Manual manual = new Manual(
-	                rs.getString("manual_file"),
-	                rs.getInt("importance"),
-	                rs.getDate("date_up"), 
-	                0
-	            );
+	            		rs.getString("manual_file"),
+	            		rs.getInt("importance"),
+	            		rs.getDate("date_up"), 
+	            		0
+	            		);
 	            manualList.add(manual);
-	        }
-	    }
-	    return manualList;
+	        	}
+	    	}
+	    	return manualList;
 	}
 //ここまで↑ｇｐｔ曰くテーブル全取得からの一覧表示に必要。
 	
