@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <!DOCTYPE html>
@@ -200,6 +201,7 @@
         <img src="img/gotop.png" alt="ページトップへ戻る" width="70" height="auto">
       </a>
     </p>
+    <p>&copy; エンプロ良イ&#128077</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>

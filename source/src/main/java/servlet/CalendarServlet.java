@@ -130,7 +130,8 @@ public class CalendarServlet extends HttpServlet {
 //            for(Entry<String, Integer> list : shiftData.entrySet()) {
 //            	System.out.println("shiftDataの中身"+list);
 //            }
-           
+	//シフト一覧表示  
+	//イベント一覧表示
          // 今日の日付を取得
             
     		Date today = new Date(System.currentTimeMillis());

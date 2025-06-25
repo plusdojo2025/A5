@@ -236,7 +236,24 @@
   display: inline-block;
 }
 
-#printArea {
+#text1 {
   margin: 0 auto;      /* 横方向中央 */
   width: fit-content;  /* コンテンツの幅に合わせる（必要に応じて固定幅でもOK） */
+}
+
+#weekSelector {
+  position: relative;
+  left: 20%; /* 中央より少し左寄りに調整 */
+  margin-top: 20px; /* 上下位置は任意で調整 */
+}
+
+/* text2 {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+}
+ */
+.calendar-nav{
+	color:#e2e2e2;
 }
