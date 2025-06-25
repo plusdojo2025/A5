@@ -18,7 +18,7 @@ import dao.ManualDao;
 import dto.Manual;
 
 
-@MultipartConfig(location = "C:\\plusdojo2025\\workspace\\A5\\src\\main\\webapp\\img" // アップロードファイルの一時的な保存先
+@MultipartConfig(location = "C:\\plusdojo2025\\A5\\source\\src\\main\\webapp\\img" // アップロードファイルの一時的な保存先
 //    fileSizeThreshold = 1024 * 1024, // 1MBまではメモリに保持
 //    maxFileSize = 1024 * 1024 * 50,  // 50MBまでのファイルを許可
 //    maxRequestSize = 1024 * 1024 * 100 // 100MBまでのリクエストを許可
