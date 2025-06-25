@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.EventDao;
 import dao.EventTypeDao;
@@ -30,13 +31,11 @@ public class EventServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインページにリダイレクトする
-		/*
 		HttpSession session = request.getSession();
 		if (session.getAttribute("user") == null) {
 			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
-		*/
 		
 		// 現在日時を取得し、データベースから当日以降のイベントの情報を持ってくる
 		Date date = new Date(new java.util.Date().getTime());
@@ -63,14 +62,12 @@ public class EventServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		/*
 		// もしもログインしていなかったらログインページにリダイレクトする
 		HttpSession session = request.getSession();
 		if (session.getAttribute("user") == null) {
 			response.sendRedirect(request.getContextPath() + "/LoginServlet");
 			return;
 		}
-		*/
 		
 		if (request.getParameter("submit").equals("登録")) {
 			// リクエストパラメータを取得する
