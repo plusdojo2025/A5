@@ -65,12 +65,14 @@
 			           value="${pw}">
 	               		
 	              		<br><br>
+	              		
+	              	  <p id="output" style="color:red; font-weight: bold;"></p>
 	
 	                <div class="update_button">
 	                        <input type="submit" value="変更" onclick="return kaku()">
 	                </div>
 	                
-	                <p id="output" style="color:red"></p>
+	                
 	                
 		      </div>
 		        

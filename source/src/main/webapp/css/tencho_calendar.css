@@ -243,7 +243,7 @@
 
 #weekSelector {
   position: relative;
-  left: 20%; /* 中央より少し左寄りに調整 */
+  left: 30%; /* 中央より少し左寄りに調整 */
   margin-top: 20px; /* 上下位置は任意で調整 */
 }
 
@@ -254,6 +254,14 @@
       margin: 0 auto;
 }
  */
-.calendar-nav{
-	color:#e2e2e2;
+#weeklybutton input[type="submit"] {
+  background-color: #1a7b3b;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
