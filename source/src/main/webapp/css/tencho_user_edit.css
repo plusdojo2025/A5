@@ -1,16 +1,53 @@
 @charset "UTF-8";
 
-body {
+
+body{
+   
   margin: 0 0 0 0;	/* マージンなし（後で個別に設定） */
   padding: 0 0 0 0;	/* パディングなし（後で個別に設定） */
   width: 100%;
   justify-content:center;
-  color: #000000;
   font-size: 16px;
-  background-color: #e2e2e2;
+  /*background-color: #e2e2e2;*/
+   background-image: url('../img/cafe.png');
+   background-repeat:  no-repeat;
+   background-size:cover;
   overflow-x:hidden;
+   background-color: transparent; /* ←ここで背景色の透明化 */
+  
+  
 }
 
+
+
+
+/* 背景画像 */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../img/cafe.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: -2;
+}
+
+/* グレーの透過オーバーレイ */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(240, 240, 240, 0.5); /* 薄いグレーの透過色 */
+  z-index: -1;
+
+}
 
 
 /*　ヘッダー　*/
@@ -31,7 +68,7 @@ body {
       border-radius: 4px;
       max-width:800px;
       height:50px;
-      background-color:#cbb1ff;
+      background-color:#f5deb3;
       
 }
 
@@ -47,7 +84,7 @@ body {
     
     
 #nav li a:hover {
-      background-color: #ddd;
+      background-color:#f5deb3;
       border-radius: 4px;
     }
     
@@ -76,7 +113,7 @@ body {
   padding: 10px 15px;
   text-align: center;          /* 真ん中寄せ */
   cursor: pointer;
-  background-color:#cbb1ff;
+  background-color:#f5deb3;
 }
 
 /* liの間に境界線を1本だけ入れる（2つ目以降のliの上に線） */
@@ -102,18 +139,29 @@ body {
 /* 店長は赤文字です */
 
 .note{
-    padding-left:180px;
-    margin-left:200px;
-    color:#ff0000;
+   margin: 20px auto;               /* 中央寄せに変更 */
+  padding: 10px 20px;
+  width: fit-content;              /* 内容に応じて自動サイズ */
+  background: #f9f9f9;             /* 白より少し柔らかい */
+  border: 2px solid  #fffaf0;;       /* 青系の枠線 */
+  border-radius: 10px;             /* 角を丸く */
+  color: #ff0000;                  /* 文字色は赤 */
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1); /* 軽い影で立体感 */
 }
+    
+
 
 
 /* 表とボタン */
 .table_up_del {
   width: 100%;
   margin-right:60px;
+  margin-bottom: 200px; /* ← 下にスペース */
   
 }
+
 
 .up_del_mes{
 	text-align:center;
@@ -131,6 +179,21 @@ table {
             width: 60%;
             margin: 20px auto;
 }
+
+/* テーブルの題名部分 */
+thead th {
+  background-color: #f5deb3; 
+  color: #000000; 
+  font-weight: bold;
+  height: 50px;
+}
+
+
+/* テーブルのデータ行（ユーザーの情報） */
+tbody tr {
+  background-color: #fffaf0; 
+}
+
         
 td {
             border: 1px solid #000;
@@ -138,6 +201,7 @@ td {
             height: 50px;
             text-align:center;
 }
+
 /*テーブルの枠線を消す*/
 
 .no-bottom-border {
@@ -146,9 +210,32 @@ td {
   border-bottom: none;
 }
 
+
+.username-input {
+  width: 200px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  border: 2px solid #d3c8ae; /* やや落ち着いた茶色系 */
+  border-radius: 10px;
+  background-color: #fffaf0; /* 背景色もテーブルに馴染ませる */
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.username-input:focus {
+  outline: none;
+  border-color: #ffb347; /* フォーカス時オレンジ系強調 */
+  box-shadow: 0 0 8px rgba(255, 179, 71, 0.5);
+}
+
+
+
 /*変更ボタン　色変更　*/
 .update_button{
-    background-color:#ffde59;
+	font-weight:bold;
+    background-color:#f0e68c;
 }
 
 
@@ -156,7 +243,8 @@ td {
 
 /*削除ボタン　色変更　*/
 .delete_button{
-    background-color:#5271ff;
+	font-weight:bold;
+    background-color:#ffbf7f;
 }
 
 /* 上に戻るボタン */

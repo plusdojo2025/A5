@@ -86,7 +86,7 @@ public class ManualDao {
 //ここから↓
 	public List<Manual> findAll() throws SQLException {
 	    List<Manual> manualList = new ArrayList<>();
-	    String sql = "SELECT * FROM manual ORDER BY id";
+	    String sql = "SELECT * FROM manual ORDER BY file_id";
 
 	    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
@@ -123,7 +123,7 @@ public class ManualDao {
 					"root", "password");
 
 			// SQL文を準備する (上で追加した分だけ？マークを追加）
-			String sql = "INSERT INTO Manual VALUES (?, ?, ?, NULL)"; 
+			String sql = "INSERT INTO Manual VALUES (?, ?, ?, 0)"; 
 //										Stringは?で良さそうだが、他のデータ型の場合はどうなるんだろう…
 //										回答→入れたいものがあるときは絶対"?"で、オートインクリメントは"0"でよいらしい。
 			PreparedStatement pStmt = conn.prepareStatement(sql);

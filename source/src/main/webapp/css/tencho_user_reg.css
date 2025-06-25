@@ -1,15 +1,55 @@
 @charset "UTF-8";
 
-body {
+/*全体、背景画像*/
+body{
+   
   margin: 0 0 0 0;	/* マージンなし（後で個別に設定） */
   padding: 0 0 0 0;	/* パディングなし（後で個別に設定） */
   width: 100%;
   justify-content:center;
   font-size: 16px;
-  background-image: url('../img/back.png');
-  background-repeat:  no-repeat;
-  background-size:100% 100%;
+  /*background-color: #e2e2e2;*/
+   background-image: url('../img/cafe.png');
+   background-repeat:  no-repeat;
+   background-size:cover;
+  overflow-x:hidden;
+   background-color: transparent; /* ←ここで背景色の透明化 */
+  
+  
 }
+
+
+
+
+/* 背景画像 */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../img/cafe.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: -2;
+}
+
+/* グレーの透過オーバーレイ */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(240, 240, 240, 0.5); /* 薄いグレーの透過色 */
+  z-index: -1;
+
+}
+
+/*全体、背景画像　ここまで*/
 
 /*　ヘッダー　*/
  header {
@@ -91,6 +131,7 @@ body {
 
 /*　ヘッダーここまで*/
 
+
 /*タイトル*/
 .top{
     text-align:center;
@@ -108,6 +149,7 @@ body {
     width:50%;
     margin:0 auto;
     text-align:center;
+    background-color:#fffaf0;
 }
 
 /*ラジオボタン全体*/
@@ -152,7 +194,8 @@ input[type="radio"]{
     padding: 0.5em 1em;
     margin: 2em 0;
     font-weight: bold;
-    border: solid 3px #000000;
+    border: solid 3px #f5deb3;;
+    background-color:#f5deb3;
 }
 
 

@@ -36,12 +36,12 @@
   </ul>
 </header>
  
- 		<br>
+ 		
       
 
        <P class="note">＊店長は赤文字です</P>
 
-        <br>
+        
     
        
             <!-- 表 -->
@@ -57,6 +57,7 @@
 			          <th>ID</th>
 			          <th>ユーザーネーム</th>
 			          <th>パスワード</th>
+			          <th></th>  
 			        </tr>
 			      </thead>
 		      
@@ -71,7 +72,8 @@
           
           <td>
             <input type="text" name="name" value="${user.name}"
-              style="width:200px; height:50px; font-weight:bold; text-align:center; line-height:50px; font-size:18px;<c:if test='${user.flag == 1}'>color:red;</c:if>" />
+    		class="username-input"
+    		style="<c:if test='${user.flag == 1}'>color:red; border-color:red;</c:if>" />
           </td>
           
           <td>
@@ -95,28 +97,7 @@
 </div>
 
 
-       					<br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			           
-
+       					
 
 
    	<!-- フッター -->
