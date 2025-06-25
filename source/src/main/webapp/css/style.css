@@ -156,7 +156,7 @@ tbody tr {
 
 
 /*○○ボタン　色変更　*/
-.update_button{  /*←jspで設定したクラス名またはid名（idの場合は#）*/
+.○○_button{  /*←jspで設定したクラス名またはid名（idの場合は#）*/
 	font-weight:bold;
     background-color:#f0e68c;/*お好みの色に変更してください*/
 }
