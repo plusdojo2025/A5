@@ -333,7 +333,6 @@ public class EventDao {
 			pStmt.setString(3, eventType.getEventEnd());
 			pStmt.setString(4, eventType.getEventType());
 			
-			System.out.println(pStmt);
 			// SQL文を実行する
 			if (pStmt.executeUpdate() == 1) {
 				result = true;
