@@ -32,8 +32,8 @@ public class EventServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインページにリダイレクトする
 		HttpSession session = request.getSession();
-		if (session.getAttribute("user") == null) {
-			response.sendRedirect(request.getContextPath() + "/LoginServlet");
+		if (session.getAttribute("name") == null) {
+			response.sendRedirect(request.getContextPath() + "/LogoutServlet");
 			return;
 		}
 		
@@ -64,8 +64,8 @@ public class EventServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		// もしもログインしていなかったらログインページにリダイレクトする
 		HttpSession session = request.getSession();
-		if (session.getAttribute("user") == null) {
-			response.sendRedirect(request.getContextPath() + "/LoginServlet");
+		if (session.getAttribute("name") == null) {
+			response.sendRedirect(request.getContextPath() + "/LogoutServlet");
 			return;
 		}
 		

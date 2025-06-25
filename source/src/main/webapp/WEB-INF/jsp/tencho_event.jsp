@@ -45,9 +45,9 @@
 				<c:forEach var="e" items="${eventList}">
 					<form method="POST" action="<c:url value='/EventServlet'/>">
 						<tr> 
-							<td><input type="text" value="${e.eventDate}" name="delEventDate" readonly="readonly" style="display: none;">${e.eventDate}</td>
-							<td><input type="text" value="${e.eventStart}" name="delEventStart" readonly="readonly" style="display: none;">${e.eventStart}～<input type="text" value="${e.eventEnd}" name="delEventEnd" readonly="readonly" style="display: none;">${e.eventEnd}</td>
-							<td><input type="text" value="${e.eventType}" name="delEventType" readonly="readonly" style="display: none;">${e.eventType}</td>
+							<td><input type="hidden" value="${e.eventDate}" name="delEventDate" readonly="readonly">${e.eventDate}</td>
+							<td><input type="hidden" value="${e.eventStart}" name="delEventStart" readonly="readonly">${e.eventStart}～<input type="hidden" value="${e.eventEnd}" name="delEventEnd" readonly="readonly">${e.eventEnd}</td>
+							<td><input type="hidden" value="${e.eventType}" name="delEventType" readonly="readonly">${e.eventType}</td>
 							<td><button type="submit" name="submit" value="イベント削除" onclick="return delCheck()">削除</button>
 						</tr>
 					</form>

@@ -306,3 +306,27 @@ li table{
   padding-left: 0;      /* 左の余白を消す */
   width: 200px;
 }
+
+.time-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.time-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.delete-btn {
+  height: 40px;
+  align-self: center;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
