@@ -40,6 +40,7 @@
 					<th>日付</th>
 					<th>時間</th>
 					<th>イベント</th>
+					<th></th>
 				</tr>
 				<c:forEach var="e" items="${eventList}">
 					<form method="POST" action="<c:url value='/EventServlet'/>">

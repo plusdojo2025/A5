@@ -18,10 +18,10 @@
 	    	</a>
 	    </h1>
 	    <ul id="nav">
-	    	<li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
+	    	<li><a href="<c:url value='/CalendarServlet'/>">カレンダー</a></li>
 		    <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
 		    <li><a href="<c:url value='/ChangePWServlet'/>">パスワード</a></li>
-		    <li><a href="<c:url value='/ManualServlett'/>">マニュアル</a></li>
+		    <li><a href="<c:url value='/ManualServlet'/>">マニュアル</a></li>
 	    	<li><a href="<c:url value='/LogoutServlet'/>">ログアウト</a></li>
 	    </ul>
 	</header>
@@ -64,12 +64,12 @@
 const HOURS = Array.from({ length: 10 }, (_, i) => 9 + i); // 9:00〜18:00
 
 const shifts = [
-	{ date: '2025-06-02', name: '山田', startTime: '09:00', endTime: '17:00' },
-	{ date: '2025-06-03', name: '田中', startTime: '13:00', endTime: '18:00' },
-	{ date: '2025-06-03', name: '佐藤', startTime: '12:00', endTime: '15:00' }, // ★被り
-	{ date: '2025-06-10', name: '佐藤', startTime: '10:00', endTime: '16:00' },
-	{ date: '2025-06-17', name: '山田', startTime: '10:00', endTime: '18:00' },
-	{ date: '2025-06-25', name: '田中', startTime: '08:30', endTime: '12:00' }
+	{ date: '2025-07-02', name: '山田', startTime: '09:00', endTime: '17:00' },
+	{ date: '2025-07-03', name: '田中', startTime: '13:00', endTime: '18:00' },
+	{ date: '2025-07-03', name: '佐藤', startTime: '12:00', endTime: '15:00' }, // ★被り
+	{ date: '2025-07-10', name: '佐藤', startTime: '10:00', endTime: '16:00' },
+	{ date: '2025-07-17', name: '山田', startTime: '10:00', endTime: '18:00' },
+	{ date: '2025-07-25', name: '田中', startTime: '08:30', endTime: '12:00' }
 ];
 
 
@@ -242,11 +242,15 @@ function addListItem() {
 				<table>
 					<tr>
 						<td>${'$'}{displayStr}</td>
-						<td><button type="button"><b>追加</b></button></td>
+						<td>
+							<button type="button" class="add" onclick="">
+								<b>追加</b>
+							</button>
+						</td>
 					</tr>
 				</table>
 				<div>
-					<p hidden>ここにフォームを作るよ</p>
+					<p class="kokoform" hidden>ここにフォームを作るよ</p>
 				</div>
 			</div>
 		`;
@@ -258,6 +262,20 @@ function addListItem() {
 }
 
 addListItem();
+
+//追加ボタンのイベント
+const abtns = document.querySelectorAll('button.add');
+abtns.forEach((btn, index) => {
+	btn.idList.add(`abtn${index + 1}`);
+});
+
+const kkfs = document.querySelectorAll('p.kokoform');
+kkfs.forEach((pri, index) => {
+	pri.classList.add(`abtn${index + 1}`);
+});
+
+function prihidd(elem){}
+
 </script>
 
 </body>

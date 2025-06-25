@@ -18,7 +18,7 @@ import dao.ManualDao;
 import dto.Manual;
 
 @WebServlet("/ManualServlet")
-@MultipartConfig(location = "C:\\pleiades\\workspace\\a5\\webapp\\img", // アップロードファイルの一時的な保存先
+@MultipartConfig(location = "C:\\pleiades\\workspace\\A5\\src\\main\\webapp\\img", // アップロードファイルの一時的な保存先
     fileSizeThreshold = 1024 * 1024, // 1MBまではメモリに保持
     maxFileSize = 1024 * 1024 * 50,  // 50MBまでのファイルを許可
     maxRequestSize = 1024 * 1024 * 100 // 100MBまでのリクエストを許可
@@ -90,7 +90,7 @@ public class ManualServlet extends HttpServlet {
 		String image = this.getFileName(part);
 		request.setAttribute("image", image);
 		// サーバの指定のファイルパスへファイルを保存
-        //場所はクラス名↑の上に指定してある（"C:\\pleiades\\workspace\\a5\\webapp\\img"）
+        //場所はクラス名↑の上に指定してある（"C:\\pleiades\\workspace\\a5\\webapp\\img"）を参照している
 		part.write(image);
 		//ここでwebapp内のimgにimageをの中身自体を保存。
 		//名前の文字列をDBに保存するならこの後にDaoに画像を渡す処理が入る↓
