@@ -73,7 +73,7 @@ public class ManualServlet extends HttpServlet {
 	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	    }
 	    
-//	    ここまで↑ｇｐｔ曰くテーブル全取得からの一覧表示に必要。 //からの分岐も上記同様にこれで行けるか??
+//	    ここまで↑ｇｐｔ曰くテーブル全取得からの一覧表示に必要。 //からの分岐も上記同様にこれで行けるか??データisどこ？
 	    
 //    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
 //        dispatcher.forward(request, response);
