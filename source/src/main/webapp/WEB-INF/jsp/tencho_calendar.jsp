@@ -7,6 +7,7 @@
 <head>
   <meta charset="UTF-8">
   <title>エンプロ良イ👍｜カレンダー</title>
+  <link rel="stylesheet" href="<c:url value='/css/tencho_shift.css'/>">
   <link rel="stylesheet" href="<c:url value='/css/style.css'/>">
   <link rel="stylesheet" href="<c:url value='/css/tencho_calendar.css'/>">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
@@ -92,7 +93,8 @@
     </ul>
     </c:if>
   </header>
-
+  
+<!-- シフト一覧、イベント一覧に飛ぶボタン -->
   <div class="wrapper">
     <div class="button-area">
       <a href="#shift"><button type="button" id="shiftBtn">シフト</button></a>
@@ -105,25 +107,69 @@
 
 <!-- シフト表示 -->
   <div id="shift">シフト
-  
+  <!-- カレンダー表示切替ナビ -->
+	<div class="calendar-nav">
+		<button id="prevWeek" class="arrow left">◁</button>
+		<div class="mode-buttons">
+			<button type="button" id="bW" onclick="text2Hidden()">週 表示</button>
+			<button type="button" id="bM" onclick="text1Hidden()">月 表示</button>
+		</div>
+		<button id="nextWeek" class="arrow right">▷</button>
+	</div>
+	
+	
+	<div id="printArea">
+		<div id="text1">
+		<div class="time-axis" id="timeAxis"></div>
+		<div class="timeline-grid" id="timelineGrid"></div>
+	</div>
+	
+	<select id="weekSelector">
+	<option value="0">月 第1週</option>
+	<option value="1">第2週</option>
+	<option value="2">第3週</option>
+	<option value="3">第4週</option>
+	<option value="4">第5週</option>
+	</select>
+	
+	
+	<!-- 表（月表示） -->
+	<div id="text2" hidden="">
+	<table id="shiftTable">
+    <thead>
+      <tr>
+        <th>日付</th>
+        <th>名前</th>
+        <th>開始時間</th>
+        <th>終了時間</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- JavaScriptでここに行を追加します -->
+    </tbody>
+  </table>
+  </div>
+  </div>
   </div><br>
   
   
 <!-- イベント表示 -->
   <div id="event">
+  
   <!-- 前月次月切り替えボタン -->
-  <c:set var="prevWeek" value="${weekOffset - 1}" />
+<c:set var="prevWeek" value="${weekOffset - 1}" />
 <c:set var="nextWeek" value="${weekOffset + 1}" />
 
 <form action="CalendarServlet" method="GET">
-	<input type="hidden" name="weekOffset" value="${weekOffset - 1}">
-	<input type="submit" value="前の週">
+	<a href="#event"><input type="hidden" name="weekOffset" value="${weekOffset - 1}"></a>
+	<a href="#event"><input type="submit" value="前の7件"></a>
 </form>
 
 <form action="CalendarServlet" method="GET">
 	<input type="hidden" name="weekOffset" value="${weekOffset + 1}">
-	<input type="submit" value="次の週">
+	<input type="submit" value="次の7件">
 </form>
+
 	<!-- 今日から1週間分のイベントを表示 -->
     <table border="1">
 		<tr>
@@ -226,5 +272,6 @@
   });
 </script>
 
+<script src="<c:url value='/js/tencho_shift.js' />"></script>
 </body>
 </html>
