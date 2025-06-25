@@ -38,9 +38,9 @@
 				<c:forEach var="e" items="${eventList}">
 					<form method="POST" action="<c:url value='/EventServlet'/>">
 						<tr> 
-							<td><input type="text" value="${e.eventDate}" name="delEventDate" readonly="readonly"></td>
-							<td><input type="text" value="${e.eventStart}" name="delEventStart" readonly="readonly">～<input type="text" value="${e.eventEnd}" name="delEventEnd" readonly="readonly"></td>
-							<td><input type="text" value="${e.eventType}" name="delEventType" readonly="readonly"></td>
+							<td><input type="text" value="${e.eventDate}" name="delEventDate" readonly="readonly" style="display: none;">${e.eventDate}</td>
+							<td><input type="text" value="${e.eventStart}" name="delEventStart" readonly="readonly" style="display: none;">${e.eventStart}～<input type="text" value="${e.eventEnd}" name="delEventEnd" readonly="readonly" style="display: none;">${e.eventEnd}</td>
+							<td><input type="text" value="${e.eventType}" name="delEventType" readonly="readonly" style="display: none;">${e.eventType}</td>
 							<td><input type="submit" name="submit" value="イベント削除">
 						</tr>
 					</form>
@@ -55,24 +55,22 @@
 		<div id="modal" class="modal">
 			<div class="modal-content">
 				<span class="close" onclick="closeModal()">&times;</span>
-				<c:forEach var="f" items="${eventTypeList}">
+				<table>
+					<c:forEach var="f" items="${eventTypeList}">
+						<form method="POST" action="<c:url value='/EventServlet'/>">
+							<tr>
+								<td><input type="text" value="${f}" readonly="readonly" name="delEvent" style="display: none;">${f}</td>
+								<td><input type="submit" name="submit" value="削除">
+							</tr>
+						</form>
+					</c:forEach>
 					<form method="POST" action="<c:url value='/EventServlet'/>">
-						<table>
-								<tr>
-									<td><input type="text" value="${f}" readonly="readonly" name="delEvent"></td>
-									<td><input type="submit" name="submit" value="削除">
-								</tr>
-						</table>
-					</form>
-				</c:forEach>
-				<form method="POST" action="<c:url value='/EventServlet'/>">
-					<table>
 						<tr>
 							<td><input type="text" name="newEvent"></td>
 							<td><input type="submit" name="submit" value="追加"></td>
 						</tr>
-					</table>
-				</form>
+					</form>
+				</table>
 			</div>
 		</div>
 		<!-- 日付と時間選択 -->
