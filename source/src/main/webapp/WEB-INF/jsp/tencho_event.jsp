@@ -127,7 +127,7 @@
 				// テーブルと削除ボタンを文字列で連結して作成
 				var html = "";
 				html += "<div class='form'>"
-				html += "<table style='margin-top:20px;'>"
+				html += "<table>"
 				html += "<tr><td><input type='date' name='date' class='date'></td></tr>";
 				html += "<tr><td>start<input type='time' list='datalistStart' name='start' class='start' step='600' min='09:00' max='18:00'>";
 				html += "<datalist id='datalistStart'>";

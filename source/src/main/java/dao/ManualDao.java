@@ -99,7 +99,7 @@ public class ManualDao {
 	            		rs.getString("manual_file"),
 	            		rs.getInt("importance"),
 	            		rs.getDate("date_up"), 
-	            		0
+	            		rs.getInt("file_id")
 	            		);
 	            manualList.add(manual);
 	        	}
