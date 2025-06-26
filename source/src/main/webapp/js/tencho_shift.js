@@ -18,7 +18,7 @@ const shifts = shiftListData.map(s => ({
   startTime: s.shiftStart,
   endTime: s.shiftEnd
 }));
-alert(shifts);
+/*alert(shifts);*/
 const WEEKDAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 const axis = document.getElementById("timeAxis");
