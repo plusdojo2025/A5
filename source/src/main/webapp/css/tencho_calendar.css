@@ -219,6 +219,14 @@
   color: white;
 }
 
+#sTitle, #eTitle {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin: 30px 0 10px 0;
+  color: #1a7b3b;
+}
+
 /* 件数全体を包むラッパーが絶対位置になる場合に備えて */
 .fc-daygrid-day {
   overflow: visible;
@@ -264,4 +272,8 @@
   margin: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+
+.calendar-nav{
+	background: none;
 }

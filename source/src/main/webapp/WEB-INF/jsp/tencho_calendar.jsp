@@ -104,10 +104,13 @@
   </div>
 
   <div id="calendar"></div>
-
+<br>
+<br>
+<br>
 
 <!-- シフト表示 -->
   <div id="shift">
+      <p id=sTitle>シフト</p>
   <!-- カレンダー表示切替ナビ -->
 	<div class="calendar-nav">
 		<button id="prevWeek" class="arrow left">◁</button>
@@ -152,11 +155,12 @@
   </div>
   </div>
   </div><br>
-  
+  <br>
+  <br>
   
 <!-- イベント表示 -->
   <div id="event">
-  
+      <p id=eTitle>イベント</p>
   <!-- 前月次月切り替えボタン -->
 <c:set var="prevWeek" value="${weekOffset - 1}" />
 <c:set var="nextWeek" value="${weekOffset + 1}" />
@@ -172,6 +176,7 @@
 	<input type="submit" value="次の7件">
 </form>
 </div>
+
 	<!-- 今日から1週間分のイベントを表示 -->
     <table border="1">
     <thead>
