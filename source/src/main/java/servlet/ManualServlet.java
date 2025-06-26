@@ -93,7 +93,7 @@ public class ManualServlet extends HttpServlet {
     	System.out.println("ManualServlet doPost called");
 //      ここから↓
     	Part part = request.getPart("file"); // getPartで取得
-    	System.out.println(part+"aaaaaaaa");//
+    	System.out.println(part+"←これはpartの名前。ここまではできてるぜ");//
     	String image = this.getFileName(part);
     	request.setAttribute("image", image);
     	// サーバの指定のファイルパスへファイルを保存

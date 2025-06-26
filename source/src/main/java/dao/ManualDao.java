@@ -106,7 +106,7 @@ public class ManualDao {
 	    	}
 	    	return manualList;
 	}
-//ここまで↑ｇｐｔ曰くテーブル全取得からの一覧表示に必要。
+//ここまで↑テーブル全取得からの一覧表示に必要。
 	
 	// 引数cardで指定されたレコードを登録し、成功したらtrueを返す
 	public boolean insert(Manual card) {
@@ -130,9 +130,9 @@ public class ManualDao {
 
 			// SQL文を完成させる (ここでは4個のデータを受けるため4個分の文を書く必要性がある
 			if (card.getManualFile() != null) {
-				pStmt.setString(1, "%" + card.getManualFile() + "%");
+				pStmt.setString(1, "" + card.getManualFile() + "");
 			} else {
-				pStmt.setString(1, "%");
+				pStmt.setString(1, "");
 			}
 			if (card.getImportance() >=0 ) {
 				pStmt.setInt(2,card.getImportance());

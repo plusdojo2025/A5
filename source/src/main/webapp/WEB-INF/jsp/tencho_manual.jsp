@@ -38,7 +38,7 @@
     <form action="<c:url value='/ManualServlet' />" method="post" enctype="multipart/form-data">
       <div id="ddAreaFileRef">
         ここにドラッグ＆ドロップ<br>
-        またはクリックしてファイルを選択
+        または枠内をクリックしてファイルを選択
       </div>
       <input type="file" id="fileInput" name="file" accept="image/*">
       <div id="fileList"></div>
