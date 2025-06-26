@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
 		user.setPw(pw);
 		
 		List<User> loginUser = uDao.login(user);
-		if (loginUser != null) { // ログイン成功
+		if (loginUser.size() != 0) { // ログイン成功
 			// セッションスコープにユーザーネーム・店長フラグを格納し、カレンダーサーブレットに飛ぶ
 			HttpSession session = request.getSession();
 			String loginUserName = (loginUser.get(0)).getName();
@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
 			// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
 			// request.setAttribute("result", new Result("ログイン失敗！", "IDまたはPWに間違いがあります。", "/webapp/LoginServlet"));
 			
-			// 結果ページにフォワードする
+			// ログインページにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 			dispatcher.forward(request, response);
 		}
