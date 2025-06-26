@@ -275,7 +275,7 @@ font-weight: bold;
 	flex-direction: column;
 	gap: 5px;
 }
-li button {
+div button {
     display: inline-block;
     font-size: 1em;
     white-space: nowrap;
@@ -288,7 +288,7 @@ li button {
 	cursor: pointer;  
 }
 
-li table{
+div table{
 	width: 200px;       /* テーブルの横幅を固定 */
 	table-layout: fixed; /* 各セルの幅を固定的に計算 */
 	border-collapse: collapse; /* セルの余白をなくす（任意） */

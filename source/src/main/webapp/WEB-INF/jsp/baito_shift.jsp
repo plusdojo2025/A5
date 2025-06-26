@@ -356,6 +356,104 @@ function addListItem() {
 		div.appendChild(item);
 		
 	}
+	for (let j = 2; j < 5; j++){
+		for (let i = 0; i < 7; i++) {
+			date.setDate(date.getDate() + 1);
+			const yyyy = date.getFullYear();
+			const mm = String(date.getMonth() + 1).padStart(2, "0");
+			const dd = String(date.getDate()).padStart(2, "0");
+			const dayName = WEEKDAYS[date.getDay()];
+			const dateStr = yyyy + "-" + mm + "-" + dd;
+			const displayStr = mm + "/" + dd + " (" + dayName + ")";
+			
+			const idStr = "week" + j;
+			const div = document.getElementById(idStr);
+			
+			const item = document.createElement("div");
+			item.className = "shift-input-row";
+			
+			item.innerHTML = `
+				<div class="tateisitai">
+					<table>
+						<tr>
+							<td>${'$'}{displayStr}</td>
+							<td>
+								<div class="kkadd">
+								<button type="button" class="add" onclick="prihidd(this)">
+									<b>追加</b>
+								</button>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<div class="kokoform" hidden="">
+						<div class="time-entry">
+				      		<div class="time-inputs">
+				      			<div class="time-row">
+				        		<label>開始時刻：</label><input type="time" name="startTime">
+				        		</div>
+				        		<div class="time-row">
+					        		<label>終了時刻：</label><input type="time" name="endTime">
+								</div>
+							</div>
+							<button type="button" class="delete-btn" onclick="del(this)">削除</button>
+						</div>
+					</div>
+				</div>
+			`;
+			div.appendChild(item);
+		}
+	}
+	if(weekNum == 5){
+		for (let i = 0; i < (7 - fd.getDay()); i++) {
+			date.setDate(date.getDate() + 1);
+			const yyyy = date.getFullYear();
+			const mm = String(date.getMonth() + 1).padStart(2, "0");
+			const dd = String(date.getDate()).padStart(2, "0");
+			const dayName = WEEKDAYS[date.getDay()];
+			const dateStr = yyyy + "-" + mm + "-" + dd;
+			const displayStr = mm + "/" + dd + " (" + dayName + ")";
+			
+			
+			const div = document.getElementById("week5");
+			
+			const item = document.createElement("div");
+			item.className = "shift-input-row";
+			
+			item.innerHTML = `
+				<div class="tateisitai">
+					<table>
+						<tr>
+							<td>${'$'}{displayStr}</td>
+							<td>
+								<div class="kkadd">
+								<button type="button" class="add" onclick="prihidd(this)">
+									<b>追加</b>
+								</button>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<div class="kokoform" hidden="">
+						<div class="time-entry">
+				      		<div class="time-inputs">
+				      			<div class="time-row">
+				        		<label>開始時刻：</label><input type="time" name="startTime">
+				        		</div>
+				        		<div class="time-row">
+					        		<label>終了時刻：</label><input type="time" name="endTime">
+								</div>
+							</div>
+							<button type="button" class="delete-btn" onclick="del(this)">削除</button>
+						</div>
+					</div>
+				</div>
+			`;
+			
+			div.appendChild(item);
+			
+		}
+	}
 }
 addListItem();
 
