@@ -22,7 +22,7 @@
 				<details>
 					<summary class="details-summary">その他</summary>
 					<ul>
-						<li><a href="<c:url value='/UserManageServlet' />">ユーザー管理</a></li>
+						<li><a href="<c:url value='/UserRegistServlet' />">ユーザー管理</a></li>
 						<li><a href="<c:url value='/LoginServlet' />">ログアウト</a></li>
 					</ul>
 				</details>
@@ -65,7 +65,7 @@
 		</form>
 		<h3>登録済みマニュアル一覧</h3>
 		<div id="trzmtbl">
-			<img src="<c:url value='/mt/${e.img}' />">
+			<%-- <img src="<c:url value='/mt/${e.img}' />"> これ要らないかも--%>
 			<table border="1">
 				<tr>
 					<th>ID</th>
@@ -185,6 +185,12 @@
 	};
 	</script>
 	<footer>
+	<p class="gotop">
+      <a href="#top">
+        <img src="img/gotop.png" alt="ページトップへ戻る" width="70" height="auto">
+      </a>
+    </p>
+    <p>&copy; エンプロ良イ&#128077</p>
 	</footer>
 </body>
 </html>
