@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>エンプロ良イ&#128077｜シフト確認</title>
 <link rel="stylesheet" href="<c:url value='/css/tencho_shift.css'/>" >
+<link rel="stylesheet" href="<c:url value='/css/style.css'/>">
 </head>
 <body>
 	<div class="container">
