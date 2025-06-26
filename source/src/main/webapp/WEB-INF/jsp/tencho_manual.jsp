@@ -43,9 +43,10 @@
       <input type="file" id="fileInput" name="file" accept="image/*">
       <div id="fileList"></div>
 
-      <h3>重要度を設定：</h3>
+      <h3>重要度を設定<br>
+      重要度を以下の色から選んでください：</h3>
 	
-  	<p>重要度を色で選んでください：</p>
+  	<!-- <p>重要度を色で選んでください：</p> -->
   	<div class="color-option">
     <label>
       <input type="radio" name="importance" value="1">
