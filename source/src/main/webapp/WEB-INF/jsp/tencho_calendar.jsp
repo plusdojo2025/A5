@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <!DOCTYPE html>
@@ -168,7 +169,7 @@
 <div id=weeklybutton>
 <form action="CalendarServlet#event" method="GET">
 	<input type="hidden" name="weekOffset" value="${weekOffset - 1}">
-	<input type="submit" value="前の7件"><c:if test="${weekOffset <= 0}">disabled</c:if>>
+	<input type="submit" value="前の7件"<c:if test="${weekOffset <= 0}">disabled</c:if>>
 </form>
 
 <form action="CalendarServlet#event" method="GET">
@@ -287,7 +288,6 @@
     calendar.render();
   });
   const shiftListData = ${shiftList };
-  //シフトにデータを入れる
 </script>
 
 <script src="<c:url value='/js/tencho_shift.js' />"></script>
