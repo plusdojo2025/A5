@@ -31,8 +31,8 @@ public class UserRegistServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		// 登録ページにフォワードする
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_reg.jsp");
-				dispatcher.forward(request, response);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_user_reg.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	

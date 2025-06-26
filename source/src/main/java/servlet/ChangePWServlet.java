@@ -73,8 +73,8 @@ public class ChangePWServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_pw_change.jsp");
 			dispatcher.forward(request, response);
 		}else{
-			user.setPw(curPw);
-			user.setPw(newPw1);
+//			user.setPw(curPw);
+//			user.setPw(newPw1);
 			user.setPw(newPw2);
 			user.setId(id);
 			
