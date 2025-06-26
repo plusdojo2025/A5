@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>エンプロ良イ&#128077｜シフト申請</title>
 <link rel="stylesheet" href="<c:url value='/css/baito_shift.css'/>" >
+<link rel="stylesheet" href="<c:url value='/css/style.css'/>">
 </head>
 <body>
 	<div class="container">
@@ -404,8 +405,10 @@ function addListItem() {
 			div.appendChild(item);
 		}
 	}
+	/*
 	if(weekNum == 5){
-		for (let i = 0; i < (7 - fd.getDay()); i++) {
+		const dn = 7 * 3 + 
+		for (let i = 0; i <7 - fd.getDay(); i++) {
 			date.setDate(date.getDate() + 1);
 			const yyyy = date.getFullYear();
 			const mm = String(date.getMonth() + 1).padStart(2, "0");
@@ -451,9 +454,9 @@ function addListItem() {
 			`;
 			
 			div.appendChild(item);
-			
 		}
 	}
+	*/
 }
 addListItem();
 
