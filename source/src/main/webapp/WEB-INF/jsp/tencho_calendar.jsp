@@ -55,7 +55,7 @@
       <details>
         <summary class="details-summary">その他</summary>
               <ul>
-        <li><a href="<c:url value='/UserManageServlet' />">ユーザー管理</a></li>
+        <li><a href="<c:url value='/UserRegistServlet' />">ユーザー管理</a></li>
         <li><a href="<c:url value='/LoginServlet' />">ログアウト</a></li>
         </ul>
       </details>
@@ -177,7 +177,7 @@
 
 <form action="CalendarServlet#event" method="GET">
 	<input type="hidden" name="weekOffset" value="${weekOffset + 1}">
-	<input type="submit" value="次の7件"<c:if test="${weekOffset <= 0}">disabled</c:if>>
+	<input type="submit" value="次の7件">
 </form>
 </div>
 
