@@ -92,6 +92,7 @@
 	</div>
 <script>
 const cssUrl = "<c:url value='/css/tencho_shift.css'/>";
+const shiftListData = ${shiftList };
 </script>
 <script src="<c:url value='/js/tencho_shift.js' />"></script>
 </body>
