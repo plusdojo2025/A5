@@ -36,7 +36,7 @@ public class Manual implements Serializable {
 	public Manual(String manualFile, int importance, String date, int fileId) {
 		this.manualFile = manualFile;
 		this.importance = importance;
-		this.date = Date.valueOf(date); // String型「YYYY-MM-DD」をSQLのDATE型に入れられるように変換
+		this.date = Date.valueOf(date); // String型「YYYY-MM-DD」をSQLのDATE型に入れられるように変換←これが悪さしてる気がする
 		this.fileId = fileId;
 	}
 	

@@ -27,10 +27,6 @@
 	</header>
   
 	<main>
-		<ul id="add_button">
-		<!-- ボタン追加 -->
-		</ul>
-		
 		<div class="time-axis" id="timeAxis"></div>
 		<div class="timeline-grid" id="timelineGrid"></div>
 	
@@ -243,20 +239,26 @@ function addListItem() {
 					<tr>
 						<td>${'$'}{displayStr}</td>
 						<td>
+							<div class="kkadd">
 							<button type="button" class="add" onclick="prihidd(this)">
 								<b>追加</b>
 							</button>
+							</div>
 						</td>
 					</tr>
 				</table>
 				<div class="kokoform" hidden="">
 					<div class="time-entry">
-				      <div class="time-inputs">
-				        <label>開始時刻：<input type="time" name="startTime"></label>
-				        <label>終了時刻：<input type="time" name="endTime"></label>
-				      </div>
-				      <button type="button" class="delete-btn">削除</button>
-				    </div>
+			      		<div class="time-inputs">
+			      			<div class="time-row">
+			        		<label>開始時刻：</label><input type="time" name="startTime">
+			        		</div>
+			        		<div class="time-row">
+				        		<label>終了時刻：</label><input type="time" name="endTime">
+							</div>
+						</div>
+						<button type="button" class="delete-btn" onclick="del(this)">削除</button>
+					</div>
 				</div>
 			</div>
 		`;
@@ -280,11 +282,30 @@ kkfs.forEach((pri, index) => {
 	pri.id = "abtn" + (index + 1) + "fm";
 });
 
+const kkads = document.querySelectorAll('div.kkadd');
+kkads.forEach((pri, index) => {
+	pri.id = "abtn" + (index + 1) + "f";
+});
+
 function prihidd(elem){
-	let id = elem.id + "fm";
-	console.log(id);
+	let id = elem.id + "f";
+	document.getElementById(id).hidden = true;
+	id = id + "m";
 	const vanish = document.getElementById(id);
 	vanish.hidden = false; 
+}
+
+const dbtns = document.querySelectorAll('button.delete-btn');
+dbtns.forEach((btn, index) => {
+	btn.id = (index + 1) + "f";
+});
+
+function del(elem){
+	let id = "abtn" + elem.id;
+	document.getElementById(id).hidden = false;
+	id = id + "m";
+	const vanish = document.getElementById(id);
+	vanish.hidden = true; 
 }
 
 </script>

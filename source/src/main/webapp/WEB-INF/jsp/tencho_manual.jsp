@@ -84,10 +84,10 @@
         </tr>
         <c:forEach var="manual" items="${manualList}">
             <tr>
-                <td>${manual.id}</td>
-                <td>${manual.manual_file}</td>
+                <td>${manual.fileId}</td>
+                <td>${manual.manualFile}</td>
                 <td>${manual.importance}</td>
-                <td>${manual.date_up}</td>
+                <td>${manual.date}</td>
             </tr>
         </c:forEach>
     </table>
