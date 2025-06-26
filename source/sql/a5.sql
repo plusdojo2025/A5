@@ -64,13 +64,13 @@ INSERT INTO event_type VALUES (0, 'シフト締切');
 INSERT INTO event_type VALUES (0, '臨時休業');
 
 /* eventに追加 */
-INSERT INTO event VALUES ('2024-06-15', '12:00', '16:00', 0, 2);
-INSERT INTO event VALUES ('2024-06-22', '9:00', '17:00', 0, 1);
-INSERT INTO event VALUES ('2024-06-22', '12:00', '14:00', 0, 5);
-INSERT INTO event VALUES ('2024-06-27', '12:00', '16:00', 0, 4);
+INSERT INTO event VALUES ('2025-06-15', '12:00', '16:00', 0, 2);
+INSERT INTO event VALUES ('2025-06-22', '9:00', '17:00', 0, 1);
+INSERT INTO event VALUES ('2025-06-22', '12:00', '14:00', 0, 5);
+INSERT INTO event VALUES ('2025-06-27', '12:00', '16:00', 0, 4);
 
 /* shiftに追加 */
-INSERT INTO shift VALUES (0, '2024-06-22', '9:00', '17:00', 3);
-INSERT INTO shift VALUES (0, '2024-06-22', '12:00', '14:00', 5);
-INSERT INTO shift VALUES (0, '2024-06-25', '12:00', '16:00', 3);
-INSERT INTO shift VALUES (0, '2024-06-27', '12:00', '16:00', 4);
+INSERT INTO shift VALUES (0, '2025-06-22', '9:00', '17:00', 3);
+INSERT INTO shift VALUES (0, '2025-06-22', '12:00', '14:00', 5);
+INSERT INTO shift VALUES (0, '2025-06-25', '12:00', '16:00', 3);
+INSERT INTO shift VALUES (0, '2025-06-27', '12:00', '16:00', 4);
