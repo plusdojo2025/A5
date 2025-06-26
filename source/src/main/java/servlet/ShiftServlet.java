@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import dao.ShiftDao;
 import dto.UserShift;
 /**
@@ -31,10 +33,19 @@ public class ShiftServlet extends HttpServlet {
 		}
 		
 		// データベースに保存してあるシフトの情報を全部持ってくる
+		/*
 		ShiftDao sDao = new ShiftDao();
 		List<UserShift> sList = sDao.selectAll();
 		request.setAttribute("sList", sList);
 		System.out.println("aiu");
+		*/
+		ShiftDao shiftDao = new ShiftDao();
+        List<UserShift> shiftList = shiftDao.selectAll();
+		
+		
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(shiftList); // ← JSON文字列に変換
+        request.setAttribute("shiftList", json);
 		
 		// 店長フラグによる移動先ページの切り替え
 		int flag = (Integer)session.getAttribute("flag");

@@ -85,6 +85,7 @@
 </div>
 
 <script>
+const shiftListData = ${shiftList };
 //表示用：例 "2025/7/3"
 function formatDateForDisplay(date) {
   return date.toLocaleDateString("ja-JP");
