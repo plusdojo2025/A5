@@ -31,7 +31,7 @@
 		<div class="time-axis" id="timeAxis"></div>
 		<div class="timeline-grid" id="timelineGrid"></div>
 	
-	
+		<!-- 
 		<select id="weekSelector">
 			<option value="0">月 第1週</option>
 			<option value="1">第2週</option>
@@ -39,16 +39,23 @@
 			<option value="3">第4週</option>
 			<option value="4">第5週</option>
 		</select>
+		 -->
 	
+		<!--
 		<div id="inputRowsContainer"></div>
+		-->
 		
-		<!-- 一括追加ボタン -->
+		<!-- 一括追加ボタン 
 		<button id="bulkAddBtn">保存</button>
+		-->
 		
+		<br>
 		
-		<form>
 		<select id="weSel">
 		</select>
+		
+		<form>
+		
 		
 		<ul id="add_button">
 		<!-- ボタン追加 -->
@@ -56,11 +63,12 @@
 		</ul>
 		
 		<!-- 新たなボタン群 -->
-		<div id="week1"></div>
-		<div id="week2"></div>
-		<div id="week3"></div>
-		<div id="week4"></div>
-		<div id="week5"></div>
+		
+		<div id="week1" hidden=""></div>
+		<div id="week2" hidden=""></div>
+		<div id="week3" hidden=""></div>
+		<div id="week4" hidden=""></div>
+		<div id="week5" hidden=""></div>
 		
 		<!-- 一括追加ボタン -->
 		<button id="hozon">保存</button>
@@ -107,10 +115,19 @@ HOURS.forEach(h => {
 function renderTimeline(weekIndex) {
 	grid.innerHTML = '';
 	
-	const weekStart = new Date(2025, 5, 1); // 2025-06-01
-	weekStart.setDate(1 + weekIndex * 7);
+	const weekStart = new Date(); // 2025-06-01
+	weekStart.setDate(1);
+	weekStart.setMonth(weekStart.getMonth() + 1);
+	console.log(weekStart.getDate());
+	console.log(weekStart.getDay());
+	console.log(weekStart.getDate() - weekStart.getDay());
+	weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+	console.log(weekStart.getDate());
+	console.log(weekStart.getDay());
+	console.log(weekStart.getDate() - weekStart.getDay());
+	weekStart.setDate(weekStart.getDate() + weekIndex * 7);
 	
-	renderInputRows(weekStart);
+	//renderInputRows(weekStart);
 	
 	for (let i = 0; i < 7; i++) {
 		const currentDate = new Date(weekStart);
@@ -159,68 +176,12 @@ function renderTimeline(weekIndex) {
 		grid.appendChild(row);
 	}
 }
-
-document.getElementById("weekSelector").addEventListener("change", e => {
-renderTimeline(parseInt(e.target.value));
-});
-
 renderTimeline(0); // 初期表示：第1週
 
 function formatDate(date) {
-	return date.toLocaleDateString("sv-SE");
+	return date.toLocaleDateString("ja-JP");
 }
 
-function renderInputRows(weekStart) {
-	const container = document.getElementById("inputRowsContainer");
-	container.innerHTML = ""; // 一旦クリア
-
-	for (let i = 0; i < 7; i++) {
-	const date = new Date(weekStart);
-	date.setDate(date.getDate() + i);
-	const yyyy = date.getFullYear();
-	const mm = String(date.getMonth() + 1).padStart(2, "0");
-	const dd = String(date.getDate()).padStart(2, "0");
-	const dayName = WEEKDAYS[date.getDay()];
-	const dateStr = yyyy + "-" + mm + "-" + dd;
-	const displayStr = mm + "/" + dd + " (" + dayName + ")";
-
-	const row = document.createElement("div");
-	row.className = "shift-input-row";
-	row.dataset.date = dateStr;
-
-	row.innerHTML = `
-	<span class="input-date-label">${'$'}{displayStr}</span>
-	<input type="time" class="start-time" required>
-	<input type="time" class="end-time" required>
-	<input type="text" class="worker-name" placeholder="名前" required>
-	`;
-
-	
-	container.appendChild(row);
-	}
-}
-
-document.getElementById("bulkAddBtn").addEventListener("click", () => {
-	const rows = document.querySelectorAll(".shift-input-row");
-	let added = 0;
-	
-	rows.forEach(row => {
-		const date = row.dataset.date;
-		const start = row.querySelector(".start-time").value;
-		const end = row.querySelector(".end-time").value;
-		const name = row.querySelector(".worker-name").value;
-		
-		if (start && end && name) {
-			shifts.push({ date, startTime: start, endTime: end, name });
-			added++;
-		}
-	});
-	
-	const weekIndex = parseInt(document.getElementById("weekSelector").value);
-	renderTimeline(weekIndex);
-	
-	alert(`${added}件のシフトを追加しました。`);
-});
 
 // 	↑がｇｐｔ
 
@@ -228,65 +189,6 @@ var lastDay = new Date();
 lastDay.setDate(1);
 lastDay.setMonth(lastDay.getMonth() + 2);
 lastDay.setDate(0); // 来月/最終日
-
-/*
-function addListItem() {
-	const date = new Date();
-	date.setMonth(date.getMonth() + 1);
-	date.setDate(0);
-	for (let i = 0; i < lastDay.getDate(); i++) {
-		date.setDate(date.getDate() + 1);
-		const yyyy = date.getFullYear();
-		const mm = String(date.getMonth() + 1).padStart(2, "0");
-		const dd = String(date.getDate()).padStart(2, "0");
-		const dayName = WEEKDAYS[date.getDay()];
-		const dateStr = yyyy + "-" + mm + "-" + dd;
-		const displayStr = mm + "/" + dd + " (" + dayName + ")";
-		
-		
-		const ul = document.getElementById("add_button");
-		
-		
-		const li = document.createElement("li");
-		const item = document.createElement("div");
-		item.className = "shift-input-row";
-		
-		item.innerHTML = `
-			<div class="tateisitai">
-				<table>
-					<tr>
-						<td>${'$'}{displayStr}</td>
-						<td>
-							<div class="kkadd">
-							<button type="button" class="add" onclick="prihidd(this)">
-								<b>追加</b>
-							</button>
-							</div>
-						</td>
-					</tr>
-				</table>
-				<div class="kokoform" hidden="">
-					<div class="time-entry">
-			      		<div class="time-inputs">
-			      			<div class="time-row">
-			        		<label>開始時刻：</label><input type="time" name="startTime">
-			        		</div>
-			        		<div class="time-row">
-				        		<label>終了時刻：</label><input type="time" name="endTime">
-							</div>
-						</div>
-						<button type="button" class="delete-btn" onclick="del(this)">削除</button>
-					</div>
-				</div>
-			</div>
-		`;
-		li.appendChild(item);
-		
-		ul.appendChild(li);
-		
-	}
-}
-*/
 
 var fd = new Date();
 fd.setDate(1); 
@@ -309,6 +211,7 @@ function addListItem() {
 	const date = new Date();
 	date.setMonth(date.getMonth() + 1);
 	date.setDate(0);
+	let nokori = lastDay.getDate();
 	for (let i = 0; i < (7 - fd.getDay()); i++) {
 		date.setDate(date.getDate() + 1);
 		const yyyy = date.getFullYear();
@@ -355,7 +258,7 @@ function addListItem() {
 		`;
 		
 		div.appendChild(item);
-		
+		nokori--;
 	}
 	for (let j = 2; j < 5; j++){
 		for (let i = 0; i < 7; i++) {
@@ -403,12 +306,12 @@ function addListItem() {
 				</div>
 			`;
 			div.appendChild(item);
+			nokori--;
 		}
 	}
-	/*
+
 	if(weekNum == 5){
-		const dn = 7 * 3 + 
-		for (let i = 0; i <7 - fd.getDay(); i++) {
+		for (let i = 0; i < nokori; i++) {
 			date.setDate(date.getDate() + 1);
 			const yyyy = date.getFullYear();
 			const mm = String(date.getMonth() + 1).padStart(2, "0");
@@ -456,7 +359,6 @@ function addListItem() {
 			div.appendChild(item);
 		}
 	}
-	*/
 }
 addListItem();
 
@@ -504,18 +406,32 @@ const select = document.getElementById('weSel');
 
 for(let i = 0; i < weekNum; i++) {
 	const newOption = document.createElement('option');
-	newOption.value = "value" + i;
+	newOption.value = "week" + (i + 1);
 	newOption.text = (fd.getMonth() + 1) + "月 第" + (i + 1) + "週";
 
 	// セレクトボックスに追加
 	select.appendChild(newOption);
 }
-/*
-// 週選択でボタンの表示切替
-document.getElementById("weSel").addEventListener("change", e => {
-	renderTimeline(parseInt(e.target.value));
+
+const selectElement = document.getElementById("weSel");
+let previousValue = selectElement.value;
+document.getElementById(previousValue).hidden = false;
+const wI = previousValue.substring(4);
+let weekIndex = parseInt(wI);
+console.log(weekIndex);
+
+selectElement.addEventListener("change", function() {
+	const selected = selectElement.value;
+	
+	document.getElementById(previousValue).hidden = true;
+	document.getElementById(selected).hidden = false;
+	
+	previousValue = selected;
+	weekIndex = parseInt(previousValue.substring(4));
+	console.log(weekIndex);
+	renderTimeline(weekIndex - 1);
 });
-*/
+
 </script>
 
 </body>
