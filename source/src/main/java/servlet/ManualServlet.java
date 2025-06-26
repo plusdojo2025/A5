@@ -30,58 +30,79 @@ public class ManualServlet extends HttpServlet {
 //	private static final long serialVersionUID = 1L;
 
 	
-    @Override
-    	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    		throws ServletException, IOException {
-    	response.setContentType("text/html; charset=UTF-8");
-    	response.setCharacterEncoding("UTF-8");
-    	request.setCharacterEncoding("UTF-8");
-//    	ここから↓
-    	HttpSession session = request.getSession();
-    	String loginUser = (String) session.getAttribute("name");//ログイン時にセッションスコープに預けた名前を持ってくる
-    	System.out.println("ログインユーザー名："+loginUser);
-    	if (loginUser == null) {//もしログインしていなければログイン画面へ飛ばす
-    		response.sendRedirect(request.getContextPath() + "/LoginServlet");
-    		return;
-	    }
-	    
-	    int flag = (Integer)session.getAttribute("flag"); //セッションスコープから取り出すとObject型なのでIntegerにキャストする
-//	    loginUser.getFlag();
-	    System.out.println("ログインフラグ："+flag);
-	    
-	    if (flag == 0) {//もしflagが0つまり店員であれば店員用のマニュアル閲覧画面へ飛ばす
-	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_manual.jsp");
-	    	dispatcher.forward(request, response);
-	    	return;
-	    }
-	    else if (flag == 1){//もしflagが1つまり店長であれば店長用のマニュアル管理画面へ飛ばす
-	    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
-	        dispatcher.forward(request, response);}
-//    	ここまで↑フラグ別にページを分ける試み、完了↑
-	    
-//	    ここから↓
-	    
-	    ManualDao dao = new ManualDao();
-	    try {
-	        List<Manual> manualList = dao.findAll();
-	        request.setAttribute("manualList", manualList);
-	        if (flag == 0) {
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_manual.jsp");
-	        dispatcher.forward(request, response);}
-	        else if(flag == 1) { 
-	        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
-	        dispatcher.forward(request, response);}
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-	    }
-	    
-//	    ここまで↑テーブル全取得からの一覧表示に必要,分岐も上記同様にこれで行けるはず
-	    
-//    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
-//        dispatcher.forward(request, response);
-        }
-    	//店長用画面に遷移する↑。IfでFlagが0なら店員用に飛ばす必要がある、どうやってやるんだ←完了
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		// ここから↓
+		HttpSession session = request.getSession();
+		String loginUser = (String) session.getAttribute("name");//ログイン時にセッションスコープに預けた名前を持ってくる
+		System.out.println("ログインユーザー名："+loginUser);
+		
+		if (loginUser == null) {//もしログインしていなければログイン画面へ飛ばす
+			response.sendRedirect(request.getContextPath() + "/LoginServlet");
+			return;
+		}
+		
+		int flag = (Integer)session.getAttribute("flag"); //セッションスコープから取り出すとObject型なのでIntegerにキャストする
+		// loginUser.getFlag();
+		System.out.println("ログインフラグ："+flag);
+		
+		
+		// （二上）ここから↓下のやつをここに移植。ここにしないとデータ取ってくる前にページ遷移しちゃうからね
+		
+		ManualDao dao = new ManualDao();
+		try {
+			List<Manual> manualList = dao.findAll();
+			request.setAttribute("manualList", manualList);
+			if (flag == 0) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_manual.jsp");
+				dispatcher.forward(request, response);
+			} else if(flag == 1) { 
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
+				dispatcher.forward(request, response);}
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+		
+		// （二上）ここまで↑下のやつは一応コメントアウトしとくね
+		/*
+		if (flag == 0) {//もしflagが0つまり店員であれば店員用のマニュアル閲覧画面へ飛ばす
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_manual.jsp");
+			dispatcher.forward(request, response);
+			return;
+		}
+		else if (flag == 1){//もしflagが1つまり店長であれば店長用のマニュアル管理画面へ飛ばす
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
+			dispatcher.forward(request, response);}
+		// ここまで↑フラグ別にページを分ける試み、完了↑
+		
+		// ここから↓
+		
+		ManualDao dao = new ManualDao();
+		try {
+			List<Manual> manualList = dao.findAll();
+			request.setAttribute("manualList", manualList);
+			if (flag == 0) {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_manual.jsp");
+				dispatcher.forward(request, response);
+			} else if(flag == 1) { 
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
+				dispatcher.forward(request, response);}
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+		*/
+		// ここまで↑テーブル全取得からの一覧表示に必要,分岐も上記同様にこれで行けるはず
+		
+		// RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
+		// dispatcher.forward(request, response);
+	}
+	//店長用画面に遷移する↑。IfでFlagが0なら店員用に飛ばす必要がある、どうやってやるんだ←完了
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

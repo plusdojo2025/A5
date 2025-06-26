@@ -1,10 +1,66 @@
 @charset "UTF-8";
 /* 一旦ファイルだけ作成(バイトマニュアル) */
-    h3 {
-      margin: auto;
-      text-align: center;
-      border: 2px solid #ff0000;
-      border-radius: 1px;
-      width: 80%;
-      color:#ff0000
-    }
+h3 {
+	margin: auto;
+	text-align: center;
+	border: 2px solid #ff0000;
+	border-radius: 1px;
+	width: 80%;
+	color:#ff0000
+}
+/* ハンバーガーメニュー */
+.menu-toggle {
+	display: none;
+	}
+.menu-icon {
+	display: block;
+	width: 30px;
+	height: 25px;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	cursor: pointer;
+	z-index: 2;
+}
+.menu-icon span {
+	background: #000;
+	display: block;
+	height: 4px;
+	margin: 5px 0;
+	border-radius: 2px;
+	transition: 0.3s;
+}
+nav {
+	background: #eee;
+	position: absolute;
+	top: 0;
+	right: -200px;
+	width: 200px;
+	height: 100vh;
+	padding-top: 60px;
+	transition: 0.3s;
+}
+nav ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+nav ul li {
+	padding: 10px 20px;
+}
+nav ul li a {
+	text-decoration: none;
+	color: #333;
+}
+.menu-toggle:checked ~ nav {
+	right: 0;
+}
+.menu-toggle:checked ~ .menu-icon span:nth-child(1) {
+	transform: rotate(45deg) translateY(9px);
+}
+.menu-toggle:checked ~ .menu-icon span:nth-child(2) {
+	opacity: 0;
+}
+.menu-toggle:checked ~ .menu-icon span:nth-child(3) {
+	transform: rotate(-45deg) translateY(-9px);
+}
