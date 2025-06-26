@@ -30,7 +30,7 @@ body{
       display: flex;
       gap: 40px;
       justify-content: center;
-      border: 2px solid #ffebcd;
+      border: 2px solid #000;
       border-radius: 4px;
       max-width:800px;
       height:50px;
@@ -50,7 +50,7 @@ body{
     
     
 #nav li a:hover {
-      background-color:#ffebcd;
+      background-color:#ddd;
       border-radius: 4px;
     }
     
