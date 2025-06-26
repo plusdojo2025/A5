@@ -320,6 +320,17 @@ li table{
   gap: 8px;
 }
 
+.time-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.time-row label {
+  width: 80px; /* ラベル幅固定で整列 */
+  font-weight: bold;
+}
+
 .delete-btn {
   height: 40px;
   align-self: center;

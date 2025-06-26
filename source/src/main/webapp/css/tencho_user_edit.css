@@ -150,7 +150,7 @@ table {
 
 /* テーブルの題名部分 */
 thead th {
-  background-color: #f5deb3; 
+  background-color: #ffe4c4; 
   color: #000000; 
   font-weight: bold;
   height: 50px;
@@ -159,7 +159,7 @@ thead th {
 
 /* テーブルのデータ行（ユーザーの情報） */
 tbody tr {
-  background-color: #fffaf0; 
+  background-color: #f5f5f5; 
 }
 
         
