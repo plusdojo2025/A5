@@ -125,6 +125,7 @@ tbody tr {
 .○○_button{  /*←jspで設定したクラス名またはid名（idの場合は#）*/
 	font-weight:bold;
     background-color:#f0e68c;/*お好みの色に変更してください*/
+    border: 2px solid #333; /*お好みの色に変更してください*/
 }
 
 

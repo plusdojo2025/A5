@@ -1,14 +1,17 @@
 @charset "UTF-8";
-/*全体　背景色*/
+/*全体、背景画像*/
 body{
+   
   margin: 0 0 0 0;	/* マージンなし（後で個別に設定） */
   padding: 0 0 0 0;	/* パディングなし（後で個別に設定） */
   width: 100%;
   justify-content:center;
-  color: #000000;
   font-size: 16px;
-  background-color: #e2e2e2;
+  background-color: #f5deb3;
+  overflow-x:hidden;
+  
 }
+
 
 /*　ヘッダー　*/
  header {
@@ -26,6 +29,7 @@ body{
     margin:0 auto;
     text-align:center;
     max-width:300px;
+    background-color:#fffaf0;
 
 }
 
@@ -36,6 +40,11 @@ body{
     margin: 2em 0;
     font-weight: bold;
     border: solid 3px #000000;
+}
+
+#login_button{
+	border: solid 3px #f5deb3;;
+    background-color:#f5deb3;
 }
 
 ::placeholder {
@@ -51,8 +60,28 @@ body{
 
 /* 上に戻るボタン */
 .gotop{
-	padding-left:50px;
+	position : fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 1000;
+
 }
+
+/*フッターへの画像挿入*/
+.cafe_img {
+    text-align: left;       /* 左寄せ */
+    margin: 0;
+    padding: 0;
+}
+
+.cafe_img img {
+    display: block;         /* インライン→ブロック要素にすることで余白を排除 */
+    margin-left: 0;         /* 念のため左マージンを明示的に0に */
+}
+
+/*フッターへの画像挿入 ここまで*/
+
+
 
 /* フッター */
 

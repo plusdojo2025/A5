@@ -20,7 +20,7 @@
     </a>
   </h1>
   <ul id="nav">
-    <li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
+    <li><a href="<c:url value='/CalendarServlet'/>">カレンダー</a></li>
     <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
     <li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
     <li><a href="<c:url value='/ManualServlet'/>">マニュアル</a></li>
