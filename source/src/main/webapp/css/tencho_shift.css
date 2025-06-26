@@ -38,7 +38,7 @@ body{
       max-width:800px;
       height:50px;
       background-color:#cbb1ff;
-      
+      z-Index: 5;
 }
 
 
@@ -63,6 +63,7 @@ body{
     
 #details li{
 	list-style-type:none;
+	z-Index: 10;
 }
 
 /* まとめて囲む親のulに枠 */
@@ -74,6 +75,7 @@ body{
   margin: 10px 0;
   padding: 0;                  /* ulのデフォ余白削除 */
   background-color: #f9f9f9;
+  z-Index: 10;
 }
 
 /* liは枠の中のセクション */
@@ -83,11 +85,13 @@ body{
   text-align: center;          /* 真ん中寄せ */
   cursor: pointer;
   background-color:#cbb1ff;
+  z-Index: 10;
 }
 
 /* liの間に境界線を1本だけ入れる（2つ目以降のliの上に線） */
 .details-summary + ul li + li {
   border-top: 1px solid #666;
+  z-Index: 10;
 }
 
 /* aタグはブロック化して全体をクリック可能に */
