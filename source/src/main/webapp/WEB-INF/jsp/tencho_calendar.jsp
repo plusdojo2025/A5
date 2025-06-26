@@ -113,12 +113,13 @@
   <div id="shift">
       <p id=sTitle>シフト</p>
   <!-- カレンダー表示切替ナビ -->
-	<div class="calendar-nav">
+ 	<div class="calendar-nav">
 		<button id="prevWeek" class="arrow left">◁</button>
+		<!--
 		<div class="mode-buttons">
 			<button type="button" id="bW" onclick="text2Hidden()">週 表示</button>
 			<button type="button" id="bM" onclick="text1Hidden()">月 表示</button>
-		</div>
+		</div>-->
 		<button id="nextWeek" class="arrow right">▷</button>
 	</div>
 	
@@ -129,13 +130,14 @@
 		<div class="timeline-grid" id="timelineGrid"></div>
 	</div>
 	
+	<!-- 
 	<select id="weekSelector">
 	<option value="0">月 第1週</option>
 	<option value="1">第2週</option>
 	<option value="2">第3週</option>
 	<option value="3">第4週</option>
 	<option value="4">第5週</option>
-	</select>
+	</select>  -->
 	
 	
 	<!-- 表（月表示） -->
@@ -155,7 +157,8 @@
   </table>
   </div>
   </div>
-  </div><br>
+  </div>
+  <br>
   <br>
   <br>
   
@@ -174,7 +177,7 @@
 
 <form action="CalendarServlet#event" method="GET">
 	<input type="hidden" name="weekOffset" value="${weekOffset + 1}">
-	<input type="submit" value="次の7件">
+	<input type="submit" value="次の7件"<c:if test="${weekOffset <= 0}">disabled</c:if>>
 </form>
 </div>
 
