@@ -53,7 +53,7 @@
 			<c:forEach var="manual" items="${manualList}">
 				<tr>
 					<td>${manual.fileId}</td>
-					<td><a href="<c:url value='/img/${manual.manualFile}'/>">${manual.manualFile}</a></td>
+					<td><a href="<c:url value='/mt/${manual.manualFile}'/>">${manual.manualFile}</a></td>
 					<td>${manual.importance}</td>
 					<td>${manual.date}</td>
 				</tr>
