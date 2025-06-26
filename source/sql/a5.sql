@@ -70,7 +70,13 @@ INSERT INTO event VALUES ('2025-06-22', '12:00', '14:00', 0, 5);
 INSERT INTO event VALUES ('2025-06-27', '12:00', '16:00', 0, 4);
 
 /* shiftに追加 */
+/* 6月 */
 INSERT INTO shift VALUES (0, '2025-06-22', '9:00', '17:00', 3);
 INSERT INTO shift VALUES (0, '2025-06-22', '12:00', '14:00', 5);
 INSERT INTO shift VALUES (0, '2025-06-25', '12:00', '16:00', 3);
 INSERT INTO shift VALUES (0, '2025-06-27', '12:00', '16:00', 4);
+/* 7月 */
+INSERT INTO shift VALUES (0, '2025-07-22', '9:00', '17:00', 3);
+INSERT INTO shift VALUES (0, '2025-07-22', '12:00', '14:00', 5);
+INSERT INTO shift VALUES (0, '2025-07-25', '12:00', '16:00', 3);
+INSERT INTO shift VALUES (0, '2025-07-27', '12:00', '16:00', 4);
