@@ -24,7 +24,7 @@
 				<details>
 					<summary class="details-summary">その他</summary>
 					<ul>
-						<li><a href="<c:url value='/UserManageServlet' />">ユーザー管理</a></li>
+						<li><a href="<c:url value='/UserRegistServlet' />">ユーザー管理</a></li>
 						<li><a href="<c:url value='/LoginServlet' />">ログアウト</a></li>
 					</ul>
 				</details>
