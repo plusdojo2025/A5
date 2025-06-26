@@ -21,7 +21,7 @@
 	background-color:#ffebcd;
 }
 
-#tnav li a, #bnav li a {
+#tnav li a {
 	text-decoration: none;
 	color: #000;
 	padding: 8px 12px;
@@ -30,11 +30,6 @@
 
 #tnav li a:hover{
 	background-color:#ffebcd;
-	border-radius: 4px;
-}
-    
-#bnav li a:hover {
-	background-color: #DDD;
 	border-radius: 4px;
 }
 
@@ -159,6 +154,7 @@ table {
 
 /* イベント入力テーブル */
 .form {
+	margin:20px auto 0 auto;
 	font-size: 20px;
 }
 .form select {
@@ -166,6 +162,11 @@ table {
 }
 .form input {
 	font-size: 18px;
+}
+.form table {
+	width: 400px;
+	margin: 20px auto 0 auto;
+	padding: 0;
 }
 
 /* ボタンの設定 */

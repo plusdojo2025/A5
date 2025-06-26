@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.ShiftDao;
+import dto.UserShift;
 /**
  * Servlet implementation class LoginServlet
  */
@@ -27,6 +30,11 @@ public class ShiftServlet extends HttpServlet {
 			return;
 		}
 		
+		// データベースに保存してあるシフトの情報を全部持ってくる
+		ShiftDao sDao = new ShiftDao();
+		List<UserShift> sList = sDao.selectAll();
+		request.setAttribute("sList", sList);
+		
 		// 店長フラグによる移動先ページの切り替え
 		int flag = (Integer)session.getAttribute("flag");
 		if (flag == 1) {
@@ -39,12 +47,11 @@ public class ShiftServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}	
 	}
-
-	/*
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// リクエストパラメータを取得する
-
+		
 		// ログイン処理を行う
 		IdPwDAO iDao = new IdPwDAO();
 		if (iDao.isLoginOK(new IdPw(id, pw))) { // ログイン成功
@@ -52,17 +59,16 @@ public class ShiftServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("id", new LoginUser(id));
 			session.setAttribute("user", iDao.holdName(new LoginUser(id)));
-
+			
 			// メニューサーブレットにリダイレクトする
 			response.sendRedirect("/webapp/home");
 		} else { // ログイン失敗
 			// リクエストスコープに、タイトル、メッセージ、戻り先を格納する
 			request.setAttribute("errMes", "IDかPASSWORDが間違っています！");
-
+			
 			// 結果ページにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
-	*/
 }
