@@ -293,4 +293,7 @@ th, td {
 th {
   background-color: #f2f2f2;
 }
-    
+
+.calendar-nav {
+  	z-index: -1;
+}

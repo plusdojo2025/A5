@@ -54,7 +54,7 @@
 		<select id="weSel">
 		</select>
 		
-		<form>
+		<form method="POST" action="<c:url value='/ShiftServlet' />">
 		
 		
 		<ul id="add_button">
@@ -70,9 +70,10 @@
 		<div id="week4" hidden=""></div>
 		<div id="week5" hidden=""></div>
 		
-		<!-- 一括追加ボタン -->
-		<button id="hozon">保存</button>
-		
+		<!-- 一括追加ボタン 
+		<button type="submit" id="hozon">保存</button>
+		-->
+		<input type="submit" value="保存">
 		</form>
 	</main>
 
@@ -84,6 +85,19 @@
 </div>
 
 <script>
+//表示用：例 "2025/7/3"
+function formatDateForDisplay(date) {
+  return date.toLocaleDateString("ja-JP");
+}
+
+// 比較用：例 "2025-07-03"
+function formatDateForCompare(date) {
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const dd = String(date.getDate()).padStart(2, '0');
+  return `${'$'}{yyyy}-${'$'}{mm}-${'$'}{dd}`;
+}
+
 const HOURS = Array.from({ length: 10 }, (_, i) => 9 + i); // 9:00〜18:00
 
 const shifts = [
@@ -118,21 +132,17 @@ function renderTimeline(weekIndex) {
 	const weekStart = new Date(); // 2025-06-01
 	weekStart.setDate(1);
 	weekStart.setMonth(weekStart.getMonth() + 1);
-	console.log(weekStart.getDate());
-	console.log(weekStart.getDay());
-	console.log(weekStart.getDate() - weekStart.getDay());
 	weekStart.setDate(weekStart.getDate() - weekStart.getDay());
-	console.log(weekStart.getDate());
-	console.log(weekStart.getDay());
-	console.log(weekStart.getDate() - weekStart.getDay());
 	weekStart.setDate(weekStart.getDate() + weekIndex * 7);
 	
-	//renderInputRows(weekStart);
 	
 	for (let i = 0; i < 7; i++) {
+		
+		
 		const currentDate = new Date(weekStart);
 		currentDate.setDate(weekStart.getDate() + i);
-		const dateStr = formatDate(currentDate);
+		const dateStr = formatDateForCompare(currentDate);  // ← ここが比較用
+		const displayLabel = formatDateForDisplay(currentDate);
 		const day = currentDate.getDate();
 		const dayName = WEEKDAYS[currentDate.getDay()];
 		const dailyShifts = shifts.filter(s => s.date === dateStr);
@@ -142,7 +152,10 @@ function renderTimeline(weekIndex) {
 		
 		const label = document.createElement("div");
 		label.className = "date-label";
-		label.textContent = day + "(" + dayName + ")";
+		const month = currentDate.getMonth() + 1;
+		// label.textContent = day + "(" + dayName + ")";
+		label.textContent = `${'$'}{month}/${'$'}{day} (${'$'}{dayName})`;
+		// label.textContent = `${'$'}{displayLabel} (${'$'}{dayName})`;
 		row.appendChild(label);
 		
 		const line = document.createElement("div");
@@ -161,7 +174,6 @@ function renderTimeline(weekIndex) {
 			bar.style.left = `${'$'}{left}px`;
 			bar.style.width = `${'$'}{width}px`;
 			bar.style.top = `${'$'}{5 + index * 35}px`; // ← シフトごとに縦にずらす
-			// bar.textContent = s.name + "（" + s.startTime + "〜" + s.endTime + "）";
 			bar.textContent = s.name;
 		
 			line.appendChild(bar);
@@ -178,9 +190,18 @@ function renderTimeline(weekIndex) {
 }
 renderTimeline(0); // 初期表示：第1週
 
+/*
 function formatDate(date) {
 	return date.toLocaleDateString("ja-JP");
 }
+function formatDate(date) {
+	  const yyyy = date.getFullYear();
+	  const mm = String(date.getMonth() + 1).padStart(2, '0');
+	  const dd = String(date.getDate()).padStart(2, '0');
+	  return `${yyyy}-${mm}-${dd}`;
+	}
+*/
+
 
 
 // 	↑がｇｐｔ
@@ -208,6 +229,7 @@ if(atoNanDay % 7 != 0){
 // ↑でweekNumに来月の週の数を格納
 
 function addListItem() {
+	let dayCount = 1;
 	const date = new Date();
 	date.setMonth(date.getMonth() + 1);
 	date.setDate(0);
@@ -245,10 +267,10 @@ function addListItem() {
 					<div class="time-entry">
 			      		<div class="time-inputs">
 			      			<div class="time-row">
-			        		<label>開始時刻：</label><input type="time" name="startTime">
+			        		<label>開始時刻：</label><input type="time" name="startTime${'$'}{dayCount}" min="09:00" max="18:00" step="600">
 			        		</div>
 			        		<div class="time-row">
-				        		<label>終了時刻：</label><input type="time" name="endTime">
+				        		<label>終了時刻：</label><input type="time" name="endTime${'$'}{dayCount}" min="09:00" max="18:00" step="600">
 							</div>
 						</div>
 						<button type="button" class="delete-btn" onclick="del(this)">削除</button>
@@ -259,6 +281,7 @@ function addListItem() {
 		
 		div.appendChild(item);
 		nokori--;
+		dayCount++;
 	}
 	for (let j = 2; j < 5; j++){
 		for (let i = 0; i < 7; i++) {
@@ -294,10 +317,10 @@ function addListItem() {
 						<div class="time-entry">
 				      		<div class="time-inputs">
 				      			<div class="time-row">
-				        		<label>開始時刻：</label><input type="time" name="startTime">
+				        		<label>開始時刻：</label><input type="time" name="startTime${'$'}{dayCount}" min="09:00" max="18:00" step="600">
 				        		</div>
 				        		<div class="time-row">
-					        		<label>終了時刻：</label><input type="time" name="endTime">
+					        		<label>終了時刻：</label><input type="time" name="endTime${'$'}{dayCount}" min="09:00" max="18:00" step="600">
 								</div>
 							</div>
 							<button type="button" class="delete-btn" onclick="del(this)">削除</button>
@@ -307,6 +330,7 @@ function addListItem() {
 			`;
 			div.appendChild(item);
 			nokori--;
+			dayCount++;
 		}
 	}
 
@@ -344,10 +368,10 @@ function addListItem() {
 						<div class="time-entry">
 				      		<div class="time-inputs">
 				      			<div class="time-row">
-				        		<label>開始時刻：</label><input type="time" name="startTime">
+				        		<label>開始時刻：</label><input type="time" name="startTime${'$'}{dayCount}" min="09:00" max="18:00" step="600">
 				        		</div>
 				        		<div class="time-row">
-					        		<label>終了時刻：</label><input type="time" name="endTime">
+					        		<label>終了時刻：</label><input type="time" name="endTime${'$'}{dayCount}" min="09:00" max="18:00" step="600">
 								</div>
 							</div>
 							<button type="button" class="delete-btn" onclick="del(this)">削除</button>
@@ -357,6 +381,7 @@ function addListItem() {
 			`;
 			
 			div.appendChild(item);
+			dayCount++;
 		}
 	}
 }

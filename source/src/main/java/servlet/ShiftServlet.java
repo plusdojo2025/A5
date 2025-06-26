@@ -34,6 +34,7 @@ public class ShiftServlet extends HttpServlet {
 		ShiftDao sDao = new ShiftDao();
 		List<UserShift> sList = sDao.selectAll();
 		request.setAttribute("sList", sList);
+		System.out.println("aiu");
 		
 		// 店長フラグによる移動先ページの切り替え
 		int flag = (Integer)session.getAttribute("flag");
@@ -51,8 +52,11 @@ public class ShiftServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// リクエストパラメータを取得する
-		
+		request.setCharacterEncoding("UTF-8");
+		String name = request.getParameter("startTime2");
+		if(name.equals("")) System.out.println("aiu");
 		// ログイン処理を行う
+		/*
 		IdPwDAO iDao = new IdPwDAO();
 		if (iDao.isLoginOK(new IdPw(id, pw))) { // ログイン成功
 			// セッションスコープにIDを格納する
@@ -69,6 +73,6 @@ public class ShiftServlet extends HttpServlet {
 			// 結果ページにフォワードする
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 			dispatcher.forward(request, response);
-		}
+		}*/
 	}
 }

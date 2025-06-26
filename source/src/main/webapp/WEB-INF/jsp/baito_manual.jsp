@@ -12,8 +12,7 @@
 	<header>
 		<h1 id="logo">
 			<a href="baito_calendar.jsp">
-				<img src="img/logo.png" width="300" height="auto" alt="エンプロ良イ&#128077">
-			</a>
+				<img src="img/logo.png" width="300" height="auto" alt="エンプロ良イ&#128077"></a>
 		</h1>
 		<!-- ハンバーガーメニュー -->
 		<!-- チェックボックスで切り替える -->
@@ -43,6 +42,7 @@
 	</header>
 	<main>
 		<h3>登録済みマニュアル一覧</h3>
+		<div id="trzmtbl">
 		<table border="1">
 			<tr>
 				<th>ID</th>
@@ -59,6 +59,7 @@
 				</tr>
 			</c:forEach>
 		</table>
+		</div>
 	</main>
 	<footer>
 		<div class="gotop">
