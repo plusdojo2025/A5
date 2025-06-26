@@ -15,11 +15,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import dao.EventDao;
 import dao.ShiftDao;
 import dto.CalEvent;
 import dto.CalShift;
 import dto.EventType;
+import dto.UserShift;
 
 /**
  * Servlet implementation class CalendarServlet
@@ -130,7 +133,19 @@ public class CalendarServlet extends HttpServlet {
 //            for(Entry<String, Integer> list : shiftData.entrySet()) {
 //            	System.out.println("shiftDataの中身"+list);
 //            }
+
+
 	//シフト一覧表示  
+            ShiftDao shiftDao = new ShiftDao();
+            List<UserShift> shiftList = shiftDao.selectAll();
+
+            ObjectMapper mapper = new ObjectMapper();
+            String json = mapper.writeValueAsString(shiftList); // ← JSON文字列に変換
+            request.setAttribute("shiftList", json);
+            
+			/* request.setAttribute("shiftList", shiftList); */
+
+            
 	//イベント一覧表示
          // 今日の日付を取得
             

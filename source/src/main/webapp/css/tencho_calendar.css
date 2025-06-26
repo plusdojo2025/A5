@@ -86,7 +86,7 @@
       border-radius: 4px;
       max-width:800px;
       height:50px;
-      background-color:#cbb1ff;
+      background-color:#ffebcd;
       
 }
 
@@ -201,21 +201,21 @@
 }
 
 #shiftBtn, #eventBtn {
-  font-size: 20px;       /* フォント大きく */
-  padding: 15px 30px;    /* ボタンサイズ調整 */
-  border: none;          /* 枠線なし */
-  border-radius: 5px;    /* 角丸にする */
-  cursor: pointer;       /* カーソルをポインタに */
+  font-size: 20px;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
   margin: 10px;
 }
 
 #shiftBtn {
-  background-color: red;
+  background-color: #c06045;
   color: white;
 }
 
 #eventBtn {
-  background-color: blue;
+  background-color: #4aa6b5;
   color: white;
 }
 

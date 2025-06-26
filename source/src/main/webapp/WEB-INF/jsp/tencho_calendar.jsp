@@ -168,7 +168,7 @@
 <div id=weeklybutton>
 <form action="CalendarServlet#event" method="GET">
 	<input type="hidden" name="weekOffset" value="${weekOffset - 1}">
-	<input type="submit" value="前の7件">
+	<input type="submit" value="前の7件"><c:if test="${weekOffset <= 0}">disabled</c:if>>
 </form>
 
 <form action="CalendarServlet#event" method="GET">
@@ -182,9 +182,9 @@
     <thead>
 		<tr>
 			<th>日付</th>
+			<th>イベント種別</th>
 			<th>開始時刻</th>
 			<th>終了時刻</th>
-			<th>イベント種別</th>
 		</tr>
 		</thead>
 		<c:forEach var="event" items="${weeklyEvents}">
@@ -192,8 +192,8 @@
 			<tr>
 				<td>${event.eventDate}</td>
 				<td>${event.eventType}</td>
-				<td>${fn:substring(event.eventStart, 0, 2)}:${fn:substring(event.eventStart, 2, 4)}</td>
-				<td>${fn:substring(event.eventEnd, 0, 2)}:${fn:substring(event.eventEnd, 2, 4)}</td>
+				<td>${event.eventStart}</td>
+				<td>${event.eventEnd}</td>
 				
 			</tr>
 			</tbody>
@@ -286,6 +286,8 @@
 
     calendar.render();
   });
+  const shiftListData = ${shiftList };
+  //シフトにデータを入れる
 </script>
 
 <script src="<c:url value='/js/tencho_shift.js' />"></script>
