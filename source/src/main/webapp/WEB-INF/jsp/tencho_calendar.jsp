@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <!DOCTYPE html>
@@ -104,10 +105,13 @@
   </div>
 
   <div id="calendar"></div>
-
+<br>
+<br>
+<br>
 
 <!-- シフト表示 -->
   <div id="shift">
+      <p id=sTitle>シフト</p>
   <!-- カレンダー表示切替ナビ -->
 	<div class="calendar-nav">
 		<button id="prevWeek" class="arrow left">◁</button>
@@ -152,11 +156,12 @@
   </div>
   </div>
   </div><br>
-  
+  <br>
+  <br>
   
 <!-- イベント表示 -->
   <div id="event">
-  
+      <p id=eTitle>イベント</p>
   <!-- 前月次月切り替えボタン -->
 <c:set var="prevWeek" value="${weekOffset - 1}" />
 <c:set var="nextWeek" value="${weekOffset + 1}" />
@@ -164,7 +169,7 @@
 <div id=weeklybutton>
 <form action="CalendarServlet#event" method="GET">
 	<input type="hidden" name="weekOffset" value="${weekOffset - 1}">
-	<input type="submit" value="前の7件">
+	<input type="submit" value="前の7件"<c:if test="${weekOffset <= 0}">disabled</c:if>>
 </form>
 
 <form action="CalendarServlet#event" method="GET">
@@ -172,14 +177,15 @@
 	<input type="submit" value="次の7件">
 </form>
 </div>
+
 	<!-- 今日から1週間分のイベントを表示 -->
     <table border="1">
     <thead>
 		<tr>
 			<th>日付</th>
+			<th>イベント種別</th>
 			<th>開始時刻</th>
 			<th>終了時刻</th>
-			<th>イベント種別</th>
 		</tr>
 		</thead>
 		<c:forEach var="event" items="${weeklyEvents}">
@@ -187,8 +193,8 @@
 			<tr>
 				<td>${event.eventDate}</td>
 				<td>${event.eventType}</td>
-				<td>${fn:substring(event.eventStart, 0, 2)}:${fn:substring(event.eventStart, 2, 4)}</td>
-				<td>${fn:substring(event.eventEnd, 0, 2)}:${fn:substring(event.eventEnd, 2, 4)}</td>
+				<td>${event.eventStart}</td>
+				<td>${event.eventEnd}</td>
 				
 			</tr>
 			</tbody>
@@ -281,6 +287,7 @@
 
     calendar.render();
   });
+  const shiftListData = ${shiftList };
 </script>
 
 <script src="<c:url value='/js/tencho_shift.js' />"></script>

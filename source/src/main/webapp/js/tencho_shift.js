@@ -1,15 +1,24 @@
 const HOURS = Array.from({ length: 10 }, (_, i) => 9 + i); // 9:00〜18:00
 
-const shifts = [
+/*const shifts = [
 	{ date: '2025-06-02', name: '山田', startTime: '09:00', endTime: '17:00' },
 	{ date: '2025-06-03', name: '田中', startTime: '13:00', endTime: '18:00' },
 	{ date: '2025-06-03', name: '佐藤', startTime: '12:00', endTime: '15:00' }, // ★被り
 	{ date: '2025-06-10', name: '佐藤', startTime: '10:00', endTime: '16:00' },
 	{ date: '2025-06-17', name: '山田', startTime: '10:00', endTime: '18:00' },
 	{ date: '2025-06-25', name: '田中', startTime: '09:30', endTime: '12:00' }
-];
+];*/
 
 
+/*const shifts = JSON.stringify(shiftListData);*/
+console.log(shiftListData);
+const shifts = shiftListData.map(s => ({
+  date: new Date(Number(s.shiftDate)).toLocaleDateString('sv-SE', { timeZone: 'UTC' }),
+  name: s.userName,
+  startTime: s.shiftStart,
+  endTime: s.shiftEnd
+}));
+alert(shifts);
 const WEEKDAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
 const axis = document.getElementById("timeAxis");
@@ -87,7 +96,7 @@ document.getElementById("weekSelector").addEventListener("change", e => {
 renderTimeline(0); // 初期表示：第1週
 
 function formatDate(date) {
-	return date.toLocaleDateString("sv-SE");
+  return date.toLocaleDateString("sv-SE", { timeZone: 'UTC' });
 }
 
 function printSection(sectionId) {
@@ -117,10 +126,10 @@ shifts.forEach(shift => {
   	const row = document.createElement('tr');
 
   	row.innerHTML = `
-    	<td>${shift.date}</td>
-    	<td>${shift.name}</td>
-    	<td>${shift.startTime}</td>
-    	<td>${shift.endTime}</td>
+    	<td>${shift.shiftDate}</td>
+    	<td>${shift.userName}</td>
+    	<td>${shift.shiftStart}</td>
+    	<td>${shift.shiftEnd}</td>
   	`;
 
  	 tableBody.appendChild(row);

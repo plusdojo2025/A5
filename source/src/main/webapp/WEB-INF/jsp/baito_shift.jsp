@@ -41,12 +41,30 @@
 	
 		<div id="inputRowsContainer"></div>
 		
-		<ul id="add_button">
-		<!-- ボタン追加 -->
-		</ul>
-		
 		<!-- 一括追加ボタン -->
 		<button id="bulkAddBtn">保存</button>
+		
+		
+		<form>
+		<select id="weSel">
+		</select>
+		
+		<ul id="add_button">
+		<!-- ボタン追加 -->
+		
+		</ul>
+		
+		<!-- 新たなボタン群 -->
+		<div id="week1"></div>
+		<div id="week2"></div>
+		<div id="week3"></div>
+		<div id="week4"></div>
+		<div id="week5"></div>
+		
+		<!-- 一括追加ボタン -->
+		<button id="hozon">保存</button>
+		
+		</form>
 	</main>
 
 <footer>
@@ -203,16 +221,15 @@ document.getElementById("bulkAddBtn").addEventListener("click", () => {
 	alert(`${added}件のシフトを追加しました。`);
 });
 
+// 	↑がｇｐｔ
+
 var lastDay = new Date();
+lastDay.setDate(1);
 lastDay.setMonth(lastDay.getMonth() + 2);
 lastDay.setDate(0); // 来月/最終日
 
-
+/*
 function addListItem() {
-	/*
-	const container = document.getElementById("inputRowsContainer");
-	container.innerHTML = ""; // 一旦クリア
-	*/
 	const date = new Date();
 	date.setMonth(date.getMonth() + 1);
 	date.setDate(0);
@@ -268,7 +285,78 @@ function addListItem() {
 		
 	}
 }
+*/
 
+var fd = new Date();
+fd.setDate(1); 
+fd.setMonth(fd.getMonth() + 1);// fdを来月初日
+console.log(fd);
+let atoNanDay = lastDay.getDate();
+atoNanDay -= fd.getDay();
+console.log(atoNanDay);
+let weekNum = 0;
+if(fd.getDay() != 0){
+	weekNum++;
+}
+weekNum = Math.floor(atoNanDay/7);
+if(atoNanDay % 7 != 0){
+	weekNum++;
+}
+// ↑でweekNumに来月の週の数を格納
+
+function addListItem() {
+	const date = new Date();
+	date.setMonth(date.getMonth() + 1);
+	date.setDate(0);
+	for (let i = 0; i < (7 - fd.getDay()); i++) {
+		date.setDate(date.getDate() + 1);
+		const yyyy = date.getFullYear();
+		const mm = String(date.getMonth() + 1).padStart(2, "0");
+		const dd = String(date.getDate()).padStart(2, "0");
+		const dayName = WEEKDAYS[date.getDay()];
+		const dateStr = yyyy + "-" + mm + "-" + dd;
+		const displayStr = mm + "/" + dd + " (" + dayName + ")";
+		
+		
+		const div = document.getElementById("week1");
+		
+		const item = document.createElement("div");
+		item.className = "shift-input-row";
+		
+		item.innerHTML = `
+			<div class="tateisitai">
+				<table>
+					<tr>
+						<td>${'$'}{displayStr}</td>
+						<td>
+							<div class="kkadd">
+							<button type="button" class="add" onclick="prihidd(this)">
+								<b>追加</b>
+							</button>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<div class="kokoform" hidden="">
+					<div class="time-entry">
+			      		<div class="time-inputs">
+			      			<div class="time-row">
+			        		<label>開始時刻：</label><input type="time" name="startTime">
+			        		</div>
+			        		<div class="time-row">
+				        		<label>終了時刻：</label><input type="time" name="endTime">
+							</div>
+						</div>
+						<button type="button" class="delete-btn" onclick="del(this)">削除</button>
+					</div>
+				</div>
+			</div>
+		`;
+		
+		div.appendChild(item);
+		
+	}
+}
 addListItem();
 
 //追加ボタンのイベント
@@ -308,6 +396,25 @@ function del(elem){
 	vanish.hidden = true; 
 }
 
+
+
+// 週選択のリストを作成
+const select = document.getElementById('weSel');
+
+for(let i = 0; i < weekNum; i++) {
+	const newOption = document.createElement('option');
+	newOption.value = "value" + i;
+	newOption.text = (fd.getMonth() + 1) + "月 第" + (i + 1) + "週";
+
+	// セレクトボックスに追加
+	select.appendChild(newOption);
+}
+/*
+// 週選択でボタンの表示切替
+document.getElementById("weSel").addEventListener("change", e => {
+	renderTimeline(parseInt(e.target.value));
+});
+*/
 </script>
 
 </body>
