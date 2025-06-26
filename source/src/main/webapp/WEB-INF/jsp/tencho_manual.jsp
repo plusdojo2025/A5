@@ -74,7 +74,7 @@
 
     <h3>登録済みマニュアル一覧</h3>
     <div id="trzmtbl">
-    <img src="<c:url value='/img/${e.img}' />">
+    <img src="<c:url value='/mt/${e.img}' />">
         <table border="1">
         <tr>
             <th>ID</th>

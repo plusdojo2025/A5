@@ -19,7 +19,7 @@ import dao.ManualDao;
 import dto.Manual;
 
 
-@MultipartConfig(location = "C:\\plusdojo2025\\A5\\source\\src\\main\\webapp\\img" // アップロードファイルの一時的な保存先
+@MultipartConfig(location = "C:\\plusdojo2025\\A5\\source\\src\\main\\webapp\\mt" // アップロードファイルの一時的な保存先
 //    fileSizeThreshold = 1024 * 1024, // 1MBまではメモリに保持
 //    maxFileSize = 1024 * 1024 * 50,  // 50MBまでのファイルを許可
 //    maxRequestSize = 1024 * 1024 * 100 // 100MBまでのリクエストを許可
@@ -33,6 +33,9 @@ public class ManualServlet extends HttpServlet {
     @Override
     	protected void doGet(HttpServletRequest request, HttpServletResponse response)
     		throws ServletException, IOException {
+    	response.setContentType("text/html; charset=UTF-8");
+    	response.setCharacterEncoding("UTF-8");
+    	request.setCharacterEncoding("UTF-8");
 //    	ここから↓
     	HttpSession session = request.getSession();
     	String loginUser = (String) session.getAttribute("name");//ログイン時にセッションスコープに預けた名前を持ってくる
@@ -73,7 +76,7 @@ public class ManualServlet extends HttpServlet {
 	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	    }
 	    
-//	    ここまで↑ｇｐｔ曰くテーブル全取得からの一覧表示に必要。 //からの分岐も上記同様にこれで行けるか??データisどこ？
+//	    ここまで↑テーブル全取得からの一覧表示に必要,分岐も上記同様にこれで行けるはず
 	    
 //    	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_manual.jsp");
 //        dispatcher.forward(request, response);
@@ -83,9 +86,11 @@ public class ManualServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     	throws ServletException, IOException {
+    	response.setContentType("text/html; charset=UTF-8");
+    	response.setCharacterEncoding("UTF-8");
     	request.setCharacterEncoding("UTF-8");
+//		これら↑が無いと、アップロード後に文字化けが発生する！
     	System.out.println("ManualServlet doPost called");
-//        response.setContentType("text/plain; charset=UTF-8");
 //      ここから↓
     	Part part = request.getPart("file"); // getPartで取得
     	System.out.println(part+"aaaaaaaa");//
