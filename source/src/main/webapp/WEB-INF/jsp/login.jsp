@@ -47,48 +47,37 @@
 				</table>
 			</div>
 		</form>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
 	</main>
-	<br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			            <br>
-			           
-
-
-
-		   	<!-- フッター -->
-		    <footer>
-		    
-		     	<div class="gotop">
-					 <a href="#top"><img src="img/gotop.png" alt="ページトップへ戻る" width=70px height=auto></a>
-				</div>
-				
-				<br>
-				
-				<div class="cafe_img">
-					<img src="img/coffee.png" width="400" height="300">
-				</div>
-				
-		        <p>&copy; エンプロ良イ&#128077</p>
-		        
-		
-		    </footer>
-		    
+	<!-- フッター -->
+	<footer>
+		<div class="gotop">
+			<a href="#top"><img src="img/gotop.png" alt="ページトップへ戻る" width=70px height=auto></a>
+		</div>
+		<br>
+		<div class="cafe_img">
+			<img src="img/coffee.png" width="400" height="300">
+		</div>
+		<p>&copy; エンプロ良イ&#128077</p>
+	</footer>
 </body>
 </html>
