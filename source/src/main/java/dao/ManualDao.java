@@ -86,7 +86,7 @@ public class ManualDao {
 //ここから↓
 	public List<Manual> findAll() throws SQLException {
 	    List<Manual> manualList = new ArrayList<>();
-	    String sql = "SELECT * FROM manual ORDER BY file_id";
+	    String sql = "SELECT * FROM manual ORDER BY file_id DESC";
 
 	    try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
 				+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
