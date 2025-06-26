@@ -293,14 +293,12 @@ div table{
 	table-layout: fixed; /* 各セルの幅を固定的に計算 */
 	border-collapse: collapse; /* セルの余白をなくす（任意） */
 }
-
-.tatenisitai {
-  display: flex;
-  flex-direction: column; /* 縦並び */
-  gap: 8px; /* 要素の間隔（お好みで） */
-  margin-bottom: 12px;
+table tr td {
+	background-color: #f5deb3;
 }
-
+.kokoform {
+	background-color: white;
+}
 #add_button {
   list-style: none;     /* 「・」を消す */
   padding-left: 0;      /* 左の余白を消す */
