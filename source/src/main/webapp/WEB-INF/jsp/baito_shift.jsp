@@ -326,7 +326,7 @@ function addListItem() {
 		
 		item.innerHTML = `
 			<div class="tateisitai">
-				<table>
+				<table class="tbl">
 					<tr>
 						<td>${'$'}{displayStr}</td>
 						<td>
