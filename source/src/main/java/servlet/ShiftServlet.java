@@ -32,8 +32,8 @@ public class ShiftServlet extends HttpServlet {
 		
 		// データベースに保存してあるシフトの情報を全部持ってくる
 		ShiftDao sDao = new ShiftDao();
-		List<UserShift> shiftList = sDao.selectAll();
-		request.setAttribute("sList", shiftList);
+		List<UserShift> sList = sDao.selectAll();
+		request.setAttribute("sList", sList);
 		
 		// 店長フラグによる移動先ページの切り替え
 		int flag = (Integer)session.getAttribute("flag");
