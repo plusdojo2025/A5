@@ -154,7 +154,7 @@ public class ShiftDao {
 					"root", "password");
 			
 			// SQL文を準備する
-			String sql = "INSERT INTO shift VALUES (0, ?, ?, ?, ?)";
+			String sql = "INSERT INTO shift VALUES (NULL, ?, ?, ?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
@@ -203,7 +203,7 @@ public class ShiftDao {
 					"root", "password");
 			
 			// SQL文を準備する
-			String sql = "INSERT INTO shift VALUES (0, ?, ?, ?, ?)";
+			String sql = "INSERT INTO shift VALUES (NULL, ?, ?, ?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
