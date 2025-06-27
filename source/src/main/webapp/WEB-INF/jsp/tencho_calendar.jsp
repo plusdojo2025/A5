@@ -99,8 +99,8 @@
 <!-- シフト一覧、イベント一覧に飛ぶボタン -->
   <div class="wrapper">
     <div class="button-area">
-      <a href="#shift"><button type="button" id="shiftBtn">シフト</button></a>
-      <a href="#event"><button type="button" id="eventBtn">イベント</button></a>
+      <a href="#shift"><button type="button" id="shiftBtn">今週のシフト</button></a>
+      <a href="#event"><button type="button" id="eventBtn">直近のイベント</button></a>
     </div>
   </div>
 
@@ -111,7 +111,7 @@
 
 <!-- シフト表示 -->
   <div id="shift">
-      <p id=sTitle>シフト</p>
+      <p id=sTitle>今週のシフト</p>
   <!-- カレンダー表示切替ナビ -->
  	<div class="calendar-nav">
 		<button id="prevWeek" class="arrow left">◁</button>
@@ -164,7 +164,7 @@
   
 <!-- イベント表示 -->
   <div id="event">
-      <p id=eTitle>イベント</p>
+      <p id=eTitle>直近のイベント</p>
   <!-- 前月次月切り替えボタン -->
 <c:set var="prevWeek" value="${weekOffset - 1}" />
 <c:set var="nextWeek" value="${weekOffset + 1}" />
