@@ -19,11 +19,12 @@ import dao.ManualDao;
 import dto.Manual;
 
 
-@MultipartConfig(location = "C:\\plusdojo2025\\A5\\source\\src\\main\\webapp\\mt" // アップロードファイルの一時的な保存先
+@MultipartConfig
+/*(location = "C:\\plusdojo2025\\A5\\source\\src\\main\\webapp\\mt" // アップロードファイルの一時的な保存先
 //    fileSizeThreshold = 1024 * 1024, // 1MBまではメモリに保持
 //    maxFileSize = 1024 * 1024 * 50,  // 50MBまでのファイルを許可
 //    maxRequestSize = 1024 * 1024 * 100 // 100MBまでのリクエストを許可
-)
+)*/
 @WebServlet("/ManualServlet")
 public class ManualServlet extends HttpServlet {
 //	これ↓は要らないのかも？
@@ -112,17 +113,24 @@ public class ManualServlet extends HttpServlet {
     	request.setCharacterEncoding("UTF-8");
 //		これら↑が無いと、アップロード後に文字化けが発生する！
     	System.out.println("ManualServlet doPost called");
-//      ここから↓
+//      ここから1↓
     	Part part = request.getPart("file"); // getPartで取得
     	System.out.println(part+"←これはpartの名前。ここまではできてるぜ");//
     	String image = this.getFileName(part);
     	request.setAttribute("image", image);
     	// サーバの指定のファイルパスへファイルを保存
-        //場所はクラス名↑の上に指定してある（"C:\\pleiades\\workspace\\a5\\webapp\\img"）を参照している
-    	part.write(image);
+        //場所はクラス名↑の上に指定してある（"C:\\pleiades\\workspace\\a5\\webapp\\mt"）を参照している
+//    	ここから2↓
+    	String appPath = request.getServletContext().getRealPath("/mt");
+    	File uploadDir = new File(appPath);
+    	if (!uploadDir.exists()) {
+    	    uploadDir.mkdirs();
+    	}
+    	part.write(new File(uploadDir, image).getAbsolutePath());
+//    	ここまで2↑サーバーに展開時には書き換える必要があった部分。
     	//ここでwebapp内のimgにimageをの中身自体を保存。
     	//名前の文字列をDBに保存するならこの後にDaoに画像を渡す処理が入る↓
-//		ここまで↑先生からのやつ
+//		ここまで1↑先生からのやつ
 
 //      		リクエストパラメータの取得？必要かな？これわっかんね～保留！
 //           	request.setCharacterEncoding("UTF-8");
