@@ -120,7 +120,8 @@
 		    <footer>
 		    
 		     	<div class="gotop">
-					 <a href="#top"><img src="img/gotop.png" alt="ページトップへ戻る" width=70px height=auto></a>
+					 <a href="#top">
+					 <img src="<c:url value='/img/gotop.png' />" alt="ページトップへ戻る" width="70" height="auto"></a>
 				</div>
 				
 				<br>
