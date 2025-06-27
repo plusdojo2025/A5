@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<br><br><br>
+
 <!-- タイトル -->
 <header>
   <h1 id="logo">
