@@ -88,7 +88,7 @@
 <script>
 const shiftListData = ${shiftList };
 const shifts = shiftListData.map(s => ({
-	  date: new Date(Number(s.shiftDate)).toLocaleDateString('ja-', { timeZone: 'UTC' }),
+	  date: new Date(Number(s.shiftDate)).toLocaleDateString('sv-SE', { timeZone: 'UTC' }),
 	  name: s.userName,
 	  startTime: s.shiftStart,
 	  endTime: s.shiftEnd
