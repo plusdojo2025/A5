@@ -40,6 +40,23 @@
 			<li><a href="<c:url value='/LoginServlet' />">ログアウト</a></li>
 		</ul>
 	</header>
+	<!-- ここから↓ -->
+	<form method="get" action="${pageContext.request.contextPath}/manual-list">
+	<label>並び替え対象:
+		<select name="sortColumn">
+			<option value="fileId">ID</option>
+			<option value="manualFile">ファイル名</option>
+			<option value="importance">重要度</option>
+			<option value="date">更新日</option>
+		</select>
+	</label>
+	<label>順序:
+		<input type="radio" name="sortOrder" value="ASC" checked> 昇順
+		<input type="radio" name="sortOrder" value="DESC"> 降順
+	</label>
+	<button type="submit">並び替え</button>
+</form>
+	<!-- ここまで↑ 重要度変更に関するやつ -->
 	<main>
 		<h3>登録済みマニュアル一覧</h3>
 		<div id="trzmtbl">
