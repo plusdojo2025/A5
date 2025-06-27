@@ -62,6 +62,7 @@
 		<!-- ボタン追加 -->
 		
 		</ul>
+		<input type="text" id="nissuu" name="nissu">
 		
 		<!-- 新たなボタン群 -->
 		
@@ -220,6 +221,8 @@ var lastDay = new Date();
 lastDay.setDate(1);
 lastDay.setMonth(lastDay.getMonth() + 2);
 lastDay.setDate(0); // 来月/最終日
+document.getElementById('nissuu').value = lastDay.getDate();
+
 
 var fd = new Date();
 fd.setDate(1); 
