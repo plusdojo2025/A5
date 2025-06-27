@@ -163,7 +163,7 @@ public class EventDao {
 					"root", "password");
 
 			// SQL文を準備する
-			String sql = "INSERT INTO event VALUES (?, ?, ?, 0, ?)";
+			String sql = "INSERT INTO event VALUES (?, ?, ?, NULL, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			// SQL文を完成させる
@@ -225,7 +225,7 @@ public class EventDao {
 					"root", "password");
 			
 			// SQL文を準備する
-			String sql = "INSERT INTO event VALUES (?, ?, ?, 0, (SELECT type_id FROM event_type WHERE type_name LIKE ?))";
+			String sql = "INSERT INTO event VALUES (?, ?, ?, NULL, (SELECT type_id FROM event_type WHERE type_name LIKE ?))";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
