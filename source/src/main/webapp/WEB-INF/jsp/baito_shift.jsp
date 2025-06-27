@@ -86,7 +86,14 @@
 </div>
 
 <script>
-const shiftListData = ${shiftList};
+const shiftListData = ${shiftList };
+const shifts = shiftListData.map(s => ({
+	  date: new Date(Number(s.shiftDate)).toLocaleDateString('ja-', { timeZone: 'UTC' }),
+	  name: s.userName,
+	  startTime: s.shiftStart,
+	  endTime: s.shiftEnd
+}));
+
 //表示用：例 "2025/7/3"
 function formatDateForDisplay(date) {
   return date.toLocaleDateString("ja-JP");
