@@ -12,12 +12,16 @@ const HOURS = Array.from({ length: 10 }, (_, i) => 9 + i); // 9:00〜18:00
 
 /*const shifts = JSON.stringify(shiftListData);*/
 console.log(shiftListData);
+
 const shifts = shiftListData.map(s => ({
-  date: new Date(Number(s.shiftDate)).toLocaleDateString('ja-JP', { timeZone: 'UTC' }),
+  date: new Date(Number(s.shiftDate)).toLocaleDateString('sv-SE', { timeZone: 'UTC' }),
   name: s.userName,
   startTime: s.shiftStart,
   endTime: s.shiftEnd
 }));
+
+
+
 /*alert(shifts);*/
 const WEEKDAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
