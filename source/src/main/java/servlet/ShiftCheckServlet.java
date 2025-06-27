@@ -29,7 +29,7 @@ public class ShiftCheckServlet extends HttpServlet {
         String json = mapper.writeValueAsString(shiftList); // ← JSON文字列に変換
         request.setAttribute("shiftList", json);
 		// シフト確認ページ（店長）にフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/baito_shift.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/tencho_shift.jsp");
 		dispatcher.forward(request, response);
 	}
 }
