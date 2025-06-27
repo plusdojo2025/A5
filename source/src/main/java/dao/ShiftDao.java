@@ -154,7 +154,7 @@ public class ShiftDao {
 					"root", "password");
 			
 			// SQL文を準備する
-			String sql = "INSERT INTO shift VALUES (0, ?, ?, ?, (SELECT id FROM user WHERE user_name LIKE ?)";
+			String sql = "INSERT INTO shift VALUES (0, ?, ?, ?, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
@@ -189,7 +189,57 @@ public class ShiftDao {
 		// 結果を返す
 		return result;
 	}
-	
+	public boolean insert2(UserShift userShift) {
+		Connection conn = null;
+		boolean result = false;
+		
+		try {
+			// JDBCドライバを読み込む
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// データベースに接続する
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/a5?"
+					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					"root", "password");
+			
+			// SQL文を準備する
+			String sql = "INSERT INTO shift VALUES (0, ?, ?, ?, ?)";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			
+			// SQL文を完成させる
+				pStmt.setDate(1, userShift.getShiftDate());
+				pStmt.setString(2, userShift.getShiftStart());
+				pStmt.setString(3, userShift.getShiftEnd());
+				UserDao shiftDao = new UserDao();
+				System.out.println(shiftDao.selectNameId(userShift.getUserName()));
+				pStmt.setInt(4, shiftDao.selectNameId(userShift.getUserName()));
+			
+			// SQL文を実行する
+			if (pStmt.executeUpdate() == 1) {
+				result = true;
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		finally {
+			// データベースを切断
+			if (conn != null) {
+				try {
+					conn.close();
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		// 結果を返す
+		return result;
+	}
 	// シフトを更新し、成功したらtrueを返す
 	public boolean update(UserShift userShift) {
 		Connection conn = null;

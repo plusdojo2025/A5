@@ -1,6 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +18,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.ShiftDao;
 import dto.UserShift;
+
+/*
+Date utilDate = new Date();
+
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+String dateStr = sdf.format(utilDate);
+
+System.out.println(dateStr);  // 例: 2025-06-27 14:35:20
+*/
 
 /**
  * Servlet implementation class LoginServlet
@@ -74,7 +86,7 @@ public class ShiftServlet extends HttpServlet {
 		ShiftDao shiftDao = new ShiftDao();
 		//String startTime = "startTime" + 2;
 		//System.out.println(startTime);
-		/*
+		
 		System.out.println(request.getParameter("nissu"));
 		int niss = Integer.parseInt(request.getParameter("nissu"));
 		
@@ -84,20 +96,30 @@ public class ShiftServlet extends HttpServlet {
 			String eTime = "endTime" + i;
 			eTime = request.getParameter(eTime);
 			if(sTime != null && !sTime.isEmpty() && eTime != null && !eTime.isEmpty()) {
-				java.util.Date utilDate = new java.util.Date();
-				utilDate.setMonth(utilDate.getMonth() + 1);
-				java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+				Date uD = new Date();
+				Calendar cal = Calendar.getInstance();
+		        cal.setTime(uD);
+		        cal.set(Calendar.DAY_OF_MONTH, i);
+		        // 月を1つ増やす（0〜11が月の範囲なので注意）
+		        cal.add(Calendar.MONTH, 1);
 
-				if (shiftDao.insert(new UserShift(date, sTime, eTime, name))) { // 登録成功
+		        // 更新したDateを取得
+		        uD = cal.getTime();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String dateStr = sdf.format(uD);
+				String name = (String)session.getAttribute("name");
+				System.out.println(dateStr);
+				System.out.println(sTime);
+				System.out.println(eTime);
+				System.out.println(name);
+				if (shiftDao.insert2(new UserShift(dateStr, sTime, eTime, name))) { // 登録成功
 					System.out.println("OK");
 				} else { // 登録失敗
 					System.out.println("NG");
 				}
 			}
 		}
-		//String name = request.getParameter(startTime);
-		//if(name.equals("")) System.out.println("aiu");
-		 * */
+		
 		
 		
 		
