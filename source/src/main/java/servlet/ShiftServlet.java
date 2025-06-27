@@ -112,10 +112,20 @@ public class ShiftServlet extends HttpServlet {
 				System.out.println(sTime);
 				System.out.println(eTime);
 				System.out.println(name);
-				if (shiftDao.insert2(new UserShift(dateStr, sTime, eTime, name))) { // 登録成功
-					System.out.println("OK");
-				} else { // 登録失敗
-					System.out.println("NG");
+				int num = shiftDao.selectDbl(new UserShift(dateStr, sTime, eTime, name));
+				if(num == 0 ) {
+					if (shiftDao.insert2(new UserShift(dateStr, sTime, eTime, name))) { // 登録成功
+						System.out.println("OK");
+					} else { // 登録失敗
+						System.out.println("NG");
+					}
+				} else {
+					int idd = shiftDao.selectId(new UserShift(dateStr, sTime, eTime, name));
+					if (shiftDao.update(new UserShift(dateStr, sTime, eTime, name), idd)) { // 登録成功
+						System.out.println("OK");
+					} else { // 登録失敗
+						System.out.println("NG");
+					}
 				}
 			}
 		}
