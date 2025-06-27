@@ -6,8 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>エンプロ良イ&#128077｜シフト申請</title>
-<link rel="stylesheet" href="<c:url value='/css/baito_shift.css'/>" >
+<link rel="stylesheet" href="<c:url value='/css/baito_shift.css'/>" > 
 <link rel="stylesheet" href="<c:url value='/css/style.css'/>">
+<!-- <link rel="stylesheet" href="<c:url value='/css/baito_shift.css'/>" > -->
 </head>
 <body>
 	<div class="container">
@@ -85,7 +86,7 @@
 </div>
 
 <script>
-const shiftListData = ${shiftList };
+const shiftListData = ${shiftList};
 //表示用：例 "2025/7/3"
 function formatDateForDisplay(date) {
   return date.toLocaleDateString("ja-JP");

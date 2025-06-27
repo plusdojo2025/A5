@@ -105,6 +105,7 @@
 			<a href="#top">
 				<img src="img/gotop.png" alt="ページトップへ戻る" width="70" height="auto">
 			</a>
+			<p>&copy; エンプロ良イ&#128077</p>
 		</p>
 	</footer>
 	<script>
