@@ -83,6 +83,19 @@
 				</c:forEach>
 			</table>
 		</div>
+	<tr>
+		<td>${manual.fileId}</td>
+		<td><a href="<c:url value='/mt/${manual.manualFile}'/>">${manual.manualFile}</a></td>
+		<td>${manual.importance}</td>
+		<td>${manual.date}</td>
+		<td>
+			<form method="post" action="${pageContext.request.contextPath}/delete-manual" style="margin:0;">
+ 				<input type="hidden" name="fileId" value="${manual.fileId}" />
+				<button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
+			</form>
+    	</td>
+	</tr>
+		
 	</main>
 	<script>
 	//ここから↓
