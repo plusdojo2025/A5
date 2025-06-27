@@ -62,7 +62,7 @@
 		<!-- ボタン追加 -->
 		
 		</ul>
-		<input type="text" id="nissuu" name="nissu">
+		<input type="text" id="nissuu" name="nissu" hidden=true>
 		
 		<!-- 新たなボタン群 -->
 		
@@ -88,12 +88,26 @@
 
 <script>
 const shiftListData = ${shiftList };
+
 const shifts = shiftListData.map(s => ({
 	  date: new Date(Number(s.shiftDate)).toLocaleDateString('sv-SE', { timeZone: 'UTC' }),
 	  name: s.userName,
 	  startTime: s.shiftStart,
 	  endTime: s.shiftEnd
 }));
+/*
+const shifts = shiftListData.map(s => {
+	const dte = new Date(Number(s.shiftDate));
+  	return {
+    	date: date.toLocaleDateString('ja-JP', { timeZone: 'Asia/Tokyo' }),
+    	name: s.userName,
+    	startTime: s.shiftStart,
+    	endTime: s.shiftEnd
+  	};
+});
+*/
+console.log(shifts);
+
 
 //表示用：例 "2025/7/3"
 function formatDateForDisplay(date) {
@@ -456,7 +470,7 @@ let previousValue = selectElement.value;
 document.getElementById(previousValue).hidden = false;
 const wI = previousValue.substring(4);
 let weekIndex = parseInt(wI);
-console.log(weekIndex);
+
 
 selectElement.addEventListener("change", function() {
 	const selected = selectElement.value;
@@ -466,7 +480,7 @@ selectElement.addEventListener("change", function() {
 	
 	previousValue = selected;
 	weekIndex = parseInt(previousValue.substring(4));
-	console.log(weekIndex);
+	
 	renderTimeline(weekIndex - 1);
 });
 
