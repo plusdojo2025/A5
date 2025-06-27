@@ -11,9 +11,9 @@
 </head>
 <body>
 	<header>
-		<div class="logo">
+		<h1 id="logo">
 			<a href="<c:url value='/CalendarServlet'/>"><img src="<c:url value='/img/logo.png'/>" width="300" height="auto" alt="エンプロ良イ&#128077"></a>
-		</div>
+		</h1>
 		<ul id="tnav">
 			<li><a href="<c:url value='/CalendarServlet'/>">カレンダー</a></li>
 			<li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
