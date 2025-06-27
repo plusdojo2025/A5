@@ -12,29 +12,37 @@
 
 <body>
 
-	<br><br><br>
-
 	<!-- タイトル -->
 		<header>
+		 <!-- ハンバーガーメニュー -->
+                <!-- チェックボックスで切り替える -->
+  <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+  <label for="menu-toggle" class="menu-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </label>
+
+  <!-- ナビゲーションメニュー -->
+  <nav>
+    <ul>
+      <li><a href="#">ホーム</a></li>
+      <li><a href="#">シフト</a></li>
+      <li><a href="#">イベント</a></li>
+      <li><a href="#">マニュアル</a></li>
+    </ul>
+  </nav>
 			  <h1 id="logo">
 			    <a href="tencho_calendar.jsp">
 			      <img src="img/logo.png" width="300" height="auto" alt="エンプロ良イ👍">
 			    </a>
 			  </h1>
 			  <ul id="nav">
-			   <li><a href="<c:url value='/CalendarServlet'/>">カレンダー</a></li>
-			    <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
-			    <li><a href="<c:url value='/EventServlet'/>">イベント</a></li>
-			    <li><a href="<c:url value='/ManualServlet'/>">マニュアル</a></li>
-			    <li>
-			      <details>
-			        <summary class="details-summary">その他</summary>
-			        <ul>
-			          <li><a href="<c:url value='/UserRegistServlet'/>">ユーザー管理</a></li>
-			          <li><a href="<c:url value='/LogoutServlet'/>">ログアウト</a></li>
-			        </ul>
-			      </details>
-			    </li>
+			    <li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
+			     <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
+			     <li><a href="<c:url value='/ChangePWServlet'/>">パスワード</a></li>
+			      <li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
+			      <li><a href="<c:url value='/LoginServlet' />">ログアウト</a></li>
 			  </ul>
 		</header>
 		

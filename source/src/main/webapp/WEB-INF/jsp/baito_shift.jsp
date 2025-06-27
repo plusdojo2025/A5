@@ -100,7 +100,7 @@ function formatDateForCompare(date) {
 }
 
 const HOURS = Array.from({ length: 10 }, (_, i) => 9 + i); // 9:00〜18:00
-
+/*
 const shifts = [
 	{ date: '2025-07-02', name: '山田', startTime: '09:00', endTime: '17:00' },
 	{ date: '2025-07-03', name: '田中', startTime: '13:00', endTime: '18:00' },
@@ -109,6 +109,7 @@ const shifts = [
 	{ date: '2025-07-17', name: '山田', startTime: '10:00', endTime: '18:00' },
 	{ date: '2025-07-25', name: '田中', startTime: '08:30', endTime: '12:00' }
 ];
+*/
 
 
 const WEEKDAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];

@@ -11,8 +11,6 @@
 </head>
 
 <body>
-
-	<br><br><br><br><br>
 	
 <!-- タイトル -->
 <header>
