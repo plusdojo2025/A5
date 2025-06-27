@@ -41,9 +41,9 @@
 	<!-- カレンダー表示切替ナビ -->
 	<div class="calendar-nav">
 		<button id="prevWeek" class="arrow left">◁</button>
-		<div class="mode-buttons">
-			<button type="button" id="bW" onclick="text2Hidden()">週 表示</button>
-			<button type="button" id="bM" onclick="text1Hidden()">月 表示</button>
+		<div class="mode-buttons" hidden=true>
+			<button type="button" id="bW" onclick="text2Hidden()" hidden=true>週 表示</button>
+			<button type="button" id="bM" onclick="text1Hidden()" hidden=true>月 表示</button>
 		</div>
 		<button id="nextWeek" class="arrow right">▷</button>
 	</div>
