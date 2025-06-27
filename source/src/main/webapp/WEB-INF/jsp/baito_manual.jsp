@@ -41,6 +41,7 @@
 		</ul>
 	</header>
 	<!-- ここから↓ -->
+	<div id="nrbke">
 	<form method="get" action="${pageContext.request.contextPath}/manual-list">
 	<label>並び替え対象:
 		<select name="sortColumn">
@@ -55,7 +56,8 @@
 		<input type="radio" name="sortOrder" value="DESC"> 降順
 	</label>
 	<button type="submit">並び替え</button>
-</form>
+	</form>
+	</div>
 	<!-- ここまで↑ 重要度変更に関するやつ -->
 	<main>
 		<h3>登録済みマニュアル一覧</h3>

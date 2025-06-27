@@ -112,6 +112,9 @@ h3 {
   	border-collapse: collapse;
    	color: #000000;/* colorは上と対立するが下であるこっちが優先されているっぽい */
 }
+#nrbke {
+	text-align: center;
+}
 
 .menu-toggle:checked ~ nav {
 	right: 0;
