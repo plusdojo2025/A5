@@ -123,7 +123,7 @@ public class ManualDao {
 					"root", "password");
 
 			// SQL文を準備する (上で追加した分だけ？マークを追加）
-			String sql = "INSERT INTO Manual VALUES (?, ?, ?, 0)"; 
+			String sql = "INSERT INTO Manual VALUES (?, ?, ?, NULL)"; 
 //										Stringは?で良さそうだが、他のデータ型の場合はどうなるんだろう…
 //										回答→入れたいものがあるときは絶対"?"で、オートインクリメントは"0"でよいらしい。
 			PreparedStatement pStmt = conn.prepareStatement(sql);
