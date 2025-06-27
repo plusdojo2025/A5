@@ -23,7 +23,7 @@
 					<summary class="details-summary">その他</summary>
 					<ul>
 						<li><a href="<c:url value='/UserRegistServlet' />">ユーザー管理</a></li>
-						<li><a href="<c:url value='/LoginServlet' />">ログアウト</a></li>
+						<li><a href="<c:url value='/LogoutServlet' />">ログアウト</a></li>
 					</ul>
 				</details>
 			</li>
@@ -187,7 +187,7 @@
 	<footer>
 	<p class="gotop">
       <a href="#top">
-        <img src="img/gotop.png" alt="ページトップへ戻る" width="70" height="auto">
+        <img src= "<c:url value= '/img/gotop.png'/>" alt="ページトップへ戻る" width="70" height="auto">
       </a>
     </p>
     <p>&copy; エンプロ良イ&#128077</p>

@@ -37,10 +37,11 @@
 			<li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
 			<li><a href="<c:url value='/ChangePWServlet'/>">パスワード</a></li>
 			<li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
-			<li><a href="<c:url value='/LoginServlet' />">ログアウト</a></li>
+			<li><a href="<c:url value='/LogoutServlet' />">ログアウト</a></li>
 		</ul>
 	</header>
 	<!-- ここから↓ -->
+	<div id="nrbke">
 	<form method="get" action="${pageContext.request.contextPath}/manual-list">
 	<label>並び替え対象:
 		<select name="sortColumn">
@@ -55,7 +56,8 @@
 		<input type="radio" name="sortOrder" value="DESC"> 降順
 	</label>
 	<button type="submit">並び替え</button>
-</form>
+	</form>
+	</div>
 	<!-- ここまで↑ 重要度変更に関するやつ -->
 	<main>
 		<h3>登録済みマニュアル一覧</h3>
@@ -79,11 +81,14 @@
 		</div>
 	</main>
 	<footer>
+	<p class="gotop">
 		<div class="gotop">
-			<a href="#top"><img src="img/gotop.png" alt="ページトップへ戻る" width=70px height=auto></a>
+			<a href="#top">
+			 <img src= "<c:url value= '/img/gotop.png'/>" alt="ページトップへ戻る" width=70px height=auto>
+			</a>
 		</div>
 		<br>
-		<p>&copy; エンプロ良イ&#128077</p>
+	<p>&copy; エンプロ良イ&#128077</p>
 	</footer>
 </body>
 </html>

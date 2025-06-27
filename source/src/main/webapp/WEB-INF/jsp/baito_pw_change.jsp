@@ -38,11 +38,11 @@
 			    </a>
 			  </h1>
 			  <ul id="nav">
-			    <li><a href="<c:url value='/CalenderServlet'/>">カレンダー</a></li>
+			    <li><a href="<c:url value='/CalendarServlet'/>">カレンダー</a></li>
 			     <li><a href="<c:url value='/ShiftServlet'/>">シフト</a></li>
 			     <li><a href="<c:url value='/ChangePWServlet'/>">パスワード</a></li>
 			      <li><a href="<c:url value='/ManualServlet' />">マニュアル</a></li>
-			      <li><a href="<c:url value='/LoginServlet' />">ログアウト</a></li>
+			      <li><a href="<c:url value='/LogoutServlet' />">ログアウト</a></li>
 			  </ul>
 		</header>
 		
@@ -120,13 +120,14 @@
 		    <footer>
 		    
 		     	<div class="gotop">
-					 <a href="#top"><img src="img/gotop.png" alt="ページトップへ戻る" width=70px height=auto></a>
+					 <a href="#top">
+					 <img src="<c:url value='/img/gotop.png' />" alt="ページトップへ戻る" width="70" height="auto"></a>
 				</div>
 				
 				<br>
 				
 				<div class="cafe_img">
-					<img src="img/coffee.png" width="400" height="300">
+					<img src="<c:url value='/img/coffee.png'/>"  width="400" height="300">
 				</div>
 				
 		        <p>&copy; エンプロ良イ&#128077</p>
