@@ -70,7 +70,7 @@ public class EventTypeDao {
 					"root", "password");
 			
 			// SQL文を準備する
-			String sql = "INSERT INTO event_type VALUES (0, ?)";
+			String sql = "INSERT INTO event_type VALUES (NULL, ?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			
 			// SQL文を完成させる
